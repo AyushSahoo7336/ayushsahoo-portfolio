@@ -11,6 +11,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Starfield } from "@/components/site/Starfield";
+import { Navbar } from "@/components/site/Navbar";
+import { Footer } from "@/components/site/Footer";
+import { DownloadCv } from "@/components/site/DownloadCv";
 
 function NotFoundComponent() {
   return (
