@@ -65,7 +65,12 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
+  * {
+    border-color: var(--color-border);
+    transition-property: color, background-color, border-color, fill, stroke, box-shadow, text-decoration-color, outline-color;
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
   html { background-color: #040814; }
   body {
     background-color: transparent;
