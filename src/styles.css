@@ -64,6 +64,26 @@
   --ring: oklch(0.82 0.13 210);
 }
 
+html.light {
+  --background: #f6f8fc;
+  --foreground: oklch(0.2 0.02 240);
+  --card: #ffffff;
+  --card-foreground: oklch(0.2 0.02 240);
+  --popover: #ffffff;
+  --popover-foreground: oklch(0.2 0.02 240);
+  --secondary: oklch(0.94 0.01 240);
+  --secondary-foreground: oklch(0.2 0.02 240);
+  --muted: oklch(0.94 0.01 240);
+  --muted-foreground: oklch(0.45 0.02 240);
+  --accent: oklch(0.94 0.01 240);
+  --accent-foreground: oklch(0.2 0.02 240);
+  --border: oklch(0 0 0 / 10%);
+  --input: oklch(0 0 0 / 10%);
+}
+
+html.light body { color: var(--color-foreground); }
+html.light { background-color: #f6f8fc; }
+
 @layer base {
   * {
     border-color: var(--color-border);
