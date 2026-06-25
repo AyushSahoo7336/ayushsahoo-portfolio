@@ -1,26 +1,51 @@
-## Plan
+## Global Interactive Polish
 
-Three small, focused fixes to match the reference site behavior.
+Add four global layers on top of the existing single-page portfolio.
 
-### 1. Expand accent palette (theme cycling like reference)
+### 1. Momentum Smooth Scroll
+- Install `lenis` (`bun add lenis`).
+- New `src/components/site/SmoothScroll.tsx`: initializes Lenis on mount, drives it via `requestAnimationFrame`, syncs with Framer Motion's `ScrollTrigger`-equivalent via `useEffect` cleanup. Disabled on touch devices (`lenis.options.smoothTouch = false`).
+- Mount inside `src/routes/__root.tsx`, wrapping the existing `relative z-10` content container.
+- Keep `scroll-behavior: smooth` removed from `html` (Lenis replaces it). Anchor nav in `Navbar.tsx` switches to `lenis.scrollTo('#id')` via a small `useLenis` hook context.
 
-The reference site cycles through ~8 accent colors. Currently only Sea/Forest/Ember exist.
+### 2. Smart Custom Cursor
+- New `src/context/CursorContext.tsx` exposing `setHovering(boolean)`.
+- New `src/components/site/CustomCursor.tsx`: a `motion.div` (28px hollow circle, `border-2 border-[var(--primary-accent)]`) positioned with `useMotionValue` x/y driven by `useSpring` (stiffness ~300, damping ~30) for trailing delay. Listens to `window` mousemove. Scales to `1.5` and switches to filled/thicker border when `hovering` is true. Hidden on touch / when pointer leaves window.
+- Global mouseover delegation: a single listener checks `e.target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]')` and toggles hover state — no per-component wiring needed.
+- Update `src/styles.css`: `html, body { cursor: none }` on pointer:fine; restore default for pointer:coarse via media query.
 
-- Update `src/context/AccentContext.tsx` `ACCENTS` map to include: Sea (cyan `#22d3ee`), Forest (`#22c55e`), Ember (`#f97316`), Violet (`#a855f7`), Rose (`#f43f5e`), Sun (`#facc15`), Sky (`#3b82f6`), Magenta (`#ec4899`).
-- Update `ControlRail.tsx` `ACCENT_OPTS` to list all 8 in the palette panel as swatch buttons (grid of color dots).
+### 3. Ambient Spotlight
+- New `src/components/site/Spotlight.tsx`: fixed `inset-0 pointer-events-none z-30` div. Tracks mouse via `useMotionValue` and applies `background: radial-gradient(600px circle at ${x}px ${y}px, color-mix(in oklab, var(--primary-accent) 10%, transparent), transparent 60%)` through a `motion` style update (rAF-throttled). Reuses the same global mousemove listener emitted from `CursorContext` to avoid duplicate handlers.
+- Mounted in `__root.tsx` above background effects, below cursor.
 
-### 2. Hand-wave emoji tinted by accent
+### 4. Universal Interactive Card Borders
+- Add a utility class `.interactive-card` in `src/styles.css`:
+  - `border: 1px solid rgb(255 255 255 / 0.10)`
+  - `transition: border-color 300ms ease, box-shadow 300ms ease`
+  - `&:hover { border-color: color-mix(in oklab, var(--primary-accent) 40%, transparent) }`
+- Apply to existing card containers in:
+  - `ExperienceSection.tsx` / `Timeline.tsx` rows
+  - `EducationSection.tsx` rows
+  - `ProjectsSection.tsx` cards
+  - `Hero.tsx` stat/quote cards
+  - LeetCode stats card (in Hero/AboutSection)
+  - `ContactSection.tsx` tiles
+  - `ControlRail.tsx` buttons (border variant only)
 
-In `src/components/sections/Hero.tsx`, the waving `👋` is a colored emoji and doesn't recolor. Make it follow the accent:
+### Layering (z-index)
+```text
+z-50  Navbar, ControlRail, CustomCursor
+z-30  Spotlight overlay
+z-10  Page content (sections)
+z-0   (unused)
+-z-10 BackgroundFx (Starfield / ColdFlakes / MatrixRain)
+```
 
-- Wrap the emoji in a span with `style={{ color: 'var(--primary-accent)' }}` and apply a CSS mask using a hand SVG so the shape is filled with `currentColor` (var). Simpler approach: replace the emoji with the lucide `Hand` icon (or an inline SVG hand) styled with `color: var(--primary-accent)` and the existing wave animation. This recolors instantly with the theme.
+### Files touched
+- New: `src/components/site/SmoothScroll.tsx`, `CustomCursor.tsx`, `Spotlight.tsx`, `src/context/CursorContext.tsx`
+- Edit: `src/routes/__root.tsx`, `src/styles.css`, `src/components/site/Navbar.tsx`, `Hero.tsx`, `ExperienceSection.tsx`, `EducationSection.tsx`, `ProjectsSection.tsx`, `ContactSection.tsx`, `ControlRail.tsx`
+- Dependency: `lenis`
 
-### 3. Slow down Matrix Rain
-
-In `src/components/site/effects/MatrixRain.tsx`:
-- Increase frame throttle from `60ms` to `120ms` (about half speed) for a calm, readable rain matching the reference.
-- Soften trail fade slightly (`rgba(4,8,20,0.05)` → longer trails) so characters linger.
-
-### Verification
-
-After changes, run Playwright against `localhost:8080`: open palette panel, click each swatch, screenshot Hero to confirm name + hand both recolor. Switch effect to Matrix Rain and capture a screenshot to confirm slower fall.
+### Out of scope
+- Replacing Framer Motion scroll-linked animations (none currently used).
+- Per-element magnetic cursor effects (only global scale-on-hover).
