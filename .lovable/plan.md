@@ -1,23 +1,26 @@
-## Fix: Background effects invisible
+## Plan
 
-**Root cause:** `body { background-color: #040814 }` in `src/styles.css` paints over fixed layers using `-z-10`, so Starfield / MatrixRain / ColdFlakes draw but are hidden behind the body fill.
+Three small, focused fixes to match the reference site behavior.
 
-### Changes
+### 1. Expand accent palette (theme cycling like reference)
 
-1. **`src/styles.css`** — keep `#040814` on `html`; set `body` to `background-color: transparent` so negative-z fixed layers remain visible.
+The reference site cycles through ~8 accent colors. Currently only Sea/Forest/Ember exist.
 
-2. **`src/routes/__root.tsx`**
-   - Wrap `BackgroundFx` div with `fixed inset-0 w-full h-full pointer-events-none -z-10` and apply the focus opacity there.
-   - Wrap Navbar / `<main>` / Footer in a `relative z-10` container so content sits above the canvas; keep ControlRail and DownloadCv at their existing fixed/higher z.
-   - Only render `<Starfield />` when `effect === "stars"` to avoid stacking conflicts with the canvas effects.
+- Update `src/context/AccentContext.tsx` `ACCENTS` map to include: Sea (cyan `#22d3ee`), Forest (`#22c55e`), Ember (`#f97316`), Violet (`#a855f7`), Rose (`#f43f5e`), Sun (`#facc15`), Sky (`#3b82f6`), Magenta (`#ec4899`).
+- Update `ControlRail.tsx` `ACCENT_OPTS` to list all 8 in the palette panel as swatch buttons (grid of color dots).
 
-3. **`src/components/site/effects/MatrixRain.tsx`** — change canvas wrapper class to `pointer-events-none fixed inset-0 -z-10` (remove `-z-[5] opacity-50`) so glyphs are legible above the now-transparent body.
+### 2. Hand-wave emoji tinted by accent
 
-4. **`src/components/site/effects/ColdFlakes.tsx`** — change wrapper to `pointer-events-none fixed inset-0 -z-10 overflow-hidden` (was `-z-[5]`).
+In `src/components/sections/Hero.tsx`, the waving `👋` is a colored emoji and doesn't recolor. Make it follow the accent:
 
-5. **`src/components/site/Starfield.tsx`** — already `-z-10`; no change.
+- Wrap the emoji in a span with `style={{ color: 'var(--primary-accent)' }}` and apply a CSS mask using a hand SVG so the shape is filled with `currentColor` (var). Simpler approach: replace the emoji with the lucide `Hand` icon (or an inline SVG hand) styled with `color: var(--primary-accent)` and the existing wave animation. This recolors instantly with the theme.
 
-6. **Section spot-check** — scan `Hero`, `AboutSection`, `ExperienceSection`, `EducationSection`, `ProjectsSection`, `ContactSection`, `LetsTalkSection`, `WhatICreate`, `Marquee` for any full-bleed opaque `bg-background` / `bg-[#040814]` wrappers; swap to `bg-transparent` or `bg-[#040814]/70` so the animated layer shows through.
+### 3. Slow down Matrix Rain
+
+In `src/components/site/effects/MatrixRain.tsx`:
+- Increase frame throttle from `60ms` to `120ms` (about half speed) for a calm, readable rain matching the reference.
+- Soften trail fade slightly (`rgba(4,8,20,0.05)` → longer trails) so characters linger.
 
 ### Verification
-Run Playwright on `localhost:8080`, switch effects via the right rail popover, and screenshot to confirm Stars, Cold Flakes, and Matrix Rain all render behind content.
+
+After changes, run Playwright against `localhost:8080`: open palette panel, click each swatch, screenshot Hero to confirm name + hand both recolor. Switch effect to Matrix Rain and capture a screenshot to confirm slower fall.
