@@ -44,5 +44,5 @@ export function MatrixRain() {
       window.removeEventListener("resize", resize);
     };
   }, []);
-  return <canvas ref={ref} aria-hidden className="pointer-events-none fixed inset-0 -z-[5] opacity-50" />;
+  return <canvas ref={ref} aria-hidden className="pointer-events-none fixed inset-0 -z-10" />;
 }
