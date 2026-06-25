@@ -2,6 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
 import { WhatICreate } from "@/components/sections/WhatICreate";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
+import { EducationSection } from "@/components/sections/EducationSection";
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { LetsTalkSection } from "@/components/sections/LetsTalkSection";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -15,12 +21,28 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+function Section({ id, children }: { id: string; children: React.ReactNode }) {
+  return (
+    <section id={id} className="scroll-mt-24">
+      {children}
+    </section>
+  );
+}
+
 function HomePage() {
   return (
     <>
-      <Hero />
+      <Section id="home">
+        <Hero />
+      </Section>
       <Marquee />
       <WhatICreate />
+      <Section id="about"><AboutSection /></Section>
+      <Section id="experience"><ExperienceSection /></Section>
+      <Section id="education"><EducationSection /></Section>
+      <Section id="projects"><ProjectsSection /></Section>
+      <Section id="contact"><ContactSection /></Section>
+      <Section id="lets-talk"><LetsTalkSection /></Section>
     </>
   );
 }

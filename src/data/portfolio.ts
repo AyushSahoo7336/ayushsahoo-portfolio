@@ -13,14 +13,14 @@ export const profile = {
   cvUrl: "/cv.pdf",
 };
 
-export const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/experience", label: "Experience" },
-  { to: "/education", label: "Education" },
-  { to: "/projects", label: "Projects" },
-  { to: "/contact", label: "Contact" },
-  { to: "/lets-talk", label: "Let's Talk" },
+export const navSections = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+  { id: "lets-talk", label: "Let's Talk" },
 ] as const;
 
 export const marqueeWords = [
