@@ -14,7 +14,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { AccentProvider } from "@/context/AccentContext";
-import { AccentSwitcher } from "@/components/site/AccentSwitcher";
+import { ControlRail } from "@/components/site/ControlRail";
+import { Starfield } from "@/components/site/Starfield";
+import { DownloadCv } from "@/components/site/DownloadCv";
 
 function NotFoundComponent() {
   return (
@@ -94,7 +96,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;600&family=Geist:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600&display=swap",
       },
     ],
   }),
@@ -124,10 +126,14 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AccentProvider>
+        <Starfield />
         <Navbar />
-        <Outlet />
+        <main className="pt-6">
+          <Outlet />
+        </main>
         <Footer />
-        <AccentSwitcher />
+        <ControlRail />
+        <DownloadCv />
       </AccentProvider>
     </QueryClientProvider>
   );

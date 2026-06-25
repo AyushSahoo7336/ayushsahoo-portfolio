@@ -1,45 +1,59 @@
-const LINKS = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-];
-
-function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
-  e.preventDefault();
-  const el = document.querySelector(href);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-}
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { navLinks, profile } from "@/data/portfolio";
 
 export function Navbar() {
+  const [open, setOpen] = useState(false);
   return (
-    <nav className="sticky top-0 z-40 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10">
-      <div className="mx-auto max-w-7xl px-6 h-14 flex items-center justify-between">
-        <a href="#home" onClick={(e) => smoothScroll(e, "#home")} className="font-mono text-sm tracking-widest text-white">
-          AYUSH
-        </a>
-        <div className="hidden md:flex items-center gap-8">
-          {LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={(e) => smoothScroll(e, l.href)}
-              className="text-sm text-gray-400 hover:text-white transition-colors"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {l.label}
-            </a>
-          ))}
+    <header className="sticky top-4 z-40 mx-auto w-full max-w-6xl px-4">
+      <nav className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+        <div className="flex items-center justify-between">
+          <Link
+            to="/"
+            className="font-display text-lg font-bold tracking-[0.25em]"
+            style={{ color: "var(--primary-accent)" }}
+          >
+            {profile.shortName}
+          </Link>
+          <div className="hidden items-center gap-7 md:flex">
+            {navLinks.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="text-sm text-foreground/70 transition-colors hover:text-foreground"
+                activeProps={{ style: { color: "var(--primary-accent)" } }}
+                activeOptions={{ exact: l.to === "/" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="rounded-md p-2 text-foreground/80 md:hidden"
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
-        <a
-          href="#contact"
-          onClick={(e) => smoothScroll(e, "#contact")}
-          className="text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full text-black font-semibold transition-transform hover:scale-105"
-          style={{ backgroundColor: "var(--primary-accent)" }}
-        >
-          Let's Talk
-        </a>
-      </div>
-    </nav>
+        {open && (
+          <div className="mt-3 grid gap-2 border-t border-white/10 pt-3 md:hidden">
+            {navLinks.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="rounded-md px-2 py-1.5 text-sm text-foreground/80 hover:bg-white/5"
+                activeProps={{ style: { color: "var(--primary-accent)" } }}
+                activeOptions={{ exact: l.to === "/" }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </nav>
+    </header>
   );
 }

@@ -1,30 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
-import { LeetStats } from "@/components/sections/LeetStats";
-import { About } from "@/components/sections/About";
-import { Experience } from "@/components/sections/Experience";
-import { Projects } from "@/components/sections/Projects";
+import { WhatICreate } from "@/components/sections/WhatICreate";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
   head: () => ({
     meta: [
-      { title: "Ayush Sahoo — Software Developer" },
-      { name: "description", content: "Software developer building real-time systems with WebRTC, Socket.IO, and the MERN stack." },
+      { title: "Portfolio — Software Developer" },
+      { name: "description", content: "Welcome to my world. I craft digital experiences across web, mobile, and games." },
+      { property: "og:title", content: "Portfolio — Software Developer" },
+      { property: "og:description", content: "Welcome to my world. I craft digital experiences across web, mobile, and games." },
     ],
   }),
 });
 
 function HomePage() {
   return (
-    <main>
+    <>
       <Hero />
       <Marquee />
-      <LeetStats />
-      <About />
-      <Experience />
-      <Projects />
-    </main>
+      <WhatICreate />
+    </>
   );
 }
