@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, Code2, Rocket, ChevronDown } from "lucide-react";
+import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
 
 function scrollTo(id: string) {
