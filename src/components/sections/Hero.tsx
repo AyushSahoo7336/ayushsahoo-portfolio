@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, Code2, Rocket, ChevronDown } from "lucide-react";
+import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
 
 function scrollTo(id: string) {
@@ -34,7 +34,12 @@ export function Hero() {
         </h1>
 
         <p className="mt-5 flex items-center gap-2 text-2xl font-light text-foreground/70 md:text-3xl">
-          {profile.role} <span className="inline-block animate-[wave_1.6s_ease-in-out_infinite] origin-[70%_70%]">👋</span>
+          {profile.role}
+          <Hand
+            className="inline-block animate-[wave_1.6s_ease-in-out_infinite] origin-[70%_70%]"
+            style={{ color: "var(--primary-accent)" }}
+            size={28}
+          />
         </p>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/60">

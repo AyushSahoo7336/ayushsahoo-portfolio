@@ -20,9 +20,9 @@ export function MatrixRain() {
     let drops = Array(cols).fill(1);
     let last = 0;
     const step = (t: number) => {
-      if (t - last > 60) {
+      if (t - last > 120) {
         last = t;
-        ctx.fillStyle = "rgba(4,8,20,0.08)";
+        ctx.fillStyle = "rgba(4,8,20,0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         const accent = getComputedStyle(document.documentElement).getPropertyValue("--primary-accent") || "#22d3ee";
         ctx.fillStyle = accent.trim();

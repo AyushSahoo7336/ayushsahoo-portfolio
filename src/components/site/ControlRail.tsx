@@ -25,6 +25,11 @@ const ACCENT_OPTS: { id: AccentName; label: string }[] = [
   { id: "cyan", label: "Sea" },
   { id: "forest", label: "Forest" },
   { id: "ember", label: "Ember" },
+  { id: "violet", label: "Violet" },
+  { id: "rose", label: "Rose" },
+  { id: "sun", label: "Sun" },
+  { id: "sky", label: "Sky" },
+  { id: "magenta", label: "Magenta" },
 ];
 
 const TRACKS = ["Idea 22 (Slowed)", "Isabella's Lullaby", "Jazz Vibes"];
@@ -140,22 +145,31 @@ export function ControlRail() {
           <span className="text-sm">{ACCENT_OPTS.find((a) => a.id === accent)?.label ?? "Custom"}</span>
         </div>
         <div className="mb-1 text-[10px] uppercase tracking-wider text-foreground/45">Select Theme</div>
-        <div className="space-y-1">
+        <div className="grid grid-cols-4 gap-2">
           {ACCENT_OPTS.map((o) => {
             const active = accent === o.id;
             return (
               <button
                 key={o.id}
                 onClick={() => setAccent(o.id)}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-white/5"
+                aria-label={o.label}
+                title={o.label}
+                className="relative grid h-10 w-full place-items-center rounded-lg border border-white/10 transition hover:scale-105"
+                style={{
+                  backgroundColor: "color-mix(in oklab, " + ACCENTS[o.id] + " 18%, transparent)",
+                  borderColor: active ? ACCENTS[o.id] : undefined,
+                  boxShadow: active ? `0 0 0 1px ${ACCENTS[o.id]}, 0 0 12px -2px ${ACCENTS[o.id]}` : undefined,
+                }}
               >
-                <span className="h-3 w-3 rounded-full" style={{ backgroundColor: ACCENTS[o.id] }} />
-                <span className="flex-1">{o.label}</span>
-                {active && <Check size={14} style={{ color }} />}
+                <span className="h-4 w-4 rounded-full" style={{ backgroundColor: ACCENTS[o.id] }} />
+                {active && (
+                  <Check size={10} className="absolute right-1 top-1" style={{ color: ACCENTS[o.id] }} />
+                )}
               </button>
             );
           })}
         </div>
+
       </Panel>
 
       <RailBtn active={open === "lang"} label="Language" onClick={() => toggle("lang")} color={color}>

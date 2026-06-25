@@ -1,9 +1,14 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 export const ACCENTS = {
+  cyan: "#22d3ee",
   forest: "#22c55e",
-  cyan: "#06b6d4",
   ember: "#f97316",
+  violet: "#a855f7",
+  rose: "#f43f5e",
+  sun: "#facc15",
+  sky: "#3b82f6",
+  magenta: "#ec4899",
 } as const;
 
 export type AccentName = keyof typeof ACCENTS;
