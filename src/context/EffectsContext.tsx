@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 export type EffectName = "none" | "flakes" | "matrix";
 
@@ -17,6 +17,18 @@ export function EffectsProvider({ children }: { children: ReactNode }) {
   const [effect, setEffect] = useState<EffectName>("none");
   const [dark, setDark] = useState(true);
   const [focus, setFocus] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) {
+      root.classList.add("dark");
+      root.classList.remove("light");
+    } else {
+      root.classList.add("light");
+      root.classList.remove("dark");
+    }
+  }, [dark]);
+
   return (
     <EffectsContext.Provider value={{ effect, setEffect, dark, setDark, focus, setFocus }}>
       {children}
