@@ -1,89 +1,46 @@
+## Goal
+Convert the current multi-route portfolio into a single scrolling page where the top nav smooth-scrolls to sections, and rebuild the right-side vertical rail with functional popover panels (theme switcher, music player, effects) matching the reference screenshots.
 
-# Exact-Clone Portfolio Plan
+## Changes
 
-## Scope note
-I'll match the reference site's **visual design, layout, routes, components, animations, and micro-interactions exactly**. Personal content (name, bio, project list, links, phone, email, CV) will be placeholders you replace in one file (`src/data/portfolio.ts`). I won't copy the reference owner's name, photos, projects, or contact details verbatim.
+### 1. Single-page structure
+- Make `src/routes/index.tsx` render all sections stacked, each with an `id`:
+  - `#home` (Hero), `#about`, `#experience`, `#education`, `#projects`, `#contact`, `#lets-talk`
+- Reuse existing page bodies — extract each route's content into a section component under `src/components/sections/` (AboutSection, ExperienceSection, etc.).
+- Delete the standalone route files (`about.tsx`, `experience.tsx`, `education.tsx`, `projects.tsx`, `contact.tsx`, `lets-talk.tsx`) so only `index.tsx` + `__root.tsx` remain.
 
-## Routes (multi-page, not single-page)
-The reference is a multi-route site. Replace the current single-page build with:
+### 2. Navbar smooth-scroll
+- Update `Navbar.tsx`: replace `<Link to="/about">` etc. with anchor buttons that call `document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })`.
+- Add a scroll-spy hook (IntersectionObserver) to highlight the active section in the nav.
+- Add `scroll-margin-top` to each section so the sticky navbar doesn't cover headings.
 
-```
-src/routes/
-  __root.tsx       global shell: starfield bg, navbar, floating control rail, "Download CV" pill, footer
-  index.tsx        / — Hero ("Welcome to my world", name, role, quote, 2 stat cards, View Details + Let's Talk), Marquee ticker, "What I Create" 4 cards
-  about.tsx        /about — Biography + "My Skills" 4 expandable category cards (Frontend/Backend/Mobile/Game)
-  experience.tsx   /experience — vertical timeline of roles
-  education.tsx    /education — vertical timeline of diplomas/certs
-  projects.tsx     /projects — filter tabs (All/Mobile/Desktop/Websites/Extensions/Other) + project grid
-  contact.tsx      /contact — 6 contact platform cards (WhatsApp, GitHub, LinkedIn, Twitter, Instagram, Email)
-  lets-talk.tsx    /lets-talk — Name / Email / Message form + Send button
-```
+### 3. Right-side control rail (matches screenshots)
+Rebuild `ControlRail.tsx` as a fixed vertical column of circular icon buttons. Each button opens a popover panel anchored to its left:
 
-Each route gets its own `head()` with unique title + description + og tags.
+- **Focus** (target icon) — toggles a "focus mode" that dims background effects.
+- **Connectivity** (wifi icon) — simple status indicator.
+- **Music** (music note) — Music Player panel (screenshot 3): volume slider, track list (Idea 22, Isabella's Lullaby, Jazz Vibes), play/pause state. Uses `<audio>` element; tracks are placeholder entries in `portfolio.ts` (no audio files yet — buttons toggle UI state only).
+- **Effects** (snowflake) — panel with two options: "Cold Flakes" (falling snow overlay) and "Matrix Rain" (canvas matrix effect). Selecting one mounts the corresponding background component.
+- **Light/Dark** (moon) — toggles a `dark` class on `<html>`.
+- **Theme** (palette) — panel (screenshot 2) listing accent presets: Sea (cyan), Forest (green), Ember (orange), with a "Custom Theme" indicator at top. Writes `--primary-accent` via existing `AccentContext`.
+- **Language** (globe) — simple EN/FR toggle (UI only).
 
-## Global shell (every page)
-- **Starfield background**: client-only twinkling dot field (already in place — keep).
-- **Top navbar**: rounded pill, glass blur, brand wordmark left, route links right with active underline.
-- **Floating right-edge control rail** (fixed, vertical): 7 circular icon buttons — focus mode, sound toggle, music toggle, snow/effects toggle, dark/light toggle, accent-color palette, language. Each opens a small popover; the accent button drives a global `--primary-accent` CSS variable via React Context (theme switcher already partially built — extend it).
-- **Bottom-left orb**: small glowing accent dot (decorative).
-- **Bottom-right "Download CV" pill**: fixed, links to a placeholder PDF.
-- **Footer**: minimal, centered, year + small credit line.
+Panel styling: dark glass card (`bg-card/90 backdrop-blur`, accent border), positioned `right-16` next to each icon, animated in with framer-motion.
 
-## Page-by-page detail
+### 4. Background effects
+- Keep `Starfield.tsx` as the default.
+- Add `src/components/site/effects/ColdFlakes.tsx` (CSS-animated falling dots) and `MatrixRain.tsx` (canvas).
+- A new `EffectsContext` stores which effect is active; `__root.tsx` renders the active one.
 
-### Home (`/`)
-- Hero block left-aligned, large radial cyan glow behind the name.
-- "WELCOME TO MY WORLD" eyebrow with sparkle icon.
-- Massive headline `Hi, I'm <Name>` (name in accent color).
-- Role line with waving-hand icon.
-- 3-line tagline paragraph.
-- Italic quote with left accent bar.
-- 2 stat cards (Years Experience / Projects Completed) — bordered glass tiles with icons.
-- Two CTAs: solid accent "View Details" → `/projects`, outlined "Let's Talk" → `/lets-talk`.
-- "SCROLL ↓" indicator.
-- **Marquee**: infinite horizontal ticker, tokens separated by `◆` (DEVELOPER, 2026, FRONTEND, BACKEND, MOBILE, GAME DEV, REACT, UNITY, TYPESCRIPT), duplicated for seamless loop.
-- **"What I Create"** section: heading + subtitle + 4 cards (Frontend / Backend / Mobile / Games), each linking to `/about`. CTA `About Me →`.
+### 5. Data
+- Add `tracks` array to `src/data/portfolio.ts` for the music player.
+- Add `accentPresets` (Sea / Forest / Ember hex values).
 
-### About (`/about`)
-- "About Me" headline + 2-paragraph biography.
-- "My Skills" 4 cards (Frontend / Backend / Mobile / Game Dev) with hover-flip or click-expand to reveal a tech list per card.
+## Technical notes
+- All theme/effect/music state lives in React contexts under `src/context/` (AccentContext already exists; add `EffectsContext`, `MusicContext`).
+- Popovers built with shadcn `Popover` for accessibility and outside-click handling.
+- No new dependencies required.
 
-### Experience (`/experience`)
-- Vertical timeline (left rail with dots), 6 placeholder roles with title / company / date range.
-
-### Education (`/education`)
-- Same timeline pattern as Experience, 3 placeholder entries.
-
-### Projects (`/projects`)
-- Filter tab bar: All · Mobile · Desktop · Websites · Extensions · Other.
-- Responsive grid of project cards: image cover, title, 1-line description, GitHub + Live Demo buttons, "View Details" overlay on hover.
-- Cards animate in with framer-motion; filtering animates with `AnimatePresence`.
-
-### Contact (`/contact`)
-- Heading + intro line.
-- 6 platform tiles in a grid: WhatsApp, GitHub, LinkedIn, Twitter, Instagram, Email — each shows platform name, placeholder handle, and a `→` arrow on hover.
-
-### Let's Talk (`/lets-talk`)
-- Centered heading + intro.
-- Form: Name, Email, Message (textarea), Send Message button. Client-side validation only; on submit shows a toast (no backend wired).
-
-## Visual system
-- Background: deep navy `#040814` with subtle radial cyan glows.
-- Default accent: cyan `#22d3ee`, swappable through control rail.
-- Typography: Outfit (display) + Figtree (body) — already installed.
-- Glass surfaces: `bg-white/[0.02]` + `border-white/10` + backdrop blur.
-- All colors via semantic CSS tokens in `src/styles.css`; no hardcoded `text-white` / `bg-black` in components.
-- Animations: framer-motion for hero fade-in, card hover lifts, marquee, route transitions, filter changes.
-
-## Technical changes
-- Convert current single-page `index.tsx` into the multi-route structure above; move section components from `src/components/sections/` into the appropriate routes; keep reusable ones (`Marquee`, `Hero`).
-- Extend `AccentContext` to also expose theme (dark/light) and a "focus mode" flag the rail toggles.
-- Centralize all editable content (name, role, bio, stats, skills, experience, education, projects, contacts) in `src/data/portfolio.ts` so you only edit one file to make it yours.
-- Add per-route `head()` metadata (title + description + og:title + og:description; og:image only on leaf routes).
-- Keep starfield client-only fix already in place.
-
-## Out of scope (until you ask)
-- Real backend for the contact form.
-- Real CV PDF (will link to a placeholder).
-- Light theme polish beyond the toggle plumbing.
-- Pulling real project images — placeholders (solid gradients + title) until you provide assets.
+## Out of scope
+- Real audio files for the music player (placeholder tracks only — user can drop MP3s into `public/` later).
+- Translations for the language toggle (label-only switch for now).
