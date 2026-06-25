@@ -26,7 +26,7 @@ export function ContactSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20"
+              className="interactive-card group flex items-center gap-4 rounded-2xl bg-white/[0.02] p-5 backdrop-blur-sm transition hover:-translate-y-1"
             >
               <span
                 className="grid h-11 w-11 place-items-center rounded-xl"

@@ -57,7 +57,7 @@ export function Hero() {
           {profile.stats.map((s, i) => (
             <div
               key={s.label}
-              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3 backdrop-blur-sm"
+              className="interactive-card flex items-center gap-3 rounded-2xl bg-white/[0.02] px-4 py-3 backdrop-blur-sm"
             >
               <span
                 className="grid h-9 w-9 place-items-center rounded-lg"
