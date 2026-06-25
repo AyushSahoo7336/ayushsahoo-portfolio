@@ -11,10 +11,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Starfield } from "@/components/site/Starfield";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { DownloadCv } from "@/components/site/DownloadCv";
+import { AccentProvider } from "@/context/AccentContext";
+import { AccentSwitcher } from "@/components/site/AccentSwitcher";
 
 function NotFoundComponent() {
   return (
@@ -89,9 +89,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;600&family=Geist:wght@400;500;600&display=swap",
       },
     ],
   }),
@@ -120,11 +123,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Starfield />
-      <Navbar />
-      <DownloadCv />
-      <Outlet />
-      <Footer />
+      <AccentProvider>
+        <Navbar />
+        <Outlet />
+        <Footer />
+        <AccentSwitcher />
+      </AccentProvider>
     </QueryClientProvider>
   );
 }
