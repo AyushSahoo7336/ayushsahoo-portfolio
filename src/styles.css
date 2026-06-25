@@ -138,3 +138,25 @@ html {
   10%, 30% { transform: rotate(14deg); }
   20% { transform: rotate(-8deg); }
 }
+
+@keyframes preloader-sweep {
+  0%   { background-position: -150% 0; }
+  100% { background-position: 250% 0; }
+}
+.preloader-sweep {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.12) 0%,
+    rgba(255,255,255,0.18) 35%,
+    var(--primary-accent) 50%,
+    rgba(255,255,255,0.18) 65%,
+    rgba(255,255,255,0.12) 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: preloader-sweep 2s ease-in-out infinite;
+}
