@@ -126,8 +126,12 @@ function RootShell({ children }: { children: ReactNode }) {
 function BackgroundFx() {
   const { effect, focus } = useEffects();
   return (
-    <div style={{ opacity: focus ? 0.25 : 1, transition: "opacity 0.4s" }}>
-      <Starfield />
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 w-full h-full -z-10"
+      style={{ opacity: focus ? 0.25 : 1, transition: "opacity 0.4s" }}
+    >
+      {effect === "stars" && <Starfield />}
       {effect === "flakes" && <ColdFlakes />}
       {effect === "matrix" && <MatrixRain />}
     </div>
@@ -142,11 +146,13 @@ function RootComponent() {
       <AccentProvider>
         <EffectsProvider>
           <BackgroundFx />
-          <Navbar />
-          <main className="pt-6">
-            <Outlet />
-          </main>
-          <Footer />
+          <div className="relative z-10">
+            <Navbar />
+            <main className="pt-6">
+              <Outlet />
+            </main>
+            <Footer />
+          </div>
           <ControlRail />
           <DownloadCv />
         </EffectsProvider>
