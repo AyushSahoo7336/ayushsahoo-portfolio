@@ -1,58 +1,89 @@
-## Portfolio Rebuild Plan
 
-Rebuild the portfolio as a single-page app following the exact spec. Replace current multi-route structure with one scrolling page on `/`.
+# Exact-Clone Portfolio Plan
 
-### 1. Fonts & Tokens (`src/styles.css`, `src/routes/__root.tsx`)
-- Add `<link>` tags in root head for Space Grotesk, JetBrains Mono, Geist (Google Fonts).
-- Define `--font-display`, `--font-mono`, `--font-body` in `@theme`.
-- Define `--primary-accent` CSS variable on `:root` (default Cyan `#06b6d4`).
-- Background `#0a0a0a`, hairline border token `border-white/10`.
+## Scope note
+I'll match the reference site's **visual design, layout, routes, components, animations, and micro-interactions exactly**. Personal content (name, bio, project list, links, phone, email, CV) will be placeholders you replace in one file (`src/data/portfolio.ts`). I won't copy the reference owner's name, photos, projects, or contact details verbatim.
 
-### 2. Theme Context (`src/context/AccentContext.tsx`)
-- React Context exposing `accent` + `setAccent`.
-- On change, mutate `document.documentElement.style.setProperty('--primary-accent', hex)`.
-- Provider wraps app in `__root.tsx`.
+## Routes (multi-page, not single-page)
+The reference is a multi-route site. Replace the current single-page build with:
 
-### 3. Floating Accent Switcher (`src/components/site/AccentSwitcher.tsx`)
-- Fixed right-edge vertical panel (`fixed right-4 top-1/2 -translate-y-1/2 z-50 ...`).
-- 3 circular swatch buttons: Forest `#22c55e`, Cyan `#06b6d4`, Ember `#f97316`.
-- Active swatch gets ring outline.
+```
+src/routes/
+  __root.tsx       global shell: starfield bg, navbar, floating control rail, "Download CV" pill, footer
+  index.tsx        / — Hero ("Welcome to my world", name, role, quote, 2 stat cards, View Details + Let's Talk), Marquee ticker, "What I Create" 4 cards
+  about.tsx        /about — Biography + "My Skills" 4 expandable category cards (Frontend/Backend/Mobile/Game)
+  experience.tsx   /experience — vertical timeline of roles
+  education.tsx    /education — vertical timeline of diplomas/certs
+  projects.tsx     /projects — filter tabs (All/Mobile/Desktop/Websites/Extensions/Other) + project grid
+  contact.tsx      /contact — 6 contact platform cards (WhatsApp, GitHub, LinkedIn, Twitter, Instagram, Email)
+  lets-talk.tsx    /lets-talk — Name / Email / Message form + Send button
+```
 
-### 4. Sticky Navbar (`src/components/site/Navbar.tsx` — replace)
-- `sticky top-0 z-40 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10`.
-- Left: "AYUSH" in mono. Center: smooth-scroll anchors (Home, About, Experience, Projects) using `#hash` + `scrollIntoView`. Right: "Let's Talk" button with accent bg.
+Each route gets its own `head()` with unique title + description + og tags.
 
-### 5. Hero (`src/components/sections/Hero.tsx`)
-- Two-column flex. Left: massive Space Grotesk H1 "Hi, I'm <span accent>Ayush</span> Sahoo", subtitle "Software Developer" gray, body line.
-- Radial blurred glow behind text (`absolute blur-3xl opacity-20 bg-[var(--primary-accent)]`).
-- Right: 256×256 circular placeholder `w-64 h-64 rounded-full border border-white/10 bg-white/5`.
+## Global shell (every page)
+- **Starfield background**: client-only twinkling dot field (already in place — keep).
+- **Top navbar**: rounded pill, glass blur, brand wordmark left, route links right with active underline.
+- **Floating right-edge control rail** (fixed, vertical): 7 circular icon buttons — focus mode, sound toggle, music toggle, snow/effects toggle, dark/light toggle, accent-color palette, language. Each opens a small popover; the accent button drives a global `--primary-accent` CSS variable via React Context (theme switcher already partially built — extend it).
+- **Bottom-left orb**: small glowing accent dot (decorative).
+- **Bottom-right "Download CV" pill**: fixed, links to a placeholder PDF.
+- **Footer**: minimal, centered, year + small credit line.
 
-### 6. Marquee (`src/components/sections/Marquee.tsx` — replace)
-- Framer Motion infinite `animate={{ x: [0, -1000] }}` with `repeat: Infinity`, linear easing.
-- Content "DEVELOPER ◆ FRONTEND ◆ BACKEND ◆ MERN ◆ WEBRTC ◆ SOCKET.IO" duplicated, JetBrains Mono uppercase tracked.
+## Page-by-page detail
 
-### 7. LeetCode Stats (`src/components/sections/LeetStats.tsx`)
-- Glass card. Large "341" + "Problems Solved". Sub-badges "153 Medium", "25 Hard". Green pulsing dot (`animate-ping` halo) + "296-Day Max Streak". All numerals JetBrains Mono.
+### Home (`/`)
+- Hero block left-aligned, large radial cyan glow behind the name.
+- "WELCOME TO MY WORLD" eyebrow with sparkle icon.
+- Massive headline `Hi, I'm <Name>` (name in accent color).
+- Role line with waving-hand icon.
+- 3-line tagline paragraph.
+- Italic quote with left accent bar.
+- 2 stat cards (Years Experience / Projects Completed) — bordered glass tiles with icons.
+- Two CTAs: solid accent "View Details" → `/projects`, outlined "Let's Talk" → `/lets-talk`.
+- "SCROLL ↓" indicator.
+- **Marquee**: infinite horizontal ticker, tokens separated by `◆` (DEVELOPER, 2026, FRONTEND, BACKEND, MOBILE, GAME DEV, REACT, UNITY, TYPESCRIPT), duplicated for seamless loop.
+- **"What I Create"** section: heading + subtitle + 4 cards (Frontend / Backend / Mobile / Games), each linking to `/about`. CTA `About Me →`.
 
-### 8. About + Experience sections
-- Simple anchored sections (`#about`, `#experience`) with placeholder bios/timeline so nav anchors resolve.
+### About (`/about`)
+- "About Me" headline + 2-paragraph biography.
+- "My Skills" 4 cards (Frontend / Backend / Mobile / Game Dev) with hover-flip or click-expand to reveal a tech list per card.
 
-### 9. Projects Grid (`src/components/sections/Projects.tsx`)
-- `grid-cols-1 md:grid-cols-3 gap-6`. Three cards: StockFlow, VidMeet, GitVerse.
-- Framer Motion 3D flip: outer `style={{ perspective: 1000 }}`, inner `motion.div` with `whileHover={{ rotateY: 180 }}`, `transformStyle: 'preserve-3d'`.
-- Front face: title (Space Grotesk) + outlined mono tech chips.
-- Back face: `rotateY-180 backface-hidden`, 2-line tech summary + GitHub / Live Demo buttons (accent border).
+### Experience (`/experience`)
+- Vertical timeline (left rail with dots), 6 placeholder roles with title / company / date range.
 
-### 10. Page Assembly (`src/routes/index.tsx`)
-- Render: Navbar, Hero, Marquee, LeetStats, About, Experience, Projects, Footer, AccentSwitcher.
-- Remove old multi-route pages (`about.tsx`, `experience.tsx`, `education.tsx`, `projects.tsx`, `contact.tsx`, `lets-talk.tsx`) since spec is single-page.
+### Education (`/education`)
+- Same timeline pattern as Experience, 3 placeholder entries.
 
-### Technical Notes
-- Use existing framer-motion install. Add `@fontsource` not needed — using `<link>` per Tailwind v4 rules.
-- Backface hidden via inline style `backfaceVisibility: 'hidden'` (no hand-written `-webkit-` prefix).
-- Accent applied via `style={{ background: 'var(--primary-accent)' }}` or `bg-[var(--primary-accent)]` arbitrary class.
+### Projects (`/projects`)
+- Filter tab bar: All · Mobile · Desktop · Websites · Extensions · Other.
+- Responsive grid of project cards: image cover, title, 1-line description, GitHub + Live Demo buttons, "View Details" overlay on hover.
+- Cards animate in with framer-motion; filtering animates with `AnimatePresence`.
 
-### File Changes Summary
-- New: `AccentContext.tsx`, `AccentSwitcher.tsx`, `Hero.tsx`, `LeetStats.tsx`, `Projects.tsx`, About/Experience section components.
-- Replace: `Navbar.tsx`, `Marquee.tsx`, `index.tsx`, `__root.tsx` (head + provider), `styles.css` (fonts + accent var).
-- Delete: `about.tsx`, `experience.tsx`, `education.tsx`, `projects.tsx`, `contact.tsx`, `lets-talk.tsx`, `Starfield.tsx`, `PageLayout.tsx`, `DownloadCv.tsx`.
+### Contact (`/contact`)
+- Heading + intro line.
+- 6 platform tiles in a grid: WhatsApp, GitHub, LinkedIn, Twitter, Instagram, Email — each shows platform name, placeholder handle, and a `→` arrow on hover.
+
+### Let's Talk (`/lets-talk`)
+- Centered heading + intro.
+- Form: Name, Email, Message (textarea), Send Message button. Client-side validation only; on submit shows a toast (no backend wired).
+
+## Visual system
+- Background: deep navy `#040814` with subtle radial cyan glows.
+- Default accent: cyan `#22d3ee`, swappable through control rail.
+- Typography: Outfit (display) + Figtree (body) — already installed.
+- Glass surfaces: `bg-white/[0.02]` + `border-white/10` + backdrop blur.
+- All colors via semantic CSS tokens in `src/styles.css`; no hardcoded `text-white` / `bg-black` in components.
+- Animations: framer-motion for hero fade-in, card hover lifts, marquee, route transitions, filter changes.
+
+## Technical changes
+- Convert current single-page `index.tsx` into the multi-route structure above; move section components from `src/components/sections/` into the appropriate routes; keep reusable ones (`Marquee`, `Hero`).
+- Extend `AccentContext` to also expose theme (dark/light) and a "focus mode" flag the rail toggles.
+- Centralize all editable content (name, role, bio, stats, skills, experience, education, projects, contacts) in `src/data/portfolio.ts` so you only edit one file to make it yours.
+- Add per-route `head()` metadata (title + description + og:title + og:description; og:image only on leaf routes).
+- Keep starfield client-only fix already in place.
+
+## Out of scope (until you ask)
+- Real backend for the contact form.
+- Real CV PDF (will link to a placeholder).
+- Light theme polish beyond the toggle plumbing.
+- Pulling real project images — placeholders (solid gradients + title) until you provide assets.
