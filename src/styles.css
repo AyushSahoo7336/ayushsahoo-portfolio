@@ -10,9 +10,9 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-body: "Geist", "Inter", system-ui, sans-serif;
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-body: "Figtree", "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -38,41 +38,37 @@
 :root {
   --radius: 0.75rem;
 
-  --primary-accent: #06b6d4;
+  --primary-accent: #22d3ee;
 
-  --background: #0a0a0a;
-  --foreground: oklch(0.98 0 0);
+  --background: #040814;
+  --foreground: oklch(0.97 0.01 240);
 
-  --card: #0f0f0f;
-  --card-foreground: oklch(0.98 0 0);
-  --popover: #0f0f0f;
-  --popover-foreground: oklch(0.98 0 0);
+  --card: #0a1020;
+  --card-foreground: oklch(0.97 0.01 240);
+  --popover: #0a1020;
+  --popover-foreground: oklch(0.97 0.01 240);
 
-  --primary: oklch(0.78 0.15 200);
-  --primary-foreground: #0a0a0a;
+  --primary: oklch(0.82 0.13 210);
+  --primary-foreground: #040814;
 
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.18 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.2 0 0);
-  --accent-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.22 0.02 240);
+  --secondary-foreground: oklch(0.97 0.01 240);
+  --muted: oklch(0.2 0.02 240);
+  --muted-foreground: oklch(0.62 0.02 240);
+  --accent: oklch(0.22 0.02 240);
+  --accent-foreground: oklch(0.97 0.01 240);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.78 0.15 200);
+  --ring: oklch(0.82 0.13 210);
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
-  html {
-    background: #0a0a0a;
-  }
+  * { border-color: var(--color-border); }
+  html { background: #040814; }
   body {
-    background-color: #0a0a0a;
+    background-color: #040814;
     color: var(--color-foreground);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
@@ -81,4 +77,18 @@
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.3333%); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.85; }
+}
+@keyframes wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
 }
