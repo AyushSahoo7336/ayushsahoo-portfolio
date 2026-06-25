@@ -1,46 +1,23 @@
-## Goal
-Convert the current multi-route portfolio into a single scrolling page where the top nav smooth-scrolls to sections, and rebuild the right-side vertical rail with functional popover panels (theme switcher, music player, effects) matching the reference screenshots.
+## Fix: Background effects invisible
 
-## Changes
+**Root cause:** `body { background-color: #040814 }` in `src/styles.css` paints over fixed layers using `-z-10`, so Starfield / MatrixRain / ColdFlakes draw but are hidden behind the body fill.
 
-### 1. Single-page structure
-- Make `src/routes/index.tsx` render all sections stacked, each with an `id`:
-  - `#home` (Hero), `#about`, `#experience`, `#education`, `#projects`, `#contact`, `#lets-talk`
-- Reuse existing page bodies — extract each route's content into a section component under `src/components/sections/` (AboutSection, ExperienceSection, etc.).
-- Delete the standalone route files (`about.tsx`, `experience.tsx`, `education.tsx`, `projects.tsx`, `contact.tsx`, `lets-talk.tsx`) so only `index.tsx` + `__root.tsx` remain.
+### Changes
 
-### 2. Navbar smooth-scroll
-- Update `Navbar.tsx`: replace `<Link to="/about">` etc. with anchor buttons that call `document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })`.
-- Add a scroll-spy hook (IntersectionObserver) to highlight the active section in the nav.
-- Add `scroll-margin-top` to each section so the sticky navbar doesn't cover headings.
+1. **`src/styles.css`** — keep `#040814` on `html`; set `body` to `background-color: transparent` so negative-z fixed layers remain visible.
 
-### 3. Right-side control rail (matches screenshots)
-Rebuild `ControlRail.tsx` as a fixed vertical column of circular icon buttons. Each button opens a popover panel anchored to its left:
+2. **`src/routes/__root.tsx`**
+   - Wrap `BackgroundFx` div with `fixed inset-0 w-full h-full pointer-events-none -z-10` and apply the focus opacity there.
+   - Wrap Navbar / `<main>` / Footer in a `relative z-10` container so content sits above the canvas; keep ControlRail and DownloadCv at their existing fixed/higher z.
+   - Only render `<Starfield />` when `effect === "stars"` to avoid stacking conflicts with the canvas effects.
 
-- **Focus** (target icon) — toggles a "focus mode" that dims background effects.
-- **Connectivity** (wifi icon) — simple status indicator.
-- **Music** (music note) — Music Player panel (screenshot 3): volume slider, track list (Idea 22, Isabella's Lullaby, Jazz Vibes), play/pause state. Uses `<audio>` element; tracks are placeholder entries in `portfolio.ts` (no audio files yet — buttons toggle UI state only).
-- **Effects** (snowflake) — panel with two options: "Cold Flakes" (falling snow overlay) and "Matrix Rain" (canvas matrix effect). Selecting one mounts the corresponding background component.
-- **Light/Dark** (moon) — toggles a `dark` class on `<html>`.
-- **Theme** (palette) — panel (screenshot 2) listing accent presets: Sea (cyan), Forest (green), Ember (orange), with a "Custom Theme" indicator at top. Writes `--primary-accent` via existing `AccentContext`.
-- **Language** (globe) — simple EN/FR toggle (UI only).
+3. **`src/components/site/effects/MatrixRain.tsx`** — change canvas wrapper class to `pointer-events-none fixed inset-0 -z-10` (remove `-z-[5] opacity-50`) so glyphs are legible above the now-transparent body.
 
-Panel styling: dark glass card (`bg-card/90 backdrop-blur`, accent border), positioned `right-16` next to each icon, animated in with framer-motion.
+4. **`src/components/site/effects/ColdFlakes.tsx`** — change wrapper to `pointer-events-none fixed inset-0 -z-10 overflow-hidden` (was `-z-[5]`).
 
-### 4. Background effects
-- Keep `Starfield.tsx` as the default.
-- Add `src/components/site/effects/ColdFlakes.tsx` (CSS-animated falling dots) and `MatrixRain.tsx` (canvas).
-- A new `EffectsContext` stores which effect is active; `__root.tsx` renders the active one.
+5. **`src/components/site/Starfield.tsx`** — already `-z-10`; no change.
 
-### 5. Data
-- Add `tracks` array to `src/data/portfolio.ts` for the music player.
-- Add `accentPresets` (Sea / Forest / Ember hex values).
+6. **Section spot-check** — scan `Hero`, `AboutSection`, `ExperienceSection`, `EducationSection`, `ProjectsSection`, `ContactSection`, `LetsTalkSection`, `WhatICreate`, `Marquee` for any full-bleed opaque `bg-background` / `bg-[#040814]` wrappers; swap to `bg-transparent` or `bg-[#040814]/70` so the animated layer shows through.
 
-## Technical notes
-- All theme/effect/music state lives in React contexts under `src/context/` (AccentContext already exists; add `EffectsContext`, `MusicContext`).
-- Popovers built with shadcn `Popover` for accessibility and outside-click handling.
-- No new dependencies required.
-
-## Out of scope
-- Real audio files for the music player (placeholder tracks only — user can drop MP3s into `public/` later).
-- Translations for the language toggle (label-only switch for now).
+### Verification
+Run Playwright on `localhost:8080`, switch effects via the right rail popover, and screenshot to confirm Stars, Cold Flakes, and Matrix Rain all render behind content.

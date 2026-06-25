@@ -66,9 +66,9 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { background: #040814; }
+  html { background-color: #040814; }
   body {
-    background-color: #040814;
+    background-color: transparent;
     color: var(--color-foreground);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
