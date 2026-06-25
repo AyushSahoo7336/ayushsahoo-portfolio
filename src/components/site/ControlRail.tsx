@@ -25,6 +25,11 @@ const ACCENT_OPTS: { id: AccentName; label: string }[] = [
   { id: "cyan", label: "Sea" },
   { id: "forest", label: "Forest" },
   { id: "ember", label: "Ember" },
+  { id: "violet", label: "Violet" },
+  { id: "rose", label: "Rose" },
+  { id: "sun", label: "Sun" },
+  { id: "sky", label: "Sky" },
+  { id: "magenta", label: "Magenta" },
 ];
 
 const TRACKS = ["Idea 22 (Slowed)", "Isabella's Lullaby", "Jazz Vibes"];
