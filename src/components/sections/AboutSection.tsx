@@ -31,7 +31,7 @@ export function AboutSection() {
                 key={s.title}
                 onClick={() => setOpen(active ? null : i)}
                 layout
-                className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 text-left backdrop-blur-sm transition hover:border-white/20"
+                className="interactive-card rounded-2xl bg-white/[0.02] p-6 text-left backdrop-blur-sm"
                 style={active ? { borderColor: "color-mix(in oklab, var(--primary-accent) 60%, transparent)" } : undefined}
               >
                 <div className="flex items-center gap-3">

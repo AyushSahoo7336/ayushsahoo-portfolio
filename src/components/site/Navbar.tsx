@@ -5,7 +5,12 @@ import { navSections, profile } from "@/data/portfolio";
 function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
+  if (lenis) {
+    lenis.scrollTo(el, { offset: -80 });
+  } else {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 export function Navbar() {
