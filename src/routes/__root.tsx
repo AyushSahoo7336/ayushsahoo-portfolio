@@ -7,7 +7,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { AnimatePresence } from "framer-motion";
+import { Preloader } from "@/components/site/Preloader";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -143,6 +145,12 @@ function BackgroundFx() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -161,6 +169,9 @@ function RootComponent() {
           <ControlRail />
           <DownloadCv />
           <CustomCursor />
+          <AnimatePresence mode="wait">
+            {isLoading && <Preloader key="preloader" />}
+          </AnimatePresence>
         </EffectsProvider>
       </AccentProvider>
     </QueryClientProvider>
