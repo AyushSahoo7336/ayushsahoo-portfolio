@@ -131,7 +131,7 @@ function BackgroundFx() {
       className="pointer-events-none fixed inset-0 w-full h-full -z-10"
       style={{ opacity: focus ? 0.25 : 1, transition: "opacity 0.4s" }}
     >
-      {effect === "stars" && <Starfield />}
+      {effect === "none" && <Starfield />}
       {effect === "flakes" && <ColdFlakes />}
       {effect === "matrix" && <MatrixRain />}
     </div>
