@@ -1,32 +1,55 @@
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { navLinks, profile } from "@/data/portfolio";
+import { navSections, profile } from "@/data/portfolio";
+
+function scrollToId(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string>(navSections[0].id);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const vis = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (vis[0]) setActive(vis[0].target.id);
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+    navSections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header className="sticky top-4 z-40 mx-auto w-full max-w-6xl px-4">
       <nav className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
         <div className="flex items-center justify-between">
-          <Link
-            to="/"
+          <button
+            onClick={() => scrollToId("home")}
             className="font-display text-lg font-bold tracking-[0.25em]"
             style={{ color: "var(--primary-accent)" }}
           >
             {profile.shortName}
-          </Link>
+          </button>
           <div className="hidden items-center gap-7 md:flex">
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className="text-sm text-foreground/70 transition-colors hover:text-foreground"
-                activeProps={{ style: { color: "var(--primary-accent)" } }}
-                activeOptions={{ exact: l.to === "/" }}
+            {navSections.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => scrollToId(s.id)}
+                className="text-sm transition-colors"
+                style={{
+                  color: active === s.id ? "var(--primary-accent)" : "rgba(255,255,255,0.65)",
+                }}
               >
-                {l.label}
-              </Link>
+                {s.label}
+              </button>
             ))}
           </div>
           <button
@@ -39,17 +62,18 @@ export function Navbar() {
         </div>
         {open && (
           <div className="mt-3 grid gap-2 border-t border-white/10 pt-3 md:hidden">
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-2 py-1.5 text-sm text-foreground/80 hover:bg-white/5"
-                activeProps={{ style: { color: "var(--primary-accent)" } }}
-                activeOptions={{ exact: l.to === "/" }}
+            {navSections.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => {
+                  scrollToId(s.id);
+                  setOpen(false);
+                }}
+                className="rounded-md px-2 py-1.5 text-left text-sm text-foreground/80 hover:bg-white/5"
+                style={active === s.id ? { color: "var(--primary-accent)" } : undefined}
               >
-                {l.label}
-              </Link>
+                {s.label}
+              </button>
             ))}
           </div>
         )}

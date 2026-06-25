@@ -1,7 +1,10 @@
-import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Sparkles, Code2, Rocket, ChevronDown } from "lucide-react";
 import { profile } from "@/data/portfolio";
+
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
 export function Hero() {
   return (
@@ -69,19 +72,19 @@ export function Hero() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            to="/projects"
+          <button
+            onClick={() => scrollTo("projects")}
             className="rounded-full px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
             style={{ backgroundColor: "var(--primary-accent)" }}
           >
             View Details
-          </Link>
-          <Link
-            to="/lets-talk"
+          </button>
+          <button
+            onClick={() => scrollTo("lets-talk")}
             className="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/5"
           >
             Let's Talk
-          </Link>
+          </button>
         </div>
       </motion.div>
 

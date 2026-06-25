@@ -1,21 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { Send } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 
-export const Route = createFileRoute("/lets-talk")({
-  component: LetsTalkPage,
-  head: () => ({
-    meta: [
-      { title: "Let's Talk — Portfolio" },
-      { name: "description", content: "Have a project in mind? Drop me a message." },
-      { property: "og:title", content: "Let's Talk" },
-      { property: "og:description", content: "Have a project in mind? Drop me a message." },
-    ],
-  }),
-});
-
-function LetsTalkPage() {
+export function LetsTalkSection() {
   const [sent, setSent] = useState(false);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -32,7 +19,6 @@ function LetsTalkPage() {
         title="Have a project in mind?"
         intro="Want to collaborate, or just say hi? Drop me a message and I'll get back to you soon."
       />
-
       <section className="mx-auto max-w-2xl px-6">
         <form
           onSubmit={onSubmit}

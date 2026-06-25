@@ -1,32 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { PageHeader } from "@/components/site/PageHeader";
-import { experiences } from "@/data/portfolio";
-
-export const Route = createFileRoute("/experience")({
-  component: ExperiencePage,
-  head: () => ({
-    meta: [
-      { title: "Experience — Portfolio" },
-      { name: "description", content: "My professional journey and the companies I've worked with." },
-      { property: "og:title", content: "Experience" },
-      { property: "og:description", content: "My professional journey and the companies I've worked with." },
-    ],
-  }),
-});
-
-function ExperiencePage() {
-  return (
-    <div className="pb-20">
-      <PageHeader
-        eyebrow="Work Experience"
-        title="My professional journey"
-        intro="A timeline of roles, teams, and the products I helped ship."
-      />
-      <Timeline items={experiences} />
-    </div>
-  );
-}
 
 export function Timeline({ items }: { items: { title: string; org: string; date: string }[] }) {
   return (

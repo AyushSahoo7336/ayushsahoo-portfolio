@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout, Server, Smartphone, Gamepad2 } from "lucide-react";
@@ -7,37 +6,22 @@ import { bio, skills } from "@/data/portfolio";
 
 const ICONS = { Layout, Server, Smartphone, Gamepad2 } as const;
 
-export const Route = createFileRoute("/about")({
-  component: AboutPage,
-  head: () => ({
-    meta: [
-      { title: "About — Portfolio" },
-      { name: "description", content: "A focused full-stack developer shipping real products across web, mobile, and games." },
-      { property: "og:title", content: "About" },
-      { property: "og:description", content: "A focused full-stack developer shipping real products across web, mobile, and games." },
-    ],
-  }),
-});
-
-function AboutPage() {
+export function AboutSection() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <div className="pb-20">
       <PageHeader eyebrow="About Me" title="I'm focused on execution" intro="Less talk, more shipped products." />
-
       <section className="mx-auto max-w-3xl px-6">
         <h2 className="font-display text-2xl font-semibold">Biography</h2>
         <div className="mt-4 space-y-4 text-foreground/70 leading-relaxed">
           {bio.map((p, i) => (<p key={i}>{p}</p>))}
         </div>
       </section>
-
       <section className="mx-auto mt-20 max-w-5xl px-6">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold md:text-4xl">My Skills</h2>
           <p className="mt-2 text-foreground/55">Technologies and domains I specialize in — click to explore</p>
         </div>
-
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {skills.map((s, i) => {
             const Icon = ICONS[s.icon as keyof typeof ICONS] ?? Layout;
@@ -79,9 +63,6 @@ function AboutPage() {
                     ))}
                   </motion.div>
                 )}
-                <div className="mt-4 text-[11px] uppercase tracking-wider text-foreground/40">
-                  {active ? "Click to collapse" : "Click to explore"}
-                </div>
               </motion.button>
             );
           })}

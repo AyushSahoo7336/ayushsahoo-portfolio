@@ -14,8 +14,11 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { AccentProvider } from "@/context/AccentContext";
+import { EffectsProvider, useEffects } from "@/context/EffectsContext";
 import { ControlRail } from "@/components/site/ControlRail";
 import { Starfield } from "@/components/site/Starfield";
+import { ColdFlakes } from "@/components/site/effects/ColdFlakes";
+import { MatrixRain } from "@/components/site/effects/MatrixRain";
 import { DownloadCv } from "@/components/site/DownloadCv";
 
 function NotFoundComponent() {
@@ -120,20 +123,33 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function BackgroundFx() {
+  const { effect, focus } = useEffects();
+  return (
+    <div style={{ opacity: focus ? 0.25 : 1, transition: "opacity 0.4s" }}>
+      <Starfield />
+      {effect === "flakes" && <ColdFlakes />}
+      {effect === "matrix" && <MatrixRain />}
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
       <AccentProvider>
-        <Starfield />
-        <Navbar />
-        <main className="pt-6">
-          <Outlet />
-        </main>
-        <Footer />
-        <ControlRail />
-        <DownloadCv />
+        <EffectsProvider>
+          <BackgroundFx />
+          <Navbar />
+          <main className="pt-6">
+            <Outlet />
+          </main>
+          <Footer />
+          <ControlRail />
+          <DownloadCv />
+        </EffectsProvider>
       </AccentProvider>
     </QueryClientProvider>
   );

@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { MessageCircle, Github, Linkedin, Twitter, Instagram, Mail, ArrowUpRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
@@ -6,19 +5,7 @@ import { contacts } from "@/data/portfolio";
 
 const ICONS = { MessageCircle, Github, Linkedin, Twitter, Instagram, Mail } as const;
 
-export const Route = createFileRoute("/contact")({
-  component: ContactPage,
-  head: () => ({
-    meta: [
-      { title: "Contact — Portfolio" },
-      { name: "description", content: "Get in touch through any of these platforms." },
-      { property: "og:title", content: "Contact" },
-      { property: "og:description", content: "Get in touch through any of these platforms." },
-    ],
-  }),
-});
-
-function ContactPage() {
+export function ContactSection() {
   return (
     <div className="pb-20">
       <PageHeader
@@ -26,7 +13,6 @@ function ContactPage() {
         title="Let's connect"
         intro="Feel free to reach out through any of these platforms."
       />
-
       <section className="mx-auto grid max-w-5xl gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3">
         {contacts.map((c, i) => {
           const Icon = ICONS[c.icon as keyof typeof ICONS] ?? Mail;

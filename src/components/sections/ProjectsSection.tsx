@@ -1,23 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { projectCategories, projects } from "@/data/portfolio";
 
-export const Route = createFileRoute("/projects")({
-  component: ProjectsPage,
-  head: () => ({
-    meta: [
-      { title: "Projects — Portfolio" },
-      { name: "description", content: "A collection of my work across different platforms and technologies." },
-      { property: "og:title", content: "Projects" },
-      { property: "og:description", content: "A collection of my work across different platforms and technologies." },
-    ],
-  }),
-});
-
-function ProjectsPage() {
+export function ProjectsSection() {
   const [filter, setFilter] = useState<(typeof projectCategories)[number]>("All");
   const visible = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
@@ -28,7 +15,6 @@ function ProjectsPage() {
         title="Things I've built"
         intro="A collection of work across different platforms and technologies."
       />
-
       <div className="mx-auto mb-10 flex max-w-3xl flex-wrap justify-center gap-2 px-6">
         {projectCategories.map((c) => {
           const active = filter === c;
@@ -48,7 +34,6 @@ function ProjectsPage() {
           );
         })}
       </div>
-
       <section className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
           {visible.map((p) => (
