@@ -9,15 +9,6 @@ function scrollTo(id: string) {
 export function Hero() {
   return (
     <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/3 h-[520px] w-[520px] -translate-x-1/3 rounded-full blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, color-mix(in oklab, var(--primary-accent) 28%, transparent), transparent 65%)",
-        }}
-      />
-
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
@@ -29,9 +20,16 @@ export function Hero() {
           {profile.welcome}
         </div>
 
-        <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl">
-          Hi, I'm <span style={{ color: "var(--primary-accent)" }}>{profile.name.split(" ")[0]}</span>
-        </h1>
+        <div className="relative">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
+            style={{ backgroundColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
+          />
+          <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl">
+            Hi, I'm <span style={{ color: "var(--primary-accent)" }}>{profile.name.split(" ")[0]}</span>
+          </h1>
+        </div>
 
         <p className="mt-5 flex items-center gap-2 text-2xl font-light text-foreground/70 md:text-3xl">
           {profile.role}
@@ -57,7 +55,7 @@ export function Hero() {
           {profile.stats.map((s, i) => (
             <div
               key={s.label}
-              className="interactive-card flex items-center gap-3 rounded-2xl bg-white/[0.02] px-4 py-3 backdrop-blur-sm"
+              className="interactive-card flex items-center gap-3 rounded-2xl bg-[var(--glass-bg)] px-4 py-3 backdrop-blur-sm"
             >
               <span
                 className="grid h-9 w-9 place-items-center rounded-lg"
@@ -86,7 +84,8 @@ export function Hero() {
           </button>
           <button
             onClick={() => scrollTo("lets-talk")}
-            className="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/5"
+            className="rounded-full border bg-[var(--glass-bg)] px-6 py-3 text-sm font-semibold text-foreground shadow-[var(--glass-shadow)] transition hover:opacity-80"
+            style={{ borderColor: "var(--glass-border)" }}
           >
             Let's Talk
           </button>

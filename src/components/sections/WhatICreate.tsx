@@ -27,7 +27,7 @@ export function WhatICreate() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="interactive-card group block h-full rounded-2xl bg-white/[0.02] p-6 text-left backdrop-blur-sm transition hover:-translate-y-1"
+              className="interactive-card group block h-full rounded-2xl bg-[var(--glass-bg)] p-6 text-left backdrop-blur-sm transition hover:-translate-y-1"
             >
               <span
                 className="mb-5 grid h-11 w-11 place-items-center rounded-xl transition group-hover:scale-110"

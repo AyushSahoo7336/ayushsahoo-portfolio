@@ -22,7 +22,8 @@ export function LetsTalkSection() {
       <section className="mx-auto max-w-2xl px-6">
         <form
           onSubmit={onSubmit}
-          className="space-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-sm md:p-8"
+          className="space-y-4 rounded-2xl border bg-[var(--glass-bg)] p-6 backdrop-blur-sm shadow-[var(--glass-shadow)] md:p-8"
+          style={{ borderColor: "var(--glass-border)" }}
         >
           <Field label="Your Name" name="name" type="text" placeholder="Jane Doe" required />
           <Field label="Your Email" name="email" type="email" placeholder="jane@example.com" required />
@@ -33,7 +34,8 @@ export function LetsTalkSection() {
               rows={5}
               required
               placeholder="Tell me about your project..."
-              className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm outline-none transition focus:border-white/30"
+              className="w-full rounded-xl border bg-[var(--glass-bg)] px-4 py-3 text-sm outline-none transition focus:border-[color:var(--primary-accent)]"
+              style={{ borderColor: "var(--glass-border)" }}
             />
           </div>
           <button
@@ -60,7 +62,8 @@ function Field({ label, ...props }: { label: string } & React.InputHTMLAttribute
       <label className="mb-1.5 block text-xs uppercase tracking-wider text-foreground/55">{label}</label>
       <input
         {...props}
-        className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm outline-none transition focus:border-white/30"
+        className="w-full rounded-xl border bg-[var(--glass-bg)] px-4 py-3 text-sm outline-none transition focus:border-[color:var(--primary-accent)]"
+        style={{ borderColor: "var(--glass-border)" }}
       />
     </div>
   );

@@ -1,27 +1,23 @@
 ## Goal
-Make Light mode actually flip the background, glass surfaces, and canvas effects — not just the text.
+Polish Light mode: borderless glass with soft shadows, cleaner background, contained hero glow, no stray accent dot.
 
 ## Steps
 
-1. **`src/styles.css` — semantic tokens**
-   - Keep current `:root` dark tokens, but also add `--glass-bg: rgba(255,255,255,0.03)` and `--glass-border: rgba(255,255,255,0.1)`.
-   - Add a `html.light` block overriding `--background: #f8fafc`, `--foreground: #0f172a`, `--card: #ffffff`, `--glass-bg: rgba(0,0,0,0.03)`, `--glass-border: rgba(0,0,0,0.1)`, plus matching muted/border tokens (extend existing light block).
-   - Update `.interactive-card` utility to use `var(--glass-border)` instead of hardcoded `rgb(255 255 255 / 0.10)`.
-   - Update preloader sweep stops to use `currentColor`/foreground-alpha so it works on both themes.
+1. **`src/styles.css` tokens**
+   - `:root` (dark): add `--glass-shadow: none;`. Keep `--glass-bg` / `--glass-border` as-is.
+   - `html.light`: set `--background: #f8fafc`, `--card: #ffffff`, `--glass-border: transparent`, `--glass-shadow: 0 8px 32px rgba(0,0,0,0.04)`, and bump `--glass-bg: rgba(255,255,255,0.7)` so cards read as clean white surfaces.
+   - Update `.interactive-card` utility: border uses `var(--glass-border)`, default `box-shadow: var(--glass-shadow)`; hover keeps accent ring (already does).
 
-2. **Strip hardcoded dark colors**
-   - `src/components/site/Preloader.tsx`: `bg-[#040814]` → `bg-background`.
-   - `src/components/site/Starfield.tsx`: replace the radial gradient that hardcodes `#040814` with one using `var(--background)` (and reduce star alpha in light mode — see step 4).
-   - `src/components/sections/ProjectsSection.tsx`: `text-white/90` → `text-foreground/90`.
-   - Sweep nav/control-rail/cards/hero/sections for any remaining `bg-white/…`, `bg-black/…`, `border-white/…` used as glass and swap to `bg-[var(--glass-bg)]` / `border-[var(--glass-border)]`. (Scan: Navbar, ControlRail, DownloadCv, Footer, Hero, AboutSection, ContactSection, Experience/Education/Timeline, ProjectsSection, WhatICreate, LetsTalkSection, Marquee, LeetStats if present.)
+2. **Swap hardcoded glass classes → semantic tokens + shadow**
+   Across `Navbar`, `ControlRail`, `DownloadCv`, `Marquee`, `LetsTalkSection`, `AboutSection`, `ContactSection`, `ProjectsSection`, `WhatICreate`, `Hero` stats card and the secondary CTA: replace `border border-white/10 bg-white/[0.02|0.03] …` glass clusters with `border border-[var(--glass-border)] bg-[var(--glass-bg)] shadow-[var(--glass-shadow)]`. Pill/inline borders that aren't glass surfaces (chips inside cards, divider lines) stay on `border-white/10` since they only show in dark — but switch the most visible ones (Navbar pill, Control Rail buttons + popover, DownloadCv pill, Marquee strip, form inputs) to the semantic trio.
+   - Input fields in `LetsTalkSection` use `bg-[var(--glass-bg)] border-[var(--glass-border)]`.
+   - `ControlRail` popover container uses `bg-card` (so it's solid white in light, dark in dark) + `shadow-[var(--glass-shadow)]`.
 
-3. **Glassmorphism unification**
-   - Navbar pill, ControlRail buttons + popovers, DownloadCv pill, and all card containers use `bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur`.
+3. **Remove stray accent dot**
+   - `src/components/site/Starfield.tsx`: delete the fixed `h-3 w-3` accent dot pinned at `left:1.5rem top:50%` (the floating dot user sees).
 
-4. **Canvas effects respect theme**
-   - `Starfield.tsx`: read `document.documentElement.classList.contains('light')` on mount + observe via `MutationObserver` on `<html>` class. In light mode, render stars in `#94a3b8` at ~0.25 max opacity; in dark, keep current white/cyan. Re-init on theme change.
-   - `src/components/site/effects/MatrixRain.tsx`: same pattern — in light mode use `#cbd5e1` glyphs and change the trail-fade `fillStyle` from `rgba(4,8,20,0.05)` to `rgba(248,250,252,0.08)` so the fade matches the light background. In dark, keep existing values.
-   - `ColdFlakes.tsx`: same conditional — light mode flakes `#94a3b8` at lower opacity.
+4. **Hero glow**
+   - `src/components/sections/Hero.tsx`: remove the existing giant `520px` blurred radial behind the section. Wrap the `<h1>` in a `relative` container and add the targeted glow `div` exactly as specified: `absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full -z-10 pointer-events-none` with `background-color: color-mix(in oklab, var(--primary-accent) 20%, transparent)` and `filter: blur(100px)` (Tailwind arbitrary `blur-[100px]` + accent/20 equivalent).
 
 ## Out of scope
-No new animations, no new components, no logic changes to theme toggle (already wired in `EffectsContext`).
+No changes to motion, fonts, or layout structure beyond the hero glow swap.

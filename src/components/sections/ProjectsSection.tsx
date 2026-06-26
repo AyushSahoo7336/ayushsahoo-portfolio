@@ -44,7 +44,7 @@ export function ProjectsSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.3 }}
-              className="interactive-card group overflow-hidden rounded-2xl bg-white/[0.02] backdrop-blur-sm transition hover:-translate-y-1"
+              className="interactive-card group overflow-hidden rounded-2xl bg-[var(--glass-bg)] backdrop-blur-sm transition hover:-translate-y-1"
             >
               <div className={`relative h-40 bg-gradient-to-br ${p.accent}`}>
                 <div className="absolute inset-0 grid place-items-center font-display text-2xl font-bold text-foreground/90">

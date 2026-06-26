@@ -213,8 +213,8 @@ function RailBtn({
     <button
       aria-label={label}
       onClick={onClick}
-      className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-black/50 text-foreground/70 backdrop-blur-md transition hover:text-foreground"
-      style={active ? { color, borderColor: color, boxShadow: `0 0 0 1px ${color}, 0 0 14px -2px ${color}` } : undefined}
+      className="grid h-9 w-9 place-items-center rounded-full border bg-[var(--glass-bg)] text-foreground/70 backdrop-blur-md shadow-[var(--glass-shadow)] transition hover:text-foreground"
+      style={active ? { color, borderColor: color, boxShadow: `0 0 0 1px ${color}, 0 0 14px -2px ${color}` } : { borderColor: "var(--glass-border)" }}
     >
       {children}
     </button>
@@ -244,8 +244,8 @@ function Panel({
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 12, scale: 0.96 }}
             transition={{ duration: 0.18 }}
-            className="absolute right-12 top-0 z-40 w-72 rounded-2xl border border-white/10 bg-[#0a1020]/95 p-4 shadow-2xl backdrop-blur-xl"
-            style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 30%, rgba(255,255,255,0.1))" }}
+            className="absolute right-12 top-0 z-40 w-72 rounded-2xl border bg-card p-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+            style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 30%, var(--glass-border))" }}
           >
             <div className="mb-3 flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--primary-accent)" }}>
               {icon}
