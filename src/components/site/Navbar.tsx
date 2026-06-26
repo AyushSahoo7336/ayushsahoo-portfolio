@@ -34,7 +34,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-4 z-40 mx-auto w-full max-w-6xl px-4">
-      <nav className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+      <nav className="rounded-2xl border bg-[var(--glass-bg)] px-5 py-3 backdrop-blur-xl shadow-[var(--glass-shadow)]" style={{ borderColor: "var(--glass-border)" }}>
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToId("home")}
