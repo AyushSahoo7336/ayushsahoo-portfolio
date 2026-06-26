@@ -108,14 +108,12 @@ export function SkillsSection() {
               </motion.div>
             )}
           </AnimatePresence>
-          <button
-            onClick={() => setOpenId(null)}
-            className="absolute right-4 top-4 rounded-full p-1.5 text-foreground/60 hover:bg-foreground/5 hover:text-foreground"
-            aria-label="Close"
-          >
-            <X size={16} />
-          </button>
         </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
       </Dialog>
     </div>
   );
