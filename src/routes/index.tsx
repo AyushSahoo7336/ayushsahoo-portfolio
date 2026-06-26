@@ -40,6 +40,7 @@ function HomePage() {
       <Marquee />
       <WhatICreate />
       <Section id="about"><AboutSection /></Section>
+      <Section id="skills"><SkillsSection /></Section>
       <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="education"><EducationSection /></Section>
       <Section id="projects"><ProjectsSection /></Section>
