@@ -1,16 +1,42 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Layout, Server, Brain, Cpu, ArrowUpRight, type LucideIcon } from "lucide-react";
+import {
+  Layout,
+  Server,
+  Database,
+  Terminal,
+  Network,
+  Boxes,
+  PieChart,
+  Cable,
+  RadioTower,
+  Cloud,
+  ShieldCheck,
+  ServerCog,
+  ArrowUpRight,
+  type LucideIcon,
+} from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { skillCategories, type Proficiency } from "@/data/portfolio";
+import { skillCategories } from "@/data/portfolio";
 
-const iconMap: Record<string, LucideIcon> = { Layout, Server, Brain, Cpu };
+const categoryIconMap: Record<string, LucideIcon> = {
+  Layout,
+  Server,
+  Database,
+  Terminal,
+};
 
-const levelStyle: Record<Proficiency, string> = {
-  Expert: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-  Advanced: "bg-purple-500/15 text-purple-400 border-purple-500/30",
-  Intermediate: "bg-amber-500/15 text-amber-500 border-amber-500/30",
+const itemIconMap: Record<string, LucideIcon> = {
+  Network,
+  Boxes,
+  PieChart,
+  Cable,
+  RadioTower,
+  Cloud,
+  ShieldCheck,
+  Database,
+  ServerCog,
 };
 
 export function SkillsSection() {
@@ -26,7 +52,7 @@ export function SkillsSection() {
       />
       <section className="mx-auto grid max-w-5xl grid-cols-1 gap-5 px-6 md:grid-cols-2">
         {skillCategories.map((cat) => {
-          const Icon = iconMap[cat.icon] ?? Layout;
+          const Icon = categoryIconMap[cat.icon] ?? Layout;
           return (
             <button
               key={cat.id}
@@ -87,23 +113,31 @@ export function SkillsSection() {
                 <DialogDescription className="mt-1 text-foreground/65">{active.blurb}</DialogDescription>
 
                 <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {active.items.map((item) => (
-                    <div
-                      key={item.name}
-                      className="rounded-2xl border bg-[var(--glass-bg)] p-4 backdrop-blur-sm"
-                      style={{ borderColor: "var(--glass-border)" }}
-                    >
-                      <div className="flex items-center justify-between gap-2">
+                  {active.items.map((item) => {
+                    const LucideItemIcon =
+                      item.iconType === "lucide" ? itemIconMap[item.icon] : null;
+                    return (
+                      <div
+                        key={item.name}
+                        className="flex items-center gap-3 rounded-2xl border bg-[var(--glass-bg)] p-4 backdrop-blur-sm"
+                        style={{ borderColor: "var(--glass-border)" }}
+                      >
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center">
+                          {item.iconType === "devicon" ? (
+                            <img
+                              src={item.icon}
+                              alt={item.name}
+                              className={`h-8 w-8 object-contain ${item.invertOnDark ? "dark:invert" : ""}`}
+                              loading="lazy"
+                            />
+                          ) : LucideItemIcon ? (
+                            <LucideItemIcon size={26} style={{ color: "var(--primary-accent)" }} />
+                          ) : null}
+                        </div>
                         <span className="font-medium text-foreground">{item.name}</span>
-                        <span
-                          className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${levelStyle[item.level]}`}
-                        >
-                          {item.level}
-                        </span>
                       </div>
-                      <p className="mt-2 text-xs leading-relaxed text-foreground/65">{item.description}</p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </motion.div>
             )}

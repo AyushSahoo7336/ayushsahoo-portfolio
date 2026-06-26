@@ -111,7 +111,17 @@ export const education = [
   },
 ];
 
-export type Proficiency = "Expert" | "Advanced" | "Intermediate";
+export type SkillItem = {
+  name: string;
+  /** Either a Devicon CDN URL (rendered as <img>) or a Lucide icon name (rendered as accent-colored icon). */
+  icon: string;
+  iconType: "devicon" | "lucide";
+  /** Invert image colors in dark mode (for black logos). */
+  invertOnDark?: boolean;
+};
+
+const devicon = (slug: string) =>
+  `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}.svg`;
 
 export const skillCategories: {
   id: string;
@@ -119,63 +129,64 @@ export const skillCategories: {
   blurb: string;
   icon: string;
   accent: string;
-  items: { name: string; description: string; level: Proficiency }[];
+  items: SkillItem[];
 }[] = [
+  {
+    id: "languages",
+    title: "Languages & Core",
+    blurb: "Foundational languages and computer science concepts.",
+    icon: "Terminal",
+    accent: "from-amber-500/30 to-orange-500/30",
+    items: [
+      { name: "JavaScript", icon: devicon("javascript/javascript-original"), iconType: "devicon" },
+      { name: "Java", icon: devicon("java/java-original"), iconType: "devicon" },
+      { name: "C", icon: devicon("c/c-original"), iconType: "devicon" },
+      { name: "DSA", icon: "Network", iconType: "lucide" },
+      { name: "OOP", icon: "Boxes", iconType: "lucide" },
+    ],
+  },
   {
     id: "frontend",
     title: "Frontend",
-    blurb: "Interfaces that feel instant and look intentional.",
+    blurb: "Building responsive and interactive user interfaces.",
     icon: "Layout",
     accent: "from-cyan-500/30 to-blue-600/30",
     items: [
-      { name: "React", description: "Component architecture, hooks, suspense.", level: "Expert" },
-      { name: "TypeScript", description: "Strict typing across full-stack apps.", level: "Expert" },
-      { name: "Next.js", description: "SSR, routing, and server actions.", level: "Advanced" },
-      { name: "Tailwind CSS", description: "Design tokens and utility-first styling.", level: "Expert" },
-      { name: "Framer Motion", description: "Spring physics and gesture animations.", level: "Advanced" },
-      { name: "Vite", description: "Fast dev tooling and bundling.", level: "Advanced" },
+      { name: "React.js", icon: devicon("react/react-original"), iconType: "devicon" },
+      { name: "HTML5", icon: devicon("html5/html5-original"), iconType: "devicon" },
+      { name: "CSS3", icon: devicon("css3/css3-original"), iconType: "devicon" },
+      { name: "Chart.js", icon: "PieChart", iconType: "lucide" },
     ],
   },
   {
     id: "backend",
     title: "Backend",
-    blurb: "Low-latency APIs and real-time services.",
+    blurb: "Server-side logic, APIs, and real-time communication.",
     icon: "Server",
     accent: "from-emerald-500/30 to-cyan-500/30",
     items: [
-      { name: "Node.js", description: "Event-driven services and tooling.", level: "Expert" },
-      { name: "Express", description: "REST APIs and middleware pipelines.", level: "Advanced" },
-      { name: "WebSockets", description: "Bidirectional realtime channels.", level: "Advanced" },
-      { name: "PostgreSQL", description: "Relational modeling and query tuning.", level: "Advanced" },
-      { name: "WebRTC", description: "Peer-to-peer media with TURN/STUN.", level: "Advanced" },
-      { name: "Redis", description: "Caching and pub/sub.", level: "Intermediate" },
+      { name: "Node.js", icon: devicon("nodejs/nodejs-original"), iconType: "devicon" },
+      { name: "Express.js", icon: devicon("express/express-original"), iconType: "devicon", invertOnDark: true },
+      { name: "REST APIs", icon: "Cable", iconType: "lucide" },
+      { name: "Socket.io", icon: devicon("socketio/socketio-original"), iconType: "devicon", invertOnDark: true },
+      { name: "WebSockets / WebRTC", icon: "RadioTower", iconType: "lucide" },
     ],
   },
   {
-    id: "ai",
-    title: "AI",
-    blurb: "Practical ML and LLM-powered workflows.",
-    icon: "Brain",
+    id: "data-tools",
+    title: "Databases, Tools & Cloud",
+    blurb: "Data storage, version control, deployment, and concepts.",
+    icon: "Database",
     accent: "from-purple-500/30 to-pink-500/30",
     items: [
-      { name: "Python", description: "Data tooling and ML scripting.", level: "Advanced" },
-      { name: "PyTorch", description: "Model training and inference.", level: "Intermediate" },
-      { name: "LangChain", description: "LLM chains, agents, and RAG.", level: "Intermediate" },
-      { name: "OpenAI API", description: "Chat, embeddings, and function calling.", level: "Advanced" },
-      { name: "Vector DBs", description: "Embeddings storage and similarity search.", level: "Intermediate" },
-    ],
-  },
-  {
-    id: "iot",
-    title: "IoT",
-    blurb: "Hardware that talks to the cloud.",
-    icon: "Cpu",
-    accent: "from-amber-500/30 to-orange-500/30",
-    items: [
-      { name: "Arduino", description: "Sensor wiring and embedded C.", level: "Advanced" },
-      { name: "ESP32", description: "Wi-Fi/BLE microcontroller projects.", level: "Advanced" },
-      { name: "MQTT", description: "Lightweight pub/sub for devices.", level: "Intermediate" },
-      { name: "Raspberry Pi", description: "Edge compute and Linux gateways.", level: "Intermediate" },
+      { name: "MongoDB & Mongoose", icon: devicon("mongodb/mongodb-original"), iconType: "devicon" },
+      { name: "MySQL", icon: devicon("mysql/mysql-original"), iconType: "devicon" },
+      { name: "Git & GitHub", icon: devicon("github/github-original"), iconType: "devicon", invertOnDark: true },
+      { name: "Vercel & Render", icon: devicon("vercel/vercel-original"), iconType: "devicon", invertOnDark: true },
+      { name: "Cloudinary", icon: "Cloud", iconType: "lucide" },
+      { name: "JWT & bcrypt", icon: "ShieldCheck", iconType: "lucide" },
+      { name: "DBMS", icon: "Database", iconType: "lucide" },
+      { name: "OS & Networks", icon: "ServerCog", iconType: "lucide" },
     ],
   },
 ];
