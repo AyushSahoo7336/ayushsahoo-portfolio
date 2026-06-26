@@ -213,7 +213,7 @@ function RailBtn({
     <button
       aria-label={label}
       onClick={onClick}
-      className="grid h-9 w-9 place-items-center rounded-full border bg-[var(--glass-bg)] text-foreground/70 backdrop-blur-md shadow-[var(--glass-shadow)] transition hover:text-foreground"
+      className="grid h-9 w-9 place-items-center rounded-full border bg-[var(--glass-bg)] text-foreground/70 backdrop-blur-md shadow-[var(--glass-shadow)] transition-colors duration-300 hover:border-[var(--primary-accent)]/30 hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)]"
       style={active ? { color, borderColor: color, boxShadow: `0 0 0 1px ${color}, 0 0 14px -2px ${color}` } : { borderColor: "var(--glass-border)" }}
     >
       {children}

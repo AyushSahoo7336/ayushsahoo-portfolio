@@ -1,11 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
-import { WhatICreate } from "@/components/sections/WhatICreate";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProblemSolverSection } from "@/components/sections/ProblemSolverSection";
-
 import { EducationSection } from "@/components/sections/EducationSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -38,11 +36,10 @@ function HomePage() {
         <Hero />
       </Section>
       <Marquee />
-      <WhatICreate />
       <Section id="about"><AboutSection /></Section>
       <Section id="skills"><SkillsSection /></Section>
-      <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="education"><EducationSection /></Section>
+      <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="projects"><ProjectsSection /></Section>
       <Section id="contact"><ContactSection /></Section>
       <Section id="lets-talk"><LetsTalkSection /></Section>
