@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useThemeMode } from "@/hooks/use-theme-mode";
 
 type Flake = { left: number; delay: number; dur: number; size: number; opacity: number };
 
 export function ColdFlakes() {
   const [flakes, setFlakes] = useState<Flake[]>([]);
+  const mode = useThemeMode();
+  const isLight = mode === "light";
   useEffect(() => {
     setFlakes(
       Array.from({ length: 80 }).map(() => ({
@@ -20,12 +23,13 @@ export function ColdFlakes() {
       {flakes.map((f, i) => (
         <span
           key={i}
-          className="absolute top-[-10%] rounded-full bg-white"
+          className="absolute top-[-10%] rounded-full"
           style={{
             left: `${f.left}%`,
             width: f.size,
             height: f.size,
-            opacity: f.opacity,
+            backgroundColor: isLight ? "#94a3b8" : "#ffffff",
+            opacity: isLight ? f.opacity * 0.5 : f.opacity,
             animation: `fall ${f.dur}s linear ${f.delay}s infinite`,
           }}
         />

@@ -47,7 +47,7 @@ export function ProjectsSection() {
               className="interactive-card group overflow-hidden rounded-2xl bg-white/[0.02] backdrop-blur-sm transition hover:-translate-y-1"
             >
               <div className={`relative h-40 bg-gradient-to-br ${p.accent}`}>
-                <div className="absolute inset-0 grid place-items-center font-display text-2xl font-bold text-white/90">
+                <div className="absolute inset-0 grid place-items-center font-display text-2xl font-bold text-foreground/90">
                   {p.title}
                 </div>
               </div>

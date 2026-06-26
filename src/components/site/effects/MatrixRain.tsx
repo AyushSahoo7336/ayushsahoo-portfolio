@@ -22,10 +22,15 @@ export function MatrixRain() {
     const step = (t: number) => {
       if (t - last > 120) {
         last = t;
-        ctx.fillStyle = "rgba(4,8,20,0.05)";
+        const isLight = document.documentElement.classList.contains("light");
+        ctx.fillStyle = isLight ? "rgba(248,250,252,0.10)" : "rgba(4,8,20,0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        const accent = getComputedStyle(document.documentElement).getPropertyValue("--primary-accent") || "#22d3ee";
-        ctx.fillStyle = accent.trim();
+        if (isLight) {
+          ctx.fillStyle = "#94a3b8";
+        } else {
+          const accent = getComputedStyle(document.documentElement).getPropertyValue("--primary-accent") || "#22d3ee";
+          ctx.fillStyle = accent.trim();
+        }
         ctx.font = `${fontSize}px monospace`;
         cols = Math.floor(canvas.width / fontSize);
         if (drops.length !== cols) drops = Array(cols).fill(1);
