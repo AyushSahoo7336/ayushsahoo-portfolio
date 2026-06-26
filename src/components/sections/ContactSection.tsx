@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { MessageCircle, Github, Linkedin, Twitter, Instagram, Mail, ArrowUpRight } from "lucide-react";
+import { MessageCircle, Github, Linkedin, Mail, Code2, ArrowUpRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { contacts } from "@/data/portfolio";
 
-const ICONS = { MessageCircle, Github, Linkedin, Twitter, Instagram, Mail } as const;
+const ICONS = { MessageCircle, Github, Linkedin, Mail, Code2 } as const;
 
 export function ContactSection() {
   return (

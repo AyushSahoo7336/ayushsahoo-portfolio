@@ -44,12 +44,14 @@ export function Hero() {
           {profile.tagline}
         </p>
 
-        <blockquote
-          className="mt-7 border-l-2 pl-4 text-sm italic text-foreground/55"
-          style={{ borderColor: "var(--primary-accent)" }}
-        >
-          “{profile.quote}”
-        </blockquote>
+        {profile.quote && (
+          <blockquote
+            className="mt-7 border-l-2 pl-4 text-sm italic text-foreground/55"
+            style={{ borderColor: "var(--primary-accent)" }}
+          >
+            “{profile.quote}”
+          </blockquote>
+        )}
 
         <div className="mt-8 flex flex-wrap gap-3">
           {profile.stats.map((s, i) => (

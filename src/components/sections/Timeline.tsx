@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export function Timeline({ items }: { items: { title: string; org: string; date: string }[] }) {
+export function Timeline({ items }: { items: { title: string; org: string; date: string; extra?: string }[] }) {
   return (
     <section className="mx-auto max-w-3xl px-6">
       <div className="relative border-l border-white/10 pl-8">
@@ -20,6 +20,11 @@ export function Timeline({ items }: { items: { title: string; org: string; date:
             <div className="text-xs uppercase tracking-wider text-foreground/45">{it.date}</div>
             <h3 className="mt-1 font-display text-xl font-semibold">{it.title}</h3>
             <div className="mt-1 text-sm text-foreground/60">{it.org}</div>
+            {it.extra && (
+              <div className="mt-1 text-xs font-medium" style={{ color: "var(--primary-accent)" }}>
+                {it.extra}
+              </div>
+            )}
           </motion.div>
         ))}
       </div>

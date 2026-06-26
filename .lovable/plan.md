@@ -1,23 +1,26 @@
-## Goal
-Polish Light mode: borderless glass with soft shadows, cleaner background, contained hero glow, no stray accent dot.
+- Plan: Replace placeholder content with Ayush's real data
 
-## Steps
+### 1. `src/data/portfolio.ts` — single source of truth
 
-1. **`src/styles.css` tokens**
-   - `:root` (dark): add `--glass-shadow: none;`. Keep `--glass-bg` / `--glass-border` as-is.
-   - `html.light`: set `--background: #f8fafc`, `--card: #ffffff`, `--glass-border: transparent`, `--glass-shadow: 0 8px 32px rgba(0,0,0,0.04)`, and bump `--glass-bg: rgba(255,255,255,0.7)` so cards read as clean white surfaces.
-   - Update `.interactive-card` utility: border uses `var(--glass-border)`, default `box-shadow: var(--glass-shadow)`; hover keeps accent ring (already does).
+- **profile**: name `Ayush Sahoo`, shortName `AYUSH`, role `Software Engineer`, tagline updated, remove old quote (or repurpose), stats become `{ value: "3rd Year", label: "Information Science" }` and `{ value: "3", label: "Projects Shipped" }`.
+- **marqueeWords**: refresh to fit the new focus — `SOFTWARE ENGINEER`, `REACT`, `NODE.JS`, `WEBRTC`, `DISTRIBUTED SYSTEMS`, `TYPESCRIPT`, `REAL-TIME`, `2026`.
+- **bio**: replace with the two new paragraphs.
+- **education**: single entry — `B.E. in Information Science`, `Sir M. Visvesvaraya Institute of Technology`, `2023 – 2027`, extra `CGPA: 8.26 / 10.0`.
+- **ProjectCategory**: narrow to `"Web Apps"` only; `projectCategories` becomes `["All", "Web Apps"]`.
+- **projects**: replace all 8 with VidMeet, GitVerse, StockFlow (with github + demo links and tasteful accent gradients).
+- **contacts**: Email, GitHub, LinkedIn, LeetCode (`Code2` icon), WhatsApp — drop Twitter/Instagram.
+- **skills**: tighten to match new focus (Frontend / Backend / Real-Time Systems / Data Structures & Algorithms) so the About section stays relevant.
+- **experiences**: replace with project-based "What I've built" entries (VidMeet 2025, GitVerse 2025, StockFlow 2024) so the Experience section isn't fake jobs.
 
-2. **Swap hardcoded glass classes → semantic tokens + shadow**
-   Across `Navbar`, `ControlRail`, `DownloadCv`, `Marquee`, `LetsTalkSection`, `AboutSection`, `ContactSection`, `ProjectsSection`, `WhatICreate`, `Hero` stats card and the secondary CTA: replace `border border-white/10 bg-white/[0.02|0.03] …` glass clusters with `border border-[var(--glass-border)] bg-[var(--glass-bg)] shadow-[var(--glass-shadow)]`. Pill/inline borders that aren't glass surfaces (chips inside cards, divider lines) stay on `border-white/10` since they only show in dark — but switch the most visible ones (Navbar pill, Control Rail buttons + popover, DownloadCv pill, Marquee strip, form inputs) to the semantic trio.
-   - Input fields in `LetsTalkSection` use `bg-[var(--glass-bg)] border-[var(--glass-border)]`.
-   - `ControlRail` popover container uses `bg-card` (so it's solid white in light, dark in dark) + `shadow-[var(--glass-shadow)]`.
+### 2. Component tweaks
 
-3. **Remove stray accent dot**
-   - `src/components/site/Starfield.tsx`: delete the fixed `h-3 w-3` accent dot pinned at `left:1.5rem top:50%` (the floating dot user sees).
+- **Hero.tsx**: extend `Timeline`/`education` typing change — add `extra?: string` support so CGPA line renders. Keep quote block but hide it if `profile.quote` is empty (cleaner look). No layout changes otherwise.
+- **EducationSection / Timeline.tsx**: read & render the optional `extra` line under each item (small accent-colored text for CGPA).
+- **ProjectsSection.tsx**: no logic change; categories array shrink is enough. Verify filter pill colors still work.
+- **ContactSection.tsx**: extend the `ICONS` map to include `Code2` for LeetCode.
 
-4. **Hero glow**
-   - `src/components/sections/Hero.tsx`: remove the existing giant `520px` blurred radial behind the section. Wrap the `<h1>` in a `relative` container and add the targeted glow `div` exactly as specified: `absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full -z-10 pointer-events-none` with `background-color: color-mix(in oklab, var(--primary-accent) 20%, transparent)` and `filter: blur(100px)` (Tailwind arbitrary `blur-[100px]` + accent/20 equivalent).
+### 3. Out of scope
 
-## Out of scope
-No changes to motion, fonts, or layout structure beyond the hero glow swap.
+- No restyling, no new sections, no routing changes. Light/dark theming, cursor, spotlight, preloader all untouched.
+
+Result: every visible label, link, and stat reflects Ayush's real profile; Projects filters reduce to `All / Web Apps`; Contact grid shows the 5 requested cards including LeetCode.
