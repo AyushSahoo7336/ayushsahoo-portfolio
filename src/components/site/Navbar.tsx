@@ -80,6 +80,7 @@ export function Navbar() {
                     ? "text-[var(--primary-accent)]"
                     : "text-foreground/80"
                 }`}
+              >
                 {s.label}
               </button>
             ))}
