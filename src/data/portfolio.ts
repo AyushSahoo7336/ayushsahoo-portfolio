@@ -16,13 +16,14 @@ export const profile = {
 export const navSections = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
   { id: "education", label: "Education" },
+  { id: "skills", label: "Skills" },
   { id: "leetcode", label: "LeetCode" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
   { id: "lets-talk", label: "Let's Talk" },
 ] as const;
+
 
 export const leetcode = {
   total: 341,
