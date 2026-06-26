@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Layout, Server, Brain, Cpu, ArrowUpRight, X, type LucideIcon } from "lucide-react";
+import { Layout, Server, Brain, Cpu, ArrowUpRight, type LucideIcon } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { skillCategories, type Proficiency } from "@/data/portfolio";
