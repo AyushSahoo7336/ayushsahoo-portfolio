@@ -113,8 +113,3 @@ export function SkillsSection() {
     </div>
   );
 }
-
-      </Dialog>
-    </div>
-  );
-}
