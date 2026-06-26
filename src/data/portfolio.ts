@@ -118,6 +118,7 @@ export type SkillItem = {
   iconType: "devicon" | "lucide";
   /** Invert image colors in dark mode (for black logos). */
   invertOnDark?: boolean;
+  description: string;
 };
 
 const devicon = (slug: string) =>
