@@ -1,60 +1,53 @@
-## Plan: LeetCode Dashboard + Bento Projects Grid
+## Plan: Live LeetCode + Skill Modals + Flip Projects
 
-### 1. New "Problem Solver" Dashboard section
+### 1. Live LeetCode in `ProblemSolverSection.tsx`
 
-Create `src/components/sections/ProblemSolverSection.tsx`:
-- Full-width glass container (`interactive-card rounded-3xl p-8 md:p-12 bg-[var(--glass-bg)] border-[var(--glass-border)] shadow-[var(--glass-shadow)] backdrop-blur-sm`).
-- Two-column grid (`md:grid-cols-2 gap-10`):
-  - **Left**: Eyebrow "LeetCode", H2 "Algorithmic Problem Solver" (Space Grotesk / `font-display`), subtext, and a small CTA link to the LeetCode profile (`https://leetcode.com/AyushSahoo1`).
-  - **Right**: Metrics block —
-    - Huge "341" counter (`text-7xl font-display`) with "Solved" label, accent-colored.
-    - Three thin glowing progress bars: Easy (163), Medium (153), Hard (25), each with label, count, and a bar using `var(--primary-accent)` with `box-shadow` glow; widths proportional to totals.
-    - "296-Day Max Streak" badge pill with a pulsing accent dot (`animate-ping` over a solid dot).
+- Add `useEffect` + `useState` to fetch `https://leetcode-stats-api.herokuapp.com/api/v1/AyushSahoo1` on mount.
+- States: `data | null`, `loading: boolean`. On failure or non-OK response, fall back to the static object in `src/data/portfolio.ts` (`{ total: 341, easy: 163, medium: 153, hard: 25, streak: 296 }`).
+- Map API fields → UI: `totalSolved → total`, `easySolved → easy`, `mediumSolved → medium`, `hardSolved → hard`. Streak stays static (API doesn't expose it).
+- While `loading`, render skeleton placeholders (using existing `Skeleton` from `src/components/ui/skeleton.tsx`) for the big counter, the three progress bars, and the streak badge — same layout slots so nothing shifts.
+- Animate the final count up on load with a short framer transition; bars animate to their `pct` width once data arrives.
 
-Add LeetCode stats to `src/data/portfolio.ts`:
-```ts
-export const leetcode = {
-  total: 341, easy: 163, medium: 153, hard: 25,
-  streak: 296, profile: "https://leetcode.com/AyushSahoo1",
-};
-```
+### 2. Interactive Skill Modals — new `SkillsSection.tsx`
 
-Wire into `src/routes/index.tsx` between About and Education (before Projects, per request — currently order is About → Education → Projects; will insert between About and Education so it sits before Projects as specified):
-```
-About → ProblemSolver → Education → Projects
-```
+- New file `src/components/sections/SkillsSection.tsx`, inserted in `src/routes/index.tsx` between `WhatICreate` and `AboutSection` (replacing nothing; `WhatICreate` stays). Add nav entry `{ id: "skills", label: "Skills" }` to `navSections` in `portfolio.ts`, between `about` and `leetcode`.
+- Extend `src/data/portfolio.ts` with a new `skillCategories` array (keeps existing `skills` untouched to avoid breaking anything that reads it):
+  ```ts
+  type Proficiency = "Expert" | "Advanced" | "Intermediate";
+  skillCategories: {
+    id, title, blurb, icon, accent,
+    items: { name, description, level: Proficiency }[]
+  }[]
+  ```
+  Four categories: Frontend, Backend, AI, IoT. Populate with realistic tech for Ayush (React/Next/TS/Tailwind; Node/Express/WebSockets/Postgres; Python/PyTorch/LangChain/OpenAI API; Arduino/ESP32/MQTT/Raspberry Pi). Proficiency tuned per item.
+- UI:
+  - Section uses existing `PageHeader` ("My Skills" / "Tech I work with").
+  - 2x2 responsive grid (`grid-cols-1 md:grid-cols-2 gap-5`) of `interactive-card` category tiles. Each tile: lucide icon in accent, title, blurb, item count, and a bottom-right "Click to explore →" chip that animates on hover.
+  - On click, open a modal using shadcn `Dialog` (`src/components/ui/dialog.tsx`) with glass styling: `bg-[var(--glass-bg)] backdrop-blur-xl` + accent border.
+  - Modal body: 2-column responsive grid of mini-cards per technology — name, short description, and a proficiency badge color-coded via `var(--primary-accent)` only for one swatch; level colors fixed:
+    - Expert → emerald (`bg-emerald-500/15 text-emerald-300 border-emerald-500/30`)
+    - Advanced → purple (`bg-purple-500/15 text-purple-300 border-purple-500/30`)
+    - Intermediate → amber (`bg-amber-500/15 text-amber-300 border-amber-500/30`)
+  - In light mode, swap text shades to `-700` variants via `dark:` prefix logic.
 
-Add nav entry `{ id: "leetcode", label: "LeetCode" }` to `navSections` in `portfolio.ts`.
+### 3. Horizontal 3D Flip Projects — rewrite `ProjectsSection.tsx`
 
-### 2. Refactor `ProjectsSection.tsx` — Asymmetrical Bento Grid
+- Discard bento + tilt. New layout: `grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6`. Each card fixed height (`h-[420px]`).
+- New component `src/components/site/FlipCard.tsx`:
+  - Outer wrapper: `style={{ perspective: 1000 }}`, `group h-full w-full`.
+  - Inner `motion.div`: `transformStyle: "preserve-3d"`, `whileHover={{ rotateY: 180 }}`, `transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}`, `className="relative h-full w-full"`.
+  - Front face: `absolute inset-0 [backface-visibility:hidden] rounded-3xl overflow-hidden`, dark gradient via `bg-gradient-to-br ${project.accent}` + dark scrim + accent glow blob, project title (`font-display text-4xl`) bottom-left, category eyebrow top-left.
+  - Back face: `absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl p-6 bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-xl flex flex-col gap-4`. Contents: title, description, tech chips, GitHub + Live Demo buttons (same styling as before).
+- `ProjectsSection` becomes thin: header + grid of `<FlipCard project={p} />`.
+- Delete `src/components/site/TiltCard.tsx` (no longer referenced).
 
-- Remove the existing uniform 3-column grid + category filter chips (keep the data, drop the filter UI to commit to the bento layout; or keep filter row above grid — will keep filter row since it was previously requested).
-- New grid:
-  - Row 1: VidMeet — `col-span-2` full-width feature card, taller (`h-[420px]`).
-  - Row 2: GitVerse + StockFlow — two cards side-by-side (`md:grid-cols-2`, `h-[340px]`).
-- Container: `mx-auto grid max-w-6xl gap-5 px-6 md:grid-cols-2`.
+### Files
 
-### 3. 3D Parallax Tilt + Hover Reveal
+- **New**: `src/components/sections/SkillsSection.tsx`, `src/components/site/FlipCard.tsx`.
+- **Edit**: `src/data/portfolio.ts` (add `skillCategories`, add `skills` nav entry), `src/routes/index.tsx` (mount Skills section), `src/components/sections/ProblemSolverSection.tsx` (live fetch + skeleton + fallback), `src/components/sections/ProjectsSection.tsx` (horizontal flip grid).
+- **Delete**: `src/components/site/TiltCard.tsx`.
 
-Create `src/components/site/TiltCard.tsx`:
-- Wraps children in a `motion.div` with `style={{ transformStyle: "preserve-3d", perspective: 1000 }}`.
-- Tracks pointer with `useMotionValue(x,y)` → `useSpring` → `useTransform` to `rotateX` (±8deg) and `rotateY` (±8deg).
-- Resets on `onPointerLeave`.
+### Notes / caveats
 
-Project card interior (inside TiltCard):
-- Full-bleed dark gradient background using project `accent` (`bg-gradient-to-br ...`) plus an inner radial accent glow.
-- Always visible: large title (`font-display text-3xl md:text-5xl`) bottom-left, small category eyebrow top-left.
-- Hover-only overlay (absolute inset-0, dark scrim) containing description, tech chips, and GitHub / Live Demo buttons:
-  - Uses `group-hover:` + Framer Motion `motion.div` with `initial={{ y: 20, opacity: 0 }}` and `whileHover` driven via parent group state (use a local `useState hovered`).
-- Tech chips: derive a short list per project (add `tech?: string[]` to project type in `portfolio.ts` and populate for the 3 projects).
-
-### Files touched
-
-- **New**: `src/components/sections/ProblemSolverSection.tsx`, `src/components/site/TiltCard.tsx`.
-- **Edit**: `src/data/portfolio.ts` (add `leetcode`, `tech` per project, nav entry), `src/routes/index.tsx` (insert section), `src/components/sections/ProjectsSection.tsx` (bento + tilt + hover reveal), `src/components/site/Navbar.tsx` only if needed (it reads `navSections` already, so no change).
-
-### Notes
-
-- All colors via semantic tokens + `var(--primary-accent)` so light/dark + accent switcher keep working.
-- Tilt respects existing custom cursor (no `cursor` overrides).
-- Hover reveal uses Framer Motion `AnimatePresence` keyed on local hover state for smooth y/opacity transition.
+- The Heroku LeetCode API is third-party and frequently rate-limits or sleeps; the static fallback is the user-visible safety net.
+- All styling stays on semantic tokens + `var(--primary-accent)` so theme + accent switcher keep working in both light and dark.
