@@ -1,53 +1,58 @@
-## Plan: Live LeetCode + Skill Modals + Flip Projects
+## Scope
 
-### 1. Live LeetCode in `ProblemSolverSection.tsx`
+A polish pass across navigation, sections, hover physics, modals, and a global scroll-reveal system. No backend changes.
 
-- Add `useEffect` + `useState` to fetch `https://leetcode-stats-api.herokuapp.com/api/v1/AyushSahoo1` on mount.
-- States: `data | null`, `loading: boolean`. On failure or non-OK response, fall back to the static object in `src/data/portfolio.ts` (`{ total: 341, easy: 163, medium: 153, hard: 25, streak: 296 }`).
-- Map API fields → UI: `totalSolved → total`, `easySolved → easy`, `mediumSolved → medium`, `hardSolved → hard`. Streak stays static (API doesn't expose it).
-- While `loading`, render skeleton placeholders (using existing `Skeleton` from `src/components/ui/skeleton.tsx`) for the big counter, the three progress bars, and the streak badge — same layout slots so nothing shifts.
-- Animate the final count up on load with a short framer transition; bars animate to their `pct` width once data arrives.
+## 1. Cleanup & Section Order
 
-### 2. Interactive Skill Modals — new `SkillsSection.tsx`
+- Delete `src/components/sections/WhatICreate.tsx` and remove all imports/usages.
+- Rewrite `src/routes/index.tsx` to stack sections in this order:
+  Hero → About → Skills → Education (+Certifications) → Problem Solver → Projects → Contact → Let's Talk.
+- Update `navSections` in `src/data/portfolio.ts` so the top navbar reflects the same order (no "Certifications" item; it lives inside Education).
 
-- New file `src/components/sections/SkillsSection.tsx`, inserted in `src/routes/index.tsx` between `WhatICreate` and `AboutSection` (replacing nothing; `WhatICreate` stays). Add nav entry `{ id: "skills", label: "Skills" }` to `navSections` in `portfolio.ts`, between `about` and `leetcode`.
-- Extend `src/data/portfolio.ts` with a new `skillCategories` array (keeps existing `skills` untouched to avoid breaking anything that reads it):
-  ```ts
-  type Proficiency = "Expert" | "Advanced" | "Intermediate";
-  skillCategories: {
-    id, title, blurb, icon, accent,
-    items: { name, description, level: Proficiency }[]
-  }[]
-  ```
-  Four categories: Frontend, Backend, AI, IoT. Populate with realistic tech for Ayush (React/Next/TS/Tailwind; Node/Express/WebSockets/Postgres; Python/PyTorch/LangChain/OpenAI API; Arduino/ESP32/MQTT/Raspberry Pi). Proficiency tuned per item.
-- UI:
-  - Section uses existing `PageHeader` ("My Skills" / "Tech I work with").
-  - 2x2 responsive grid (`grid-cols-1 md:grid-cols-2 gap-5`) of `interactive-card` category tiles. Each tile: lucide icon in accent, title, blurb, item count, and a bottom-right "Click to explore →" chip that animates on hover.
-  - On click, open a modal using shadcn `Dialog` (`src/components/ui/dialog.tsx`) with glass styling: `bg-[var(--glass-bg)] backdrop-blur-xl` + accent border.
-  - Modal body: 2-column responsive grid of mini-cards per technology — name, short description, and a proficiency badge color-coded via `var(--primary-accent)` only for one swatch; level colors fixed:
-    - Expert → emerald (`bg-emerald-500/15 text-emerald-300 border-emerald-500/30`)
-    - Advanced → purple (`bg-purple-500/15 text-purple-300 border-purple-500/30`)
-    - Intermediate → amber (`bg-amber-500/15 text-amber-300 border-amber-500/30`)
-  - In light mode, swap text shades to `-700` variants via `dark:` prefix logic.
+## 2. Skills Section Polish
 
-### 3. Horizontal 3D Flip Projects — rewrite `ProjectsSection.tsx`
+- Fix the eyebrow in `SkillsSection.tsx` to `MY SKILLS` (uppercase + tracking already handled by `PageHeader`).
+- Build a small `SpotlightCard` wrapper component (`src/components/site/SpotlightCard.tsx`) that:
+  - Tracks pointer X/Y via `onMouseMove` and writes them to CSS vars (`--mx`, `--my`).
+  - Overlays a `radial-gradient(circle at var(--mx) var(--my), color-mix(in oklab, var(--primary-accent) 12%, transparent), transparent 40%)` that fades in on hover.
+- Wrap each of the 4 Skills category buttons in `SpotlightCard`.
 
-- Discard bento + tilt. New layout: `grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6`. Each card fixed height (`h-[420px]`).
-- New component `src/components/site/FlipCard.tsx`:
-  - Outer wrapper: `style={{ perspective: 1000 }}`, `group h-full w-full`.
-  - Inner `motion.div`: `transformStyle: "preserve-3d"`, `whileHover={{ rotateY: 180 }}`, `transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}`, `className="relative h-full w-full"`.
-  - Front face: `absolute inset-0 [backface-visibility:hidden] rounded-3xl overflow-hidden`, dark gradient via `bg-gradient-to-br ${project.accent}` + dark scrim + accent glow blob, project title (`font-display text-4xl`) bottom-left, category eyebrow top-left.
-  - Back face: `absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl p-6 bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-xl flex flex-col gap-4`. Contents: title, description, tech chips, GitHub + Live Demo buttons (same styling as before).
-- `ProjectsSection` becomes thin: header + grid of `<FlipCard project={p} />`.
-- Delete `src/components/site/TiltCard.tsx` (no longer referenced).
+## 3. Premium Skill Modal Cards
 
-### Files
+- In the Skills modal, restyle each item as a glass mini-card: `bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-4` (use semantic equivalents so light mode still works: `bg-foreground/5 border-foreground/10`).
+- Logo on the left (Devicon/Lucide), name + description stacked on the right.
 
-- **New**: `src/components/sections/SkillsSection.tsx`, `src/components/site/FlipCard.tsx`.
-- **Edit**: `src/data/portfolio.ts` (add `skillCategories`, add `skills` nav entry), `src/routes/index.tsx` (mount Skills section), `src/components/sections/ProblemSolverSection.tsx` (live fetch + skeleton + fallback), `src/components/sections/ProjectsSection.tsx` (horizontal flip grid).
-- **Delete**: `src/components/site/TiltCard.tsx`.
+## 4. Control Rail Hover States
 
-### Notes / caveats
+- In `src/components/site/ControlRail.tsx`, update each icon button to transition smoothly to:
+  `hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] hover:border-[var(--primary-accent)]/30`
+  with `transition-colors duration-300`.
 
-- The Heroku LeetCode API is third-party and frequently rate-limits or sleeps; the static fallback is the user-visible safety net.
-- All styling stays on semantic tokens + `var(--primary-accent)` so theme + accent switcher keep working in both light and dark.
+## 5. Education & Certifications
+
+- Rename the section heading to `Education` in `EducationSection.tsx`.
+- Add a `Certifications` sub-heading below the timeline.
+- Build a 3-column grid (`grid-cols-1 md:grid-cols-3 gap-6`) with 3 dummy `CertificateCard`s:
+  - `aspect-video bg-muted/20` placeholder image area.
+  - Title, Issuer, Date.
+  - Glass styling consistent with the rest of the site.
+- Dummy data inline for now (AWS Certified Developer / Meta Frontend / Google Cloud Associate) — easy to swap later.
+
+## 6. Global Scroll Reveal System
+
+- Create `src/components/site/Reveal.tsx`:
+  - Props: `delay?`, `y?`, `as?`.
+  - Uses `motion.div` with `initial={{ opacity: 0, y: 40 }}`, `whileInView={{ opacity: 1, y: 0 }}`, `viewport={{ once: true, margin: "-100px" }}`, `transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay }}`.
+- Apply to every section's header (via `PageHeader` getting an internal `Reveal` wrap) and to major content blocks in About, Education, Problem Solver, Contact, Let's Talk.
+- Staggered grids: in Skills, Projects, and Certifications, wrap each card in `<Reveal delay={index * 0.15}>` so they cascade in.
+
+## Files Touched
+
+- Delete: `src/components/sections/WhatICreate.tsx`
+- New: `src/components/site/SpotlightCard.tsx`, `src/components/site/Reveal.tsx`
+- Edit: `src/routes/index.tsx`, `src/data/portfolio.ts`, `src/components/site/Navbar.tsx` (only if it reads order from a different source), `src/components/site/PageHeader.tsx`, `src/components/site/ControlRail.tsx`, `src/components/sections/SkillsSection.tsx`, `src/components/sections/EducationSection.tsx`, `src/components/sections/ProjectsSection.tsx`, `src/components/sections/AboutSection.tsx`, `src/components/sections/ProblemSolverSection.tsx`, `src/components/sections/ContactSection.tsx`, `src/components/sections/LetsTalkSection.tsx`
+
+## Out of Scope
+
+- No data/content changes besides the dummy certifications.
+- No accent-palette or theme-token changes.
