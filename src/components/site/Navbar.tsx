@@ -34,7 +34,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-4 z-40 mx-auto w-full max-w-6xl px-4">
-      <nav className="rounded-2xl border bg-[var(--glass-bg)] px-5 py-3 backdrop-blur-xl shadow-[var(--glass-shadow)]" style={{ borderColor: "var(--glass-border)" }}>
+      <nav className="rounded-2xl border bg-background/80 px-5 py-3 backdrop-blur-md shadow-[var(--glass-shadow)]" style={{ borderColor: "var(--glass-border)" }}>
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToId("home")}
@@ -48,10 +48,11 @@ export function Navbar() {
               <button
                 key={s.id}
                 onClick={() => scrollToId(s.id)}
-                className="text-sm transition-colors"
-                style={{
-                  color: active === s.id ? "var(--primary-accent)" : "rgba(255,255,255,0.65)",
-                }}
+                className={`text-sm transition-colors ${
+                  active === s.id
+                    ? "text-[var(--primary-accent)]"
+                    : "text-foreground/70 hover:text-foreground"
+                }`}
               >
                 {s.label}
               </button>
@@ -66,7 +67,7 @@ export function Navbar() {
           </button>
         </div>
         {open && (
-          <div className="mt-3 grid gap-2 border-t border-white/10 pt-3 md:hidden">
+          <div className="mt-3 grid gap-2 border-t border-border pt-3 md:hidden">
             {navSections.map((s) => (
               <button
                 key={s.id}
@@ -74,8 +75,11 @@ export function Navbar() {
                   scrollToId(s.id);
                   setOpen(false);
                 }}
-                className="rounded-md px-2 py-1.5 text-left text-sm text-foreground/80 hover:bg-white/5"
-                style={active === s.id ? { color: "var(--primary-accent)" } : undefined}
+                className={`rounded-md px-2 py-1.5 text-left text-sm hover:bg-foreground/5 ${
+                  active === s.id
+                    ? "text-[var(--primary-accent)]"
+                    : "text-foreground/80"
+                }`}
               >
                 {s.label}
               </button>
