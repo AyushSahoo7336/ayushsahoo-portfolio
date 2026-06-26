@@ -112,14 +112,14 @@ export function SkillsSection() {
                 </DialogTitle>
                 <DialogDescription className="mt-1 text-foreground/65">{active.blurb}</DialogDescription>
 
-                <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {active.items.map((item) => {
                     const LucideItemIcon =
                       item.iconType === "lucide" ? itemIconMap[item.icon] : null;
                     return (
                       <div
                         key={item.name}
-                        className="flex items-center gap-3 rounded-2xl border bg-[var(--glass-bg)] p-4 backdrop-blur-sm"
+                        className="flex gap-4 rounded-2xl border bg-[var(--glass-bg)] p-4 backdrop-blur-sm transition-colors hover:border-[var(--primary-accent)]/30"
                         style={{ borderColor: "var(--glass-border)" }}
                       >
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center">
@@ -134,7 +134,10 @@ export function SkillsSection() {
                             <LucideItemIcon size={26} style={{ color: "var(--primary-accent)" }} />
                           ) : null}
                         </div>
-                        <span className="font-medium text-foreground">{item.name}</span>
+                        <div className="flex flex-col gap-1">
+                          <span className="font-display font-bold text-foreground">{item.name}</span>
+                          <span className="text-xs leading-relaxed text-foreground/60">{item.description}</span>
+                        </div>
                       </div>
                     );
                   })}
