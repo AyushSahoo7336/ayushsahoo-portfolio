@@ -16,12 +16,21 @@ export const profile = {
 export const navSections = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  
+  { id: "leetcode", label: "LeetCode" },
   { id: "education", label: "Education" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
   { id: "lets-talk", label: "Let's Talk" },
 ] as const;
+
+export const leetcode = {
+  total: 341,
+  easy: 163,
+  medium: 153,
+  hard: 25,
+  streak: 296,
+  profile: "https://leetcode.com/AyushSahoo1",
+};
 
 export const marqueeWords = [
   "SOFTWARE ENGINEER",
@@ -112,6 +121,7 @@ export const projects: {
   github?: string;
   demo?: string;
   accent: string;
+  tech?: string[];
 }[] = [
   {
     title: "VidMeet",
@@ -121,6 +131,7 @@ export const projects: {
     github: "https://github.com/AyushSahoo7336/VidMeet",
     demo: "https://vidmeet-chi.vercel.app",
     accent: "from-cyan-500/40 to-blue-600/40",
+    tech: ["WebRTC", "React", "Node.js", "Socket.IO", "TURN/STUN"],
   },
   {
     title: "GitVerse",
@@ -130,6 +141,7 @@ export const projects: {
     github: "https://github.com/AyushSahoo7336/GitVerse",
     demo: "https://gitverse-rust.vercel.app",
     accent: "from-purple-500/40 to-cyan-500/40",
+    tech: ["Node.js", "CLI", "AWS S3", "React"],
   },
   {
     title: "StockFlow",
@@ -139,6 +151,7 @@ export const projects: {
     github: "https://github.com/AyushSahoo7336/StockFlow",
     demo: "https://stock-flow.live",
     accent: "from-emerald-500/40 to-cyan-500/40",
+    tech: ["C++", "Node.js", "Heaps", "WebSockets"],
   },
 ];
 
