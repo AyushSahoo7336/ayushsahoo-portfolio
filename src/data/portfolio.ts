@@ -1,14 +1,14 @@
 export const profile = {
-  name: "Your Name",
-  shortName: "YOU",
-  role: "Software Developer",
+  name: "Ayush Sahoo",
+  shortName: "AYUSH",
+  role: "Software Engineer",
   tagline:
-    "I craft exceptional digital experiences through clean code and creative solutions. From web apps to mobile and games, I bring ideas to life.",
-  quote: "I believe in what I can learn to do, not just in what I can already do.",
+    "I build real-time systems that respond fast — from peer-to-peer video calls to algorithmic trading engines. Currently focused on React, Node.js, and distributed architecture.",
+  quote: "",
   welcome: "Welcome to my world",
   stats: [
-    { value: "3+", label: "Years Experience" },
-    { value: "10+", label: "Projects Completed" },
+    { value: "3rd Year", label: "Information Science" },
+    { value: "3", label: "Projects Shipped" },
   ],
   cvUrl: "/cv.pdf",
 };
@@ -24,97 +24,86 @@ export const navSections = [
 ] as const;
 
 export const marqueeWords = [
-  "DEVELOPER",
+  "SOFTWARE ENGINEER",
   "2026",
-  "FRONTEND",
-  "BACKEND",
-  "MOBILE",
-  "GAME DEV",
   "REACT",
-  "UNITY",
+  "NODE.JS",
+  "WEBRTC",
+  "DISTRIBUTED SYSTEMS",
   "TYPESCRIPT",
+  "REAL-TIME",
 ];
 
 export const skills = [
   {
-    title: "Frontend Development",
-    short: "React, Vue, Next.js",
+    title: "Frontend Engineering",
+    short: "React, Next.js, TypeScript",
     blurb:
-      "Building responsive, accessible, and performant user interfaces with modern frameworks and tools.",
-    tech: ["React", "Vue.js", "Next.js", "TypeScript", "Tailwind CSS"],
+      "Building fast, responsive interfaces with React and TypeScript — focused on real-time UI updates and clean component architecture.",
+    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vite"],
     icon: "Layout",
   },
   {
-    title: "Backend Development",
-    short: "Node.js, Python, APIs",
+    title: "Backend Engineering",
+    short: "Node.js, APIs, WebSockets",
     blurb:
-      "Designing and implementing scalable APIs, microservices, and server-side applications.",
-    tech: ["Node.js", "Python", "PostgreSQL", "MongoDB", "GraphQL"],
+      "Designing low-latency APIs and real-time services with Node.js, WebSockets, and message-driven architectures.",
+    tech: ["Node.js", "Express", "WebSockets", "REST", "PostgreSQL"],
     icon: "Server",
   },
   {
-    title: "Mobile Development",
-    short: "React Native, Flutter",
-    blurb: "Creating cross-platform mobile applications with native-like performance and UX.",
-    tech: ["React Native", "Flutter", "Expo", "iOS", "Android"],
+    title: "Real-Time Systems",
+    short: "WebRTC, P2P, Streaming",
+    blurb:
+      "Peer-to-peer media, signaling servers, TURN/STUN fallbacks, and the protocol work that makes calls actually connect.",
+    tech: ["WebRTC", "Socket.IO", "TURN/STUN", "Mediasoup", "RxJS"],
     icon: "Smartphone",
   },
   {
-    title: "Game Development",
-    short: "Unity, Godot",
-    blurb: "Developing immersive gaming experiences from concept to release across platforms.",
-    tech: ["Unity", "Godot", "C#", "GDScript", "Game Design"],
+    title: "Data Structures & Algorithms",
+    short: "DSA, system design",
+    blurb:
+      "Heaps, trees, graphs — picking the right structure to turn an O(N) loop into an O(log N) operation in production code.",
+    tech: ["C++", "Heaps", "Trees", "Graphs", "System Design"],
     icon: "Gamepad2",
   },
 ];
 
 export const bio = [
-  "I'm a full-stack developer with a passion for creating beautiful and functional applications. With over 3 years of experience, I've worked on everything from startup MVPs to enterprise-scale applications.",
-  "I focus on shipping real products — web, mobile, and games — balancing speed, quality, and long-term maintainability.",
+  "I'm a full-stack developer focused on real-time systems — the kind where milliseconds matter. Over the past year I've independently built and deployed three production applications: a WebRTC video conferencing platform, a distributed version control system, and an algorithmic trading engine.",
+  "I'm currently a 3rd-year Information Science student at Sir M. Visvesvaraya Institute of Technology, and I'm looking for an SDE internship where I can work on real systems with a real team.",
 ];
 
 export const experiences = [
-  { title: "Software Developer", org: "Company Name", date: "2025 – Present" },
-  { title: "Software Developer", org: "Previous Company", date: "2025" },
   {
-    title: "Certificate of Appreciation & Participation",
-    org: "Training Center",
+    title: "VidMeet — Real-Time Video Conferencing",
+    org: "Independent Project · WebRTC, Node.js, React",
     date: "2025",
   },
   {
-    title: "Game Developer (Unity Engine)",
-    org: "Independent Game Development Team",
-    date: "2024 – Present",
+    title: "GitVerse — Distributed Version Control",
+    org: "Independent Project · Node.js, CLI, Cloud Sync",
+    date: "2025",
   },
   {
-    title: "Game Developer (Godot Engine)",
-    org: "Independent Game Development Team",
-    date: "2023",
+    title: "StockFlow — Algorithmic Trading Engine",
+    org: "Independent Project · C++/Node.js, Heap-based Matching",
+    date: "2024",
   },
-  { title: "Freelance Front-End Developer", org: "Self-Employed", date: "2022" },
 ];
 
 export const education = [
-  { title: "Diploma in Digital Development", org: "Institute Name", date: "2023 – 2025" },
-  { title: "Deug Economie", org: "Economics Faculty", date: "2021 – 2023" },
-  { title: "Scientific Baccalaureate", org: "High School", date: "2021" },
+  {
+    title: "B.E. in Information Science",
+    org: "Sir M. Visvesvaraya Institute of Technology",
+    date: "2023 – 2027",
+    extra: "CGPA: 8.26 / 10.0",
+  },
 ];
 
-export type ProjectCategory =
-  | "Mobile"
-  | "Desktop"
-  | "Websites"
-  | "Extensions"
-  | "Other";
+export type ProjectCategory = "Web Apps";
 
-export const projectCategories: ("All" | ProjectCategory)[] = [
-  "All",
-  "Mobile",
-  "Desktop",
-  "Websites",
-  "Extensions",
-  "Other",
-];
+export const projectCategories: ("All" | ProjectCategory)[] = ["All", "Web Apps"];
 
 export const projects: {
   title: string;
@@ -125,71 +114,38 @@ export const projects: {
   accent: string;
 }[] = [
   {
-    title: "Project One",
-    blurb: "A short one-line description of what this project does and who it's for.",
-    category: "Websites",
-    github: "https://github.com/",
-    demo: "https://example.com/",
+    title: "VidMeet",
+    blurb:
+      "Real-time video conferencing platform with peer-to-peer audio/video, screen sharing, and TURN/STUN fallback for restrictive networks.",
+    category: "Web Apps",
+    github: "https://github.com/AyushSahoo7336/VidMeet",
+    demo: "https://vidmeet-chi.vercel.app",
     accent: "from-cyan-500/40 to-blue-600/40",
   },
   {
-    title: "Project Two",
-    blurb: "Full-stack management system with role-based access control.",
-    category: "Websites",
-    github: "https://github.com/",
+    title: "GitVerse",
+    blurb:
+      "Distributed version control system with a custom CLI, cloud sync, and a dashboard for commit history visualization.",
+    category: "Web Apps",
+    github: "https://github.com/AyushSahoo7336/GitVerse",
+    demo: "https://gitverse-rust.vercel.app",
     accent: "from-purple-500/40 to-cyan-500/40",
   },
   {
-    title: "Project Three",
-    blurb: "Modern content browser with search, filters, and media playback.",
-    category: "Websites",
-    github: "https://github.com/",
-    demo: "https://example.com/",
-    accent: "from-orange-500/40 to-pink-500/40",
-  },
-  {
-    title: "Project Four",
-    blurb: "Project management platform designed to boost productivity.",
-    category: "Websites",
-    github: "https://github.com/",
-    demo: "https://example.com/",
+    title: "StockFlow",
+    blurb:
+      "Algorithmic trading engine using Min-Heap/Max-Heap priority queues to cut order evaluation from O(N) to O(log N).",
+    category: "Web Apps",
+    github: "https://github.com/AyushSahoo7336/StockFlow",
+    demo: "https://stock-flow.live",
     accent: "from-emerald-500/40 to-cyan-500/40",
-  },
-  {
-    title: "Mobile App",
-    blurb: "React Native app for note-taking, organizing, and reminders.",
-    category: "Mobile",
-    github: "https://github.com/",
-    accent: "from-indigo-500/40 to-purple-600/40",
-  },
-  {
-    title: "Desktop Tool",
-    blurb: "Lightweight, fast desktop utility with a clean UI.",
-    category: "Desktop",
-    github: "https://github.com/",
-    accent: "from-rose-500/40 to-orange-500/40",
-  },
-  {
-    title: "Browser Extension",
-    blurb: "Organize your browser chaos in seconds.",
-    category: "Extensions",
-    github: "https://github.com/",
-    accent: "from-yellow-500/40 to-rose-500/40",
-  },
-  {
-    title: "CLI / Other",
-    blurb: "A terminal tool built for speed and efficiency.",
-    category: "Other",
-    github: "https://github.com/",
-    accent: "from-cyan-400/40 to-emerald-500/40",
   },
 ];
 
 export const contacts = [
-  { platform: "WhatsApp", handle: "+1 555 123 4567", href: "https://wa.me/15551234567", icon: "MessageCircle" },
-  { platform: "GitHub", handle: "@your-handle", href: "https://github.com/", icon: "Github" },
-  { platform: "LinkedIn", handle: "@your-handle", href: "https://linkedin.com/", icon: "Linkedin" },
-  { platform: "Twitter", handle: "@your-handle", href: "https://twitter.com/", icon: "Twitter" },
-  { platform: "Instagram", handle: "@your-handle", href: "https://instagram.com/", icon: "Instagram" },
-  { platform: "Email", handle: "you@example.com", href: "mailto:you@example.com", icon: "Mail" },
+  { platform: "Email", handle: "ayush733695@gmail.com", href: "mailto:ayush733695@gmail.com", icon: "Mail" },
+  { platform: "GitHub", handle: "@AyushSahoo7336", href: "https://github.com/AyushSahoo7336", icon: "Github" },
+  { platform: "LinkedIn", handle: "@ayush-sahoo-63515b186", href: "https://linkedin.com/in/ayush-sahoo-63515b186", icon: "Linkedin" },
+  { platform: "LeetCode", handle: "@AyushSahoo1", href: "https://leetcode.com/AyushSahoo1", icon: "Code2" },
+  { platform: "WhatsApp", handle: "+91 9756212879", href: "https://wa.me/919756212879", icon: "MessageCircle" },
 ];
