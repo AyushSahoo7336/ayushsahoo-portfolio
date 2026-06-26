@@ -55,7 +55,7 @@ export function Hero() {
           {profile.stats.map((s, i) => (
             <div
               key={s.label}
-              className="interactive-card flex items-center gap-3 rounded-2xl bg-white/[0.02] px-4 py-3 backdrop-blur-sm"
+              className="interactive-card flex items-center gap-3 rounded-2xl bg-[var(--glass-bg)] px-4 py-3 backdrop-blur-sm"
             >
               <span
                 className="grid h-9 w-9 place-items-center rounded-lg"
@@ -84,7 +84,8 @@ export function Hero() {
           </button>
           <button
             onClick={() => scrollTo("lets-talk")}
-            className="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/5"
+            className="rounded-full border bg-[var(--glass-bg)] px-6 py-3 text-sm font-semibold text-foreground shadow-[var(--glass-shadow)] transition hover:opacity-80"
+            style={{ borderColor: "var(--glass-border)" }}
           >
             Let's Talk
           </button>
