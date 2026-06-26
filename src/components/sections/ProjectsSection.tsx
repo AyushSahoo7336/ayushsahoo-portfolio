@@ -13,7 +13,7 @@ export function ProjectsSection() {
     <div className="pb-20">
       <PageHeader
         eyebrow="My Projects"
-        title={<>Things I've <span style={{ color: "var(--primary-accent)" }}>built</span></>}
+        title={<>Things I&apos;ve <span style={{ color: "var(--primary-accent)" }}>built</span></>}
         intro="Click any project to see the full breakdown."
       />
       <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-3">
@@ -60,24 +60,28 @@ export function ProjectsSection() {
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent
-          className="max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl sm:max-w-3xl"
+          className="max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl sm:max-w-2xl"
           style={{ borderColor: "var(--glass-border)" }}
         >
           {active && (
             <>
-              <div className={`relative aspect-video w-full overflow-hidden bg-gradient-to-br ${active.accent}`}>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div
-                  className="absolute -right-16 -top-16 h-64 w-64 rounded-full opacity-60 blur-3xl"
-                  style={{ background: "var(--primary-accent)" }}
-                />
+              <div className="relative h-[250px] w-full overflow-hidden rounded-t-xl bg-muted/30">
+                {active.image ? (
+                  <img
+                    src={active.image}
+                    alt={active.title}
+                    className="h-full w-full object-cover object-top"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+                    <span className="text-sm font-medium">Project Screenshot</span>
+                  </div>
+                )}
               </div>
-              <div className="flex flex-col gap-5 p-6 md:p-8">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <DialogTitle className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                    {active.title}
-                  </DialogTitle>
-                </div>
+              <div className="flex flex-col gap-4 p-6">
+                <DialogTitle className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                  {active.title}
+                </DialogTitle>
                 {active.tech && (
                   <div className="flex flex-wrap gap-2">
                     {active.tech.map((t) => (
@@ -91,14 +95,16 @@ export function ProjectsSection() {
                     ))}
                   </div>
                 )}
-                <p className="text-sm leading-relaxed text-foreground/75 md:text-base">{active.blurb}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {active.blurb}
+                </p>
                 <div className="flex flex-wrap gap-3 pt-2">
                   {active.github && (
                     <a
                       href={active.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-foreground/5"
+                      className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-foreground/5"
                       style={{ borderColor: "var(--glass-border)" }}
                     >
                       <Github size={15} /> GitHub

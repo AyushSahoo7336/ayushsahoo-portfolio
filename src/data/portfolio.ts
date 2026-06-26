@@ -205,6 +205,7 @@ export const projects: {
   demo?: string;
   accent: string;
   tech?: string[];
+  image?: string;
 }[] = [
   {
     title: "VidMeet",
