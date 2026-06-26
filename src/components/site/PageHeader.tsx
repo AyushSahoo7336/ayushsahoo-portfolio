@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
-export function PageHeader({ eyebrow, title, intro }: { eyebrow?: string; title: string; intro?: ReactNode }) {
+export function PageHeader({ eyebrow, title, intro }: { eyebrow?: string; title: ReactNode; intro?: ReactNode }) {
   return (
     <div className="mx-auto max-w-3xl px-6 pt-24 pb-12 text-center">
       {eyebrow && (
