@@ -3,6 +3,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
 import { WhatICreate } from "@/components/sections/WhatICreate";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { ProblemSolverSection } from "@/components/sections/ProblemSolverSection";
 
 import { EducationSection } from "@/components/sections/EducationSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
@@ -38,7 +39,7 @@ function HomePage() {
       <Marquee />
       <WhatICreate />
       <Section id="about"><AboutSection /></Section>
-      
+      <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="education"><EducationSection /></Section>
       <Section id="projects"><ProjectsSection /></Section>
       <Section id="contact"><ContactSection /></Section>
