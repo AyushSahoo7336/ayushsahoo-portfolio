@@ -121,6 +121,7 @@ export const projects: {
   github?: string;
   demo?: string;
   accent: string;
+  tech?: string[];
 }[] = [
   {
     title: "VidMeet",
