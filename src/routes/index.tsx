@@ -3,6 +3,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
 import { WhatICreate } from "@/components/sections/WhatICreate";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProblemSolverSection } from "@/components/sections/ProblemSolverSection";
 
 import { EducationSection } from "@/components/sections/EducationSection";
