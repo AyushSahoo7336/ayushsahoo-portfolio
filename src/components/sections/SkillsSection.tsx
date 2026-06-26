@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
-import { SpotlightCard } from "@/components/site/SpotlightCard";
+import { Badge } from "@/components/ui/badge";
+
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { skillCategories } from "@/data/portfolio";
 
@@ -57,10 +58,9 @@ export function SkillsSection() {
           const Icon = categoryIconMap[cat.icon] ?? Layout;
           return (
             <Reveal key={cat.id} delay={index * 0.15}>
-              <SpotlightCard
-                as="button"
+              <button
                 onClick={() => setOpenId(cat.id)}
-                className="interactive-card group h-full w-full overflow-hidden rounded-3xl border bg-[var(--glass-bg)] p-7 backdrop-blur-sm shadow-[var(--glass-shadow)]"
+                className="interactive-card group relative h-full w-full overflow-hidden rounded-3xl border bg-[var(--glass-bg)] p-7 text-left backdrop-blur-sm shadow-[var(--glass-shadow)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--primary-accent)] hover:shadow-[0_0_30px_color-mix(in_oklab,var(--primary-accent)_45%,transparent)]"
                 style={{ borderColor: "var(--glass-border)" }}
               >
                 <div className={`pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gradient-to-br ${cat.accent} opacity-30 blur-2xl transition-opacity group-hover:opacity-60`} />
@@ -79,6 +79,26 @@ export function SkillsSection() {
                     <h3 className="font-display text-2xl font-bold text-foreground">{cat.title}</h3>
                     <p className="mt-2 text-sm text-foreground/65">{cat.blurb}</p>
                   </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {cat.items.slice(0, 5).map((it) => (
+                      <Badge
+                        key={it.name}
+                        variant="outline"
+                        className="rounded-full border-foreground/15 bg-foreground/[0.04] px-2.5 py-0.5 text-[10px] font-medium text-foreground/75"
+                      >
+                        {it.name}
+                      </Badge>
+                    ))}
+                    {cat.items.length > 5 && (
+                      <Badge
+                        variant="outline"
+                        className="rounded-full border-[var(--primary-accent)]/30 bg-[var(--primary-accent)]/5 px-2.5 py-0.5 text-[10px] font-medium"
+                        style={{ color: "var(--primary-accent)" }}
+                      >
+                        +{cat.items.length - 5}
+                      </Badge>
+                    )}
+                  </div>
                   <div className="mt-auto flex items-center justify-between pt-4">
                     <span className="font-mono text-xs uppercase tracking-wider text-foreground/50">
                       {cat.items.length} technologies
@@ -91,9 +111,10 @@ export function SkillsSection() {
                     </span>
                   </div>
                 </div>
-              </SpotlightCard>
+              </button>
             </Reveal>
           );
+
         })}
       </section>
 

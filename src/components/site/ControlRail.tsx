@@ -213,13 +213,24 @@ function RailBtn({
     <button
       aria-label={label}
       onClick={onClick}
-      className="grid h-9 w-9 place-items-center rounded-full border bg-[var(--glass-bg)] text-foreground/70 backdrop-blur-md shadow-[var(--glass-shadow)] transition-colors duration-300 hover:border-[var(--primary-accent)]/30 hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)]"
-      style={active ? { color, borderColor: color, boxShadow: `0 0 0 1px ${color}, 0 0 14px -2px ${color}` } : { borderColor: "var(--glass-border)" }}
+      className="group grid h-9 w-9 place-items-center rounded-full border bg-[var(--glass-bg)] text-foreground/70 backdrop-blur-md shadow-[var(--glass-shadow)] transition-all duration-300 hover:scale-110 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
+      style={
+        active
+          ? { color: "#fff", borderColor: "transparent", backgroundColor: color, boxShadow: `0 0 18px -2px ${color}` }
+          : ({ borderColor: "var(--glass-border)", ["--hover-bg" as any]: color } as React.CSSProperties)
+      }
+      onMouseEnter={(e) => {
+        if (!active) (e.currentTarget as HTMLButtonElement).style.backgroundColor = color;
+      }}
+      onMouseLeave={(e) => {
+        if (!active) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "";
+      }}
     >
       {children}
     </button>
   );
 }
+
 
 function Panel({
   show,

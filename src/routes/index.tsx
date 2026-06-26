@@ -37,11 +37,12 @@ function HomePage() {
       </Section>
       <Marquee />
       <Section id="about"><AboutSection /></Section>
-      <Section id="skills"><SkillsSection /></Section>
       <Section id="education"><EducationSection /></Section>
+      <Section id="skills"><SkillsSection /></Section>
       <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="projects"><ProjectsSection /></Section>
       <Section id="contact"><ContactSection /></Section>
+
       <Section id="lets-talk"><LetsTalkSection /></Section>
     </>
   );
