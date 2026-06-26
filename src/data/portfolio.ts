@@ -111,6 +111,76 @@ export const education = [
   },
 ];
 
+export type Proficiency = "Expert" | "Advanced" | "Intermediate";
+
+export const skillCategories: {
+  id: string;
+  title: string;
+  blurb: string;
+  icon: string;
+  accent: string;
+  items: { name: string; description: string; level: Proficiency }[];
+}[] = [
+  {
+    id: "frontend",
+    title: "Frontend",
+    blurb: "Interfaces that feel instant and look intentional.",
+    icon: "Layout",
+    accent: "from-cyan-500/30 to-blue-600/30",
+    items: [
+      { name: "React", description: "Component architecture, hooks, suspense.", level: "Expert" },
+      { name: "TypeScript", description: "Strict typing across full-stack apps.", level: "Expert" },
+      { name: "Next.js", description: "SSR, routing, and server actions.", level: "Advanced" },
+      { name: "Tailwind CSS", description: "Design tokens and utility-first styling.", level: "Expert" },
+      { name: "Framer Motion", description: "Spring physics and gesture animations.", level: "Advanced" },
+      { name: "Vite", description: "Fast dev tooling and bundling.", level: "Advanced" },
+    ],
+  },
+  {
+    id: "backend",
+    title: "Backend",
+    blurb: "Low-latency APIs and real-time services.",
+    icon: "Server",
+    accent: "from-emerald-500/30 to-cyan-500/30",
+    items: [
+      { name: "Node.js", description: "Event-driven services and tooling.", level: "Expert" },
+      { name: "Express", description: "REST APIs and middleware pipelines.", level: "Advanced" },
+      { name: "WebSockets", description: "Bidirectional realtime channels.", level: "Advanced" },
+      { name: "PostgreSQL", description: "Relational modeling and query tuning.", level: "Advanced" },
+      { name: "WebRTC", description: "Peer-to-peer media with TURN/STUN.", level: "Advanced" },
+      { name: "Redis", description: "Caching and pub/sub.", level: "Intermediate" },
+    ],
+  },
+  {
+    id: "ai",
+    title: "AI",
+    blurb: "Practical ML and LLM-powered workflows.",
+    icon: "Brain",
+    accent: "from-purple-500/30 to-pink-500/30",
+    items: [
+      { name: "Python", description: "Data tooling and ML scripting.", level: "Advanced" },
+      { name: "PyTorch", description: "Model training and inference.", level: "Intermediate" },
+      { name: "LangChain", description: "LLM chains, agents, and RAG.", level: "Intermediate" },
+      { name: "OpenAI API", description: "Chat, embeddings, and function calling.", level: "Advanced" },
+      { name: "Vector DBs", description: "Embeddings storage and similarity search.", level: "Intermediate" },
+    ],
+  },
+  {
+    id: "iot",
+    title: "IoT",
+    blurb: "Hardware that talks to the cloud.",
+    icon: "Cpu",
+    accent: "from-amber-500/30 to-orange-500/30",
+    items: [
+      { name: "Arduino", description: "Sensor wiring and embedded C.", level: "Advanced" },
+      { name: "ESP32", description: "Wi-Fi/BLE microcontroller projects.", level: "Advanced" },
+      { name: "MQTT", description: "Lightweight pub/sub for devices.", level: "Intermediate" },
+      { name: "Raspberry Pi", description: "Edge compute and Linux gateways.", level: "Intermediate" },
+    ],
+  },
+];
+
+
 export type ProjectCategory = "Web Apps";
 
 export const projectCategories: ("All" | ProjectCategory)[] = ["All", "Web Apps"];
