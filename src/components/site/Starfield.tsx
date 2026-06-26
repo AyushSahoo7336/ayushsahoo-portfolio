@@ -44,15 +44,6 @@ export function Starfield() {
           }}
         />
       ))}
-      <span
-        className="absolute h-3 w-3 rounded-full"
-        style={{
-          left: "1.5rem",
-          top: "50%",
-          backgroundColor: "var(--primary-accent)",
-          boxShadow: "0 0 24px 6px color-mix(in oklab, var(--primary-accent) 60%, transparent)",
-        }}
-      />
     </div>
   );
 }

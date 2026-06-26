@@ -65,6 +65,7 @@
 
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-shadow: none;
 }
 
 html.light {
@@ -80,12 +81,13 @@ html.light {
   --muted-foreground: oklch(0.45 0.02 240);
   --accent: oklch(0.94 0.01 240);
   --accent-foreground: #0f172a;
-  --border: rgba(0, 0, 0, 0.10);
-  --input: rgba(0, 0, 0, 0.10);
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.08);
   --primary-foreground: #ffffff;
 
-  --glass-bg: rgba(0, 0, 0, 0.03);
-  --glass-border: rgba(0, 0, 0, 0.10);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: transparent;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
 }
 
 html {
@@ -121,6 +123,7 @@ html {
 
 @utility interactive-card {
   border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   transition: border-color 350ms ease, box-shadow 350ms ease, background-color 350ms ease;
 }
 @utility interactive-card {
