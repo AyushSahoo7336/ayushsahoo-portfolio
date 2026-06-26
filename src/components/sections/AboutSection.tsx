@@ -1,61 +1,85 @@
 import { PageHeader } from "@/components/site/PageHeader";
 import { bio } from "@/data/portfolio";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 function AtomOrbit() {
+  const [hovered, setHovered] = useState(false);
+  const speedFactor = hovered ? 0.5 : 1;
+
+  const rings = [
+    { rot: "rotateX(75deg) rotateY(0deg)", dur: 18, dotDur: 9 },
+    { rot: "rotateX(60deg) rotateY(60deg)", dur: 24, dotDur: 12 },
+    { rot: "rotateX(60deg) rotateY(-60deg)", dur: 30, dotDur: 15 },
+  ];
+
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[420px]" style={{ perspective: "900px" }}>
-      {/* Nucleus glow */}
-      <div
-        className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl opacity-60"
-        style={{ background: "var(--primary-accent)" }}
+    <motion.div
+      className="relative mx-auto aspect-square w-full max-w-[420px]"
+      style={{ perspective: "900px" }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      animate={{ scale: hovered ? 1.04 : 1 }}
+      transition={{ type: "spring", stiffness: 120, damping: 14 }}
+    >
+      {/* Nucleus glow — pulsing */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
+        style={{ background: "var(--primary-accent)", width: 96, height: 96 }}
+        animate={{ opacity: hovered ? [0.7, 1, 0.7] : [0.45, 0.7, 0.45], scale: [1, 1.15, 1] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div
-        className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_30px_currentColor]"
+      <motion.div
+        className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{ background: "var(--primary-accent)", color: "var(--primary-accent)" }}
+        animate={{
+          boxShadow: [
+            "0 0 16px var(--primary-accent)",
+            "0 0 36px var(--primary-accent)",
+            "0 0 16px var(--primary-accent)",
+          ],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Orbits */}
-      {[
-        { rx: 70, ry: 20, dur: "8s" },
-        { rx: 60, ry: 35, dur: "11s" },
-        { rx: 0, ry: 0, dur: "14s" }, // placeholder
-      ].map((_, i) => {
-        const rotations = ["rotateX(75deg) rotateY(0deg)", "rotateX(60deg) rotateY(60deg)", "rotateX(60deg) rotateY(-60deg)"];
-        const durs = ["9s", "12s", "15s"];
-        return (
+      {/* Orbital rings — continuous rotation */}
+      {rings.map((r, i) => (
+        <motion.div
+          key={i}
+          className="absolute inset-0"
+          style={{ transform: r.rot, transformStyle: "preserve-3d" }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: r.dur * speedFactor, repeat: Infinity, ease: "linear" }}
+        >
           <div
-            key={i}
-            className="absolute inset-0"
-            style={{ transform: rotations[i], transformStyle: "preserve-3d" }}
-          >
-            <div
-              className="absolute inset-[8%] rounded-full border"
-              style={{
-                borderColor: "color-mix(in oklab, var(--primary-accent) 35%, transparent)",
-                boxShadow: "0 0 20px color-mix(in oklab, var(--primary-accent) 25%, transparent) inset",
-              }}
-            />
-            <div
-              className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{
-                background: "var(--primary-accent)",
-                boxShadow: "0 0 12px var(--primary-accent)",
-                animation: `atom-spin-${i} ${durs[i]} linear infinite`,
-                transformOrigin: "center",
-              }}
-            />
-          </div>
-        );
-      })}
+            className="absolute inset-[8%] rounded-full border transition-all duration-300"
+            style={{
+              borderColor: `color-mix(in oklab, var(--primary-accent) ${hovered ? 55 : 35}%, transparent)`,
+              boxShadow: `0 0 ${hovered ? 30 : 20}px color-mix(in oklab, var(--primary-accent) ${hovered ? 40 : 25}%, transparent) inset`,
+            }}
+          />
+          <div
+            className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              background: "var(--primary-accent)",
+              boxShadow: "0 0 12px var(--primary-accent)",
+              animation: `atom-spin-${i} ${r.dotDur * speedFactor}s linear infinite`,
+              transformOrigin: "center",
+            }}
+          />
+        </motion.div>
+      ))}
 
       <style>{`
         @keyframes atom-spin-0 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg) translateX(42%) rotate(-360deg); } }
         @keyframes atom-spin-1 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(-360deg) translateX(42%) rotate(360deg); } }
         @keyframes atom-spin-2 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg) translateX(42%) rotate(-360deg); } }
       `}</style>
-    </div>
+    </motion.div>
   );
 }
+
 
 export function AboutSection() {
   return (
