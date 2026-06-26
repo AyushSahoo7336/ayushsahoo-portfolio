@@ -1,51 +1,27 @@
-## Global Interactive Polish
+## Goal
+Make Light mode actually flip the background, glass surfaces, and canvas effects — not just the text.
 
-Add four global layers on top of the existing single-page portfolio.
+## Steps
 
-### 1. Momentum Smooth Scroll
-- Install `lenis` (`bun add lenis`).
-- New `src/components/site/SmoothScroll.tsx`: initializes Lenis on mount, drives it via `requestAnimationFrame`, syncs with Framer Motion's `ScrollTrigger`-equivalent via `useEffect` cleanup. Disabled on touch devices (`lenis.options.smoothTouch = false`).
-- Mount inside `src/routes/__root.tsx`, wrapping the existing `relative z-10` content container.
-- Keep `scroll-behavior: smooth` removed from `html` (Lenis replaces it). Anchor nav in `Navbar.tsx` switches to `lenis.scrollTo('#id')` via a small `useLenis` hook context.
+1. **`src/styles.css` — semantic tokens**
+   - Keep current `:root` dark tokens, but also add `--glass-bg: rgba(255,255,255,0.03)` and `--glass-border: rgba(255,255,255,0.1)`.
+   - Add a `html.light` block overriding `--background: #f8fafc`, `--foreground: #0f172a`, `--card: #ffffff`, `--glass-bg: rgba(0,0,0,0.03)`, `--glass-border: rgba(0,0,0,0.1)`, plus matching muted/border tokens (extend existing light block).
+   - Update `.interactive-card` utility to use `var(--glass-border)` instead of hardcoded `rgb(255 255 255 / 0.10)`.
+   - Update preloader sweep stops to use `currentColor`/foreground-alpha so it works on both themes.
 
-### 2. Smart Custom Cursor
-- New `src/context/CursorContext.tsx` exposing `setHovering(boolean)`.
-- New `src/components/site/CustomCursor.tsx`: a `motion.div` (28px hollow circle, `border-2 border-[var(--primary-accent)]`) positioned with `useMotionValue` x/y driven by `useSpring` (stiffness ~300, damping ~30) for trailing delay. Listens to `window` mousemove. Scales to `1.5` and switches to filled/thicker border when `hovering` is true. Hidden on touch / when pointer leaves window.
-- Global mouseover delegation: a single listener checks `e.target.closest('a, button, [role="button"], input, textarea, select, [data-cursor-hover]')` and toggles hover state — no per-component wiring needed.
-- Update `src/styles.css`: `html, body { cursor: none }` on pointer:fine; restore default for pointer:coarse via media query.
+2. **Strip hardcoded dark colors**
+   - `src/components/site/Preloader.tsx`: `bg-[#040814]` → `bg-background`.
+   - `src/components/site/Starfield.tsx`: replace the radial gradient that hardcodes `#040814` with one using `var(--background)` (and reduce star alpha in light mode — see step 4).
+   - `src/components/sections/ProjectsSection.tsx`: `text-white/90` → `text-foreground/90`.
+   - Sweep nav/control-rail/cards/hero/sections for any remaining `bg-white/…`, `bg-black/…`, `border-white/…` used as glass and swap to `bg-[var(--glass-bg)]` / `border-[var(--glass-border)]`. (Scan: Navbar, ControlRail, DownloadCv, Footer, Hero, AboutSection, ContactSection, Experience/Education/Timeline, ProjectsSection, WhatICreate, LetsTalkSection, Marquee, LeetStats if present.)
 
-### 3. Ambient Spotlight
-- New `src/components/site/Spotlight.tsx`: fixed `inset-0 pointer-events-none z-30` div. Tracks mouse via `useMotionValue` and applies `background: radial-gradient(600px circle at ${x}px ${y}px, color-mix(in oklab, var(--primary-accent) 10%, transparent), transparent 60%)` through a `motion` style update (rAF-throttled). Reuses the same global mousemove listener emitted from `CursorContext` to avoid duplicate handlers.
-- Mounted in `__root.tsx` above background effects, below cursor.
+3. **Glassmorphism unification**
+   - Navbar pill, ControlRail buttons + popovers, DownloadCv pill, and all card containers use `bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur`.
 
-### 4. Universal Interactive Card Borders
-- Add a utility class `.interactive-card` in `src/styles.css`:
-  - `border: 1px solid rgb(255 255 255 / 0.10)`
-  - `transition: border-color 300ms ease, box-shadow 300ms ease`
-  - `&:hover { border-color: color-mix(in oklab, var(--primary-accent) 40%, transparent) }`
-- Apply to existing card containers in:
-  - `ExperienceSection.tsx` / `Timeline.tsx` rows
-  - `EducationSection.tsx` rows
-  - `ProjectsSection.tsx` cards
-  - `Hero.tsx` stat/quote cards
-  - LeetCode stats card (in Hero/AboutSection)
-  - `ContactSection.tsx` tiles
-  - `ControlRail.tsx` buttons (border variant only)
+4. **Canvas effects respect theme**
+   - `Starfield.tsx`: read `document.documentElement.classList.contains('light')` on mount + observe via `MutationObserver` on `<html>` class. In light mode, render stars in `#94a3b8` at ~0.25 max opacity; in dark, keep current white/cyan. Re-init on theme change.
+   - `src/components/site/effects/MatrixRain.tsx`: same pattern — in light mode use `#cbd5e1` glyphs and change the trail-fade `fillStyle` from `rgba(4,8,20,0.05)` to `rgba(248,250,252,0.08)` so the fade matches the light background. In dark, keep existing values.
+   - `ColdFlakes.tsx`: same conditional — light mode flakes `#94a3b8` at lower opacity.
 
-### Layering (z-index)
-```text
-z-50  Navbar, ControlRail, CustomCursor
-z-30  Spotlight overlay
-z-10  Page content (sections)
-z-0   (unused)
--z-10 BackgroundFx (Starfield / ColdFlakes / MatrixRain)
-```
-
-### Files touched
-- New: `src/components/site/SmoothScroll.tsx`, `CustomCursor.tsx`, `Spotlight.tsx`, `src/context/CursorContext.tsx`
-- Edit: `src/routes/__root.tsx`, `src/styles.css`, `src/components/site/Navbar.tsx`, `Hero.tsx`, `ExperienceSection.tsx`, `EducationSection.tsx`, `ProjectsSection.tsx`, `ContactSection.tsx`, `ControlRail.tsx`
-- Dependency: `lenis`
-
-### Out of scope
-- Replacing Framer Motion scroll-linked animations (none currently used).
-- Per-element magnetic cursor effects (only global scale-on-hover).
+## Out of scope
+No new animations, no new components, no logic changes to theme toggle (already wired in `EffectsContext`).
