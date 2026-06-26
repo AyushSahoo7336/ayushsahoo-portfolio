@@ -1,26 +1,24 @@
-- Plan: Replace placeholder content with Ayush's real data
+The user wants the About Me section rebuilt to match the attached reference screenshot (from ybz.vercel.app) and the entire Work Experience section removed.
 
-### 1. `src/data/portfolio.ts` — single source of truth
+### Changes
 
-- **profile**: name `Ayush Sahoo`, shortName `AYUSH`, role `Software Engineer`, tagline updated, remove old quote (or repurpose), stats become `{ value: "3rd Year", label: "Information Science" }` and `{ value: "3", label: "Projects Shipped" }`.
-- **marqueeWords**: refresh to fit the new focus — `SOFTWARE ENGINEER`, `REACT`, `NODE.JS`, `WEBRTC`, `DISTRIBUTED SYSTEMS`, `TYPESCRIPT`, `REAL-TIME`, `2026`.
-- **bio**: replace with the two new paragraphs.
-- **education**: single entry — `B.E. in Information Science`, `Sir M. Visvesvaraya Institute of Technology`, `2023 – 2027`, extra `CGPA: 8.26 / 10.0`.
-- **ProjectCategory**: narrow to `"Web Apps"` only; `projectCategories` becomes `["All", "Web Apps"]`.
-- **projects**: replace all 8 with VidMeet, GitVerse, StockFlow (with github + demo links and tasteful accent gradients).
-- **contacts**: Email, GitHub, LinkedIn, LeetCode (`Code2` icon), WhatsApp — drop Twitter/Instagram.
-- **skills**: tighten to match new focus (Frontend / Backend / Real-Time Systems / Data Structures & Algorithms) so the About section stays relevant.
-- **experiences**: replace with project-based "What I've built" entries (VidMeet 2025, GitVerse 2025, StockFlow 2024) so the Experience section isn't fake jobs.
+1. **Remove Work Experience from the page**
+   - In `src/routes/index.tsx`, remove the `<Section id="experience"><ExperienceSection /></Section>` line and its import.
+   - In `src/data/portfolio.ts`, remove `{ id: "experience", label: "Experience" }` from `navSections`.
 
-### 2. Component tweaks
+2. **Rebuild `src/components/sections/AboutSection.tsx`**
+   - Replace the current content with a layout matching the reference:
+     - **Header**: "About Me" title with **Me** in `var(--primary-accent)`. Subtitle: "I'm a software developer focused on execution. Less talk, more shipped products."
+     - **Card**: One large full-width glass card (`interactive-card`, `rounded-2xl`, `bg-[var(--glass-bg)]`, `border-[var(--glass-border)]`, `shadow-[var(--glass-shadow)]`, `backdrop-blur-sm`) containing a two-column layout.
+     - **Left side (~55-60%)**:
+       - Heading: "Biography" in `font-display text-2xl font-semibold`.
+       - Bio paragraphs from `src/data/portfolio.ts` (Ayush's real text), rendered as `text-foreground/70` with relaxed line-height.
+     - **Right side (~40-45%)**:
+       - A CSS-only 3D atom/orbit visualization: a central glowing nucleus (`var(--primary-accent)`) and three elliptical orbital rings tilted at different angles, each with a small orbiting electron dot. Built with absolute positioning, `border`, `border-radius: 50%`, `rotateX`/`rotateY`, and CSS `@keyframes` animations.
+   - Remove the existing skills accordion grid entirely.
 
-- **Hero.tsx**: extend `Timeline`/`education` typing change — add `extra?: string` support so CGPA line renders. Keep quote block but hide it if `profile.quote` is empty (cleaner look). No layout changes otherwise.
-- **EducationSection / Timeline.tsx**: read & render the optional `extra` line under each item (small accent-colored text for CGPA).
-- **ProjectsSection.tsx**: no logic change; categories array shrink is enough. Verify filter pill colors still work.
-- **ContactSection.tsx**: extend the `ICONS` map to include `Code2` for LeetCode.
+3. **Update `src/components/site/PageHeader.tsx`**
+   - Change the `title` prop type from `string` to `ReactNode` so inline accent spans can be passed through.
 
-### 3. Out of scope
-
-- No restyling, no new sections, no routing changes. Light/dark theming, cursor, spotlight, preloader all untouched.
-
-Result: every visible label, link, and stat reflects Ayush's real profile; Projects filters reduce to `All / Web Apps`; Contact grid shows the 5 requested cards including LeetCode.
+### Result
+The page will scroll: Hero → Marquee → What I Create → About (new card layout) → Education → Projects → Contact → Let's Talk. No Work Experience section. The About section will visually mirror the reference screenshot's single glass card with biography text on the left and the animated atom graphic on the right.

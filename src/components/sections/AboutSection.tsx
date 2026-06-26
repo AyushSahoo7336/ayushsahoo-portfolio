@@ -1,71 +1,85 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Layout, Server, Smartphone, Gamepad2 } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
-import { bio, skills } from "@/data/portfolio";
+import { bio } from "@/data/portfolio";
 
-const ICONS = { Layout, Server, Smartphone, Gamepad2 } as const;
+function AtomOrbit() {
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[420px]" style={{ perspective: "900px" }}>
+      {/* Nucleus glow */}
+      <div
+        className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl opacity-60"
+        style={{ background: "var(--primary-accent)" }}
+      />
+      <div
+        className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_30px_currentColor]"
+        style={{ background: "var(--primary-accent)", color: "var(--primary-accent)" }}
+      />
+
+      {/* Orbits */}
+      {[
+        { rx: 70, ry: 20, dur: "8s" },
+        { rx: 60, ry: 35, dur: "11s" },
+        { rx: 0, ry: 0, dur: "14s" }, // placeholder
+      ].map((_, i) => {
+        const rotations = ["rotateX(75deg) rotateY(0deg)", "rotateX(60deg) rotateY(60deg)", "rotateX(60deg) rotateY(-60deg)"];
+        const durs = ["9s", "12s", "15s"];
+        return (
+          <div
+            key={i}
+            className="absolute inset-0"
+            style={{ transform: rotations[i], transformStyle: "preserve-3d" }}
+          >
+            <div
+              className="absolute inset-[8%] rounded-full border"
+              style={{
+                borderColor: "color-mix(in oklab, var(--primary-accent) 35%, transparent)",
+                boxShadow: "0 0 20px color-mix(in oklab, var(--primary-accent) 25%, transparent) inset",
+              }}
+            />
+            <div
+              className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                background: "var(--primary-accent)",
+                boxShadow: "0 0 12px var(--primary-accent)",
+                animation: `atom-spin-${i} ${durs[i]} linear infinite`,
+                transformOrigin: "center",
+              }}
+            />
+          </div>
+        );
+      })}
+
+      <style>{`
+        @keyframes atom-spin-0 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg) translateX(42%) rotate(-360deg); } }
+        @keyframes atom-spin-1 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(-360deg) translateX(42%) rotate(360deg); } }
+        @keyframes atom-spin-2 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg) translateX(42%) rotate(-360deg); } }
+      `}</style>
+    </div>
+  );
+}
 
 export function AboutSection() {
-  const [open, setOpen] = useState<number | null>(0);
   return (
     <div className="pb-20">
-      <PageHeader eyebrow="About Me" title="I'm focused on execution" intro="Less talk, more shipped products." />
-      <section className="mx-auto max-w-3xl px-6">
-        <h2 className="font-display text-2xl font-semibold">Biography</h2>
-        <div className="mt-4 space-y-4 text-foreground/70 leading-relaxed">
-          {bio.map((p, i) => (<p key={i}>{p}</p>))}
-        </div>
-      </section>
-      <section className="mx-auto mt-20 max-w-5xl px-6">
-        <div className="text-center">
-          <h2 className="font-display text-3xl font-bold md:text-4xl">My Skills</h2>
-          <p className="mt-2 text-foreground/55">Technologies and domains I specialize in — click to explore</p>
-        </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {skills.map((s, i) => {
-            const Icon = ICONS[s.icon as keyof typeof ICONS] ?? Layout;
-            const active = open === i;
-            return (
-              <motion.button
-                key={s.title}
-                onClick={() => setOpen(active ? null : i)}
-                layout
-                className="interactive-card rounded-2xl bg-[var(--glass-bg)] p-6 text-left backdrop-blur-sm"
-                style={active ? { borderColor: "color-mix(in oklab, var(--primary-accent) 60%, transparent)" } : undefined}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    className="grid h-10 w-10 place-items-center rounded-xl"
-                    style={{
-                      backgroundColor: "color-mix(in oklab, var(--primary-accent) 15%, transparent)",
-                      color: "var(--primary-accent)",
-                    }}
-                  >
-                    <Icon size={18} />
-                  </span>
-                  <h3 className="font-display text-lg font-semibold">{s.title}</h3>
-                </div>
-                <p className="mt-4 text-sm text-foreground/60">{s.blurb}</p>
-                {active && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    className="mt-4 flex flex-wrap gap-2"
-                  >
-                    {s.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-foreground/70"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </motion.div>
-                )}
-              </motion.button>
-            );
-          })}
+      <PageHeader
+        title={<>About <span style={{ color: "var(--primary-accent)" }}>Me</span></>}
+        intro="I'm a software developer focused on execution. Less talk, more shipped products."
+      />
+      <section className="mx-auto max-w-6xl px-6">
+        <div
+          className="interactive-card rounded-3xl bg-[var(--glass-bg)] p-8 backdrop-blur-sm md:p-12 shadow-[var(--glass-shadow)]"
+          style={{ borderColor: "var(--glass-border)" }}
+        >
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <div>
+              <h2 className="font-display text-3xl font-bold">Biography</h2>
+              <div className="mt-6 space-y-5 text-foreground/70 leading-relaxed">
+                {bio.map((p, i) => (<p key={i}>{p}</p>))}
+              </div>
+            </div>
+            <div className="flex items-center justify-center">
+              <AtomOrbit />
+            </div>
+          </div>
         </div>
       </section>
     </div>
