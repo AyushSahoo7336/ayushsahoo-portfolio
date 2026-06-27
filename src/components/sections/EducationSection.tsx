@@ -42,6 +42,9 @@ export function EducationSection() {
                   />
                 </div>
                 <div>
+                  <span className="mb-1 inline-block rounded-full border border-[var(--primary-accent)]/20 bg-[var(--primary-accent)]/10 px-3 py-0.5 text-xs font-semibold text-[var(--primary-accent)]">
+                    4<sup className="text-[0.7em]">th</sup> Year
+                  </span>
                   <h3 className="font-display text-2xl font-bold text-[var(--primary-accent)] md:text-3xl">
                     {edu.title}
                   </h3>
