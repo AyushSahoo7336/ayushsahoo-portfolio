@@ -14,7 +14,7 @@ type Ctx = {
 const EffectsContext = createContext<Ctx | null>(null);
 
 export function EffectsProvider({ children }: { children: ReactNode }) {
-  const [effect, setEffect] = useState<EffectName>("none");
+  const [effect, setEffect] = useState<EffectName>("matrix");
   const [dark, setDark] = useState(true);
   const [focus, setFocus] = useState(false);
 
