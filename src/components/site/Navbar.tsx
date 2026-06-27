@@ -80,41 +80,59 @@ export function Navbar() {
                 {s.label}
               </button>
             ))}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="inline-flex items-center gap-1 text-sm text-foreground/70 transition-colors hover:text-foreground data-[state=open]:text-[var(--primary-accent)]">
-                  Resume
-                  <ChevronDown size={14} />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                sideOffset={8}
-                className="min-w-[11rem] rounded-xl border bg-[var(--glass-bg)] p-1.5 text-foreground shadow-lg backdrop-blur-md"
-                style={{ borderColor: "var(--glass-border)" }}
-              >
-                <DropdownMenuItem asChild>
-                  <a
-                    href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
-                  >
-                    <ExternalLink size={14} />
-                    View Resume
-                  </a>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <a
-                    href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
-                    className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
-                  >
-                    <Download size={14} />
-                    Download Resume
-                  </a>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div
+              className="relative"
+              onMouseEnter={() => {
+                if (resumeTimer.current) clearTimeout(resumeTimer.current);
+                setResumeOpen(true);
+              }}
+              onMouseLeave={() => {
+                resumeTimer.current = setTimeout(() => setResumeOpen(false), 180);
+              }}
+            >
+              <DropdownMenu open={resumeOpen} onOpenChange={setResumeOpen}>
+                <DropdownMenuTrigger asChild>
+                  <button className="inline-flex items-center gap-1 text-sm text-foreground/70 transition-colors hover:text-foreground data-[state=open]:text-[var(--primary-accent)]">
+                    Resume
+                    <ChevronDown size={14} className="transition-transform data-[state=open]:rotate-180" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  sideOffset={8}
+                  className="min-w-[11rem] rounded-xl border bg-[var(--glass-bg)] p-1.5 text-foreground shadow-lg backdrop-blur-md"
+                  style={{ borderColor: "var(--glass-border)" }}
+                  onMouseEnter={() => {
+                    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+                    setResumeOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    resumeTimer.current = setTimeout(() => setResumeOpen(false), 180);
+                  }}
+                >
+                  <DropdownMenuItem asChild>
+                    <a
+                      href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
+                    >
+                      <ExternalLink size={14} />
+                      View Resume
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a
+                      href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
+                      className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
+                    >
+                      <Download size={14} />
+                      Download Resume
+                    </a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
           <button
             onClick={() => setOpen((v) => !v)}
