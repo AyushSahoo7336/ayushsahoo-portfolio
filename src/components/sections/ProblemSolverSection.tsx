@@ -107,7 +107,7 @@ export function ProblemSolverSection() {
                 href={leetcode.profile}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wider transition hover:bg-foreground/5"
+                className="mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wider transition hover:bg-[var(--primary-accent)] hover:text-black"
                 style={{ borderColor: "var(--glass-border)", color: "var(--primary-accent)" }}
               >
                 View Profile <ExternalLink size={12} />

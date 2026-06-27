@@ -10,7 +10,7 @@ export function ContactSection() {
     <div className="pb-20">
       <PageHeader
         eyebrow="Get in Touch"
-        title="Let's connect"
+        title={<>Let&apos;s <span style={{ color: "var(--primary-accent)" }}>connect</span></>}
         intro="Feel free to reach out through any of these platforms."
       />
       <section className="mx-auto grid max-w-5xl gap-4 px-6 sm:grid-cols-2 lg:grid-cols-3">

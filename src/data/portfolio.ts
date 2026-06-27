@@ -8,7 +8,7 @@ export const profile = {
   welcome: "Welcome to my world",
   stats: [
     { value: "4th Year", label: "Information Science" },
-    { value: "3", label: "Projects Shipped" },
+    { value: "3+", label: "Projects Shipped" },
   ],
   cvUrl: "/cv.pdf",
 };
