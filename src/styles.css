@@ -40,22 +40,22 @@
 
   --primary-accent: #22d3ee;
 
-  --background: #040814;
+  --background: color-mix(in oklab, var(--primary-accent) 5%, #03040a 95%);
   --foreground: oklch(0.97 0.01 240);
 
-  --card: #0a1020;
+  --card: color-mix(in oklab, var(--primary-accent) 8%, #080c18 92%);
   --card-foreground: oklch(0.97 0.01 240);
-  --popover: #0a1020;
+  --popover: color-mix(in oklab, var(--primary-accent) 8%, #080c18 92%);
   --popover-foreground: oklch(0.97 0.01 240);
 
   --primary: oklch(0.82 0.13 210);
   --primary-foreground: #040814;
 
-  --secondary: oklch(0.22 0.02 240);
+  --secondary: color-mix(in oklab, var(--primary-accent) 10%, #0c1220 90%);
   --secondary-foreground: oklch(0.97 0.01 240);
-  --muted: oklch(0.2 0.02 240);
+  --muted: color-mix(in oklab, var(--primary-accent) 8%, #0a1020 92%);
   --muted-foreground: oklch(0.62 0.02 240);
-  --accent: oklch(0.22 0.02 240);
+  --accent: color-mix(in oklab, var(--primary-accent) 10%, #0c1220 90%);
   --accent-foreground: oklch(0.97 0.01 240);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
@@ -69,17 +69,17 @@
 }
 
 html.light {
-  --background: #f8fafc;
+  --background: color-mix(in oklab, var(--primary-accent) 6%, #f8fafc 94%);
   --foreground: #0f172a;
-  --card: #ffffff;
+  --card: color-mix(in oklab, var(--primary-accent) 4%, #ffffff 96%);
   --card-foreground: #0f172a;
-  --popover: #ffffff;
+  --popover: color-mix(in oklab, var(--primary-accent) 4%, #ffffff 96%);
   --popover-foreground: #0f172a;
-  --secondary: oklch(0.94 0.01 240);
+  --secondary: color-mix(in oklab, var(--primary-accent) 8%, #f1f5f9 92%);
   --secondary-foreground: #0f172a;
-  --muted: oklch(0.94 0.01 240);
+  --muted: color-mix(in oklab, var(--primary-accent) 8%, #f1f5f9 92%);
   --muted-foreground: oklch(0.45 0.02 240);
-  --accent: oklch(0.94 0.01 240);
+  --accent: color-mix(in oklab, var(--primary-accent) 8%, #f1f5f9 92%);
   --accent-foreground: #0f172a;
   --border: rgba(0, 0, 0, 0.08);
   --input: rgba(0, 0, 0, 0.08);
