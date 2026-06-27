@@ -7,7 +7,7 @@ export const profile = {
   quote: "",
   welcome: "Welcome to my world",
   stats: [
-    { value: "3rd Year", label: "Information Science" },
+    { value: "4th Year", label: "Information Science" },
     { value: "3", label: "Projects Shipped" },
   ],
   cvUrl: "/cv.pdf",
@@ -105,7 +105,7 @@ export const experiences = [
 
 export const education = [
   {
-    title: "B.E. in Information Science",
+    title: "Bachelor of Engineering in Information Science",
     org: "Sir M. Visvesvaraya Institute of Technology",
     date: "2023 – 2027",
     extra: "CGPA: 8.26 / 10.0",
