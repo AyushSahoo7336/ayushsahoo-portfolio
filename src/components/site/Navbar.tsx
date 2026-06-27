@@ -24,6 +24,9 @@ function scrollToId(id: string) {
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>(navSections[0].id);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const [mobileResumeOpen, setMobileResumeOpen] = useState(false);
+  const resumeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const ids = navSections.map((s) => s.id);
