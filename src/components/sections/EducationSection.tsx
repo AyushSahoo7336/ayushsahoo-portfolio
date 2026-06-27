@@ -16,8 +16,8 @@ export function EducationSection() {
   return (
     <div className="pb-20">
       <PageHeader
-        eyebrow="ACADEMIC BACKGROUND"
-        title="Education"
+        eyebrow="EDUCATION"
+        title="Academic Background"
         intro="The foundation that shapes my expertise."
       />
 
