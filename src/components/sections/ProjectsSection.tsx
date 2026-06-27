@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
+import { Github, ExternalLink, ArrowUpRight, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { projects } from "@/data/portfolio";
@@ -60,8 +60,8 @@ export function ProjectsSection() {
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent
-          className="max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl sm:max-w-2xl"
-          style={{ borderColor: "var(--glass-border)" }}
+          className="sleek-scrollbar max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] sm:max-w-2xl"
+          style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           {active && (
             <>
@@ -87,8 +87,12 @@ export function ProjectsSection() {
                     {active.tech.map((t) => (
                       <span
                         key={t}
-                        className="rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-foreground/80"
-                        style={{ borderColor: "var(--glass-border)" }}
+                        className="rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider"
+                        style={{
+                          borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)",
+                          backgroundColor: "color-mix(in oklab, var(--primary-accent) 10%, transparent)",
+                          color: "var(--primary-accent)",
+                        }}
                       >
                         {t}
                       </span>
@@ -99,9 +103,16 @@ export function ProjectsSection() {
                   {active.blurb}
                 </p>
                 {active.highlights.length > 0 && (
-                  <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground/90">
+                  <ul className="space-y-2 text-sm text-muted-foreground/90">
                     {active.highlights.map((h) => (
-                      <li key={h}>{h}</li>
+                      <li key={h} className="flex items-start gap-2">
+                        <ChevronRight
+                          size={16}
+                          className="mt-0.5 shrink-0"
+                          style={{ color: "var(--primary-accent)" }}
+                        />
+                        <span>{h}</span>
+                      </li>
                     ))}
                   </ul>
                 )}

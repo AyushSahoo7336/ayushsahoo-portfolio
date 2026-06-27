@@ -148,6 +148,27 @@ html {
   10%, 30% { transform: rotate(14deg); }
   20% { transform: rotate(-8deg); }
 }
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+.caret-blink {
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@utility sleek-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--glass-border) transparent;
+  &::-webkit-scrollbar { width: 8px; height: 8px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background-color: color-mix(in oklab, white 10%, transparent);
+    border-radius: 9999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklab, var(--primary-accent) 50%, transparent);
+  }
+}
 
 @keyframes preloader-sweep {
   0%   { background-position: -150% 0; }

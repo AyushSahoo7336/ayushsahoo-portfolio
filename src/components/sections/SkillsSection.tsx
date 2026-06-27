@@ -120,8 +120,8 @@ export function SkillsSection() {
 
       <Dialog open={openId !== null} onOpenChange={(o) => !o && setOpenId(null)}>
         <DialogContent
-          className="max-h-[85vh] overflow-y-auto border bg-[var(--glass-bg)] backdrop-blur-xl sm:max-w-2xl"
-          style={{ borderColor: "var(--glass-border)" }}
+          className="sleek-scrollbar max-h-[85vh] overflow-y-auto border bg-[var(--glass-bg)] backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] sm:max-w-2xl"
+          style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           <AnimatePresence mode="wait">
             {active && (
@@ -147,7 +147,7 @@ export function SkillsSection() {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-                        className="flex items-center gap-4 rounded-xl border border-foreground/10 bg-foreground/[0.04] p-4 backdrop-blur-sm transition-colors hover:border-[var(--primary-accent)]/40 hover:bg-foreground/[0.06]"
+                        className="flex items-center gap-4 rounded-xl border border-foreground/10 bg-foreground/[0.04] p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--primary-accent)]/50 hover:bg-[var(--primary-accent)]/5 hover:shadow-lg hover:shadow-[var(--primary-accent)]/10"
                       >
                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-foreground/[0.04]">
                           {item.iconType === "devicon" ? (

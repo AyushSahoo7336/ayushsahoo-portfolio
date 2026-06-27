@@ -1,6 +1,33 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
+
+function Typewriter({ phrases }: { phrases: string[] }) {
+  const [text, setText] = useState("");
+  const [i, setI] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = phrases[i % phrases.length];
+    if (!deleting && text === current) {
+      const t = setTimeout(() => setDeleting(true), 1500);
+      return () => clearTimeout(t);
+    }
+    if (deleting && text === "") {
+      setDeleting(false);
+      setI((v) => (v + 1) % phrases.length);
+      return;
+    }
+    const t = setTimeout(
+      () => setText(deleting ? current.slice(0, text.length - 1) : current.slice(0, text.length + 1)),
+      deleting ? 40 : 80,
+    );
+    return () => clearTimeout(t);
+  }, [text, deleting, i, phrases]);
+
+  return <>{text}</>;
+}
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -31,14 +58,27 @@ export function Hero() {
           </h1>
         </div>
 
-        <p className="mt-5 flex items-center gap-2 text-2xl font-light text-foreground/70 md:text-3xl">
-          {profile.role}
+        <div className="mt-5 flex min-h-[2.5rem] items-center gap-2 text-2xl font-light text-foreground/70 md:min-h-[2.75rem] md:text-3xl">
+          <span
+            className="inline-block min-w-[16ch] md:min-w-[20ch]"
+            style={{ color: "var(--primary-accent)" }}
+          >
+            <Typewriter
+              phrases={[
+                "Software Developer",
+                "Full-Stack Developer",
+                "Real-Time Systems Builder",
+                "Problem Solver",
+              ]}
+            />
+            <span className="caret-blink ml-0.5 inline-block">|</span>
+          </span>
           <Hand
             className="inline-block animate-[wave_1.6s_ease-in-out_infinite] origin-[70%_70%]"
             style={{ color: "var(--primary-accent)" }}
             size={28}
           />
-        </p>
+        </div>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/60">
           {profile.tagline}

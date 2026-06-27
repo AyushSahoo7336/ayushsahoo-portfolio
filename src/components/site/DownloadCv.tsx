@@ -10,7 +10,7 @@ export function DownloadCv() {
       style={{ borderColor: "var(--glass-border)" }}
     >
       <Download size={14} />
-      Download CV
+      Download Resume
     </a>
   );
 }
