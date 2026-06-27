@@ -3,81 +3,177 @@ import { bio } from "@/data/portfolio";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-function AtomOrbit() {
+function NetworkSphere() {
   const [hovered, setHovered] = useState(false);
-  const speedFactor = hovered ? 0.5 : 1;
 
-  const rings = [
-    { rot: "rotateX(75deg) rotateY(0deg)", dur: 18, dotDur: 9 },
-    { rot: "rotateX(60deg) rotateY(60deg)", dur: 24, dotDur: 12 },
-    { rot: "rotateX(60deg) rotateY(-60deg)", dur: 30, dotDur: 15 },
-  ];
+  // Golden spiral distribution for evenly spaced points on a sphere
+  const nodeCount = 40;
+  const nodes = Array.from({ length: nodeCount }, (_, i) => {
+    const phi = Math.acos(1 - (2 * (i + 0.5)) / nodeCount);
+    const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+    return { phi, theta, id: i };
+  });
+
+  const radius = 42; // % of container
+  const perspective = 800;
+
+  const project = (phi: number, theta: number, rotY: number, rotX: number) => {
+    // 3D rotation
+    let x = Math.sin(phi) * Math.cos(theta);
+    let y = Math.sin(phi) * Math.sin(theta);
+    let z = Math.cos(phi);
+
+    // rotate around Y
+    const cy = Math.cos(rotY), sy = Math.sin(rotY);
+    const x1 = x * cy + z * sy;
+    const z1 = -x * sy + z * cy;
+    x = x1; z = z1;
+
+    // rotate around X
+    const cx = Math.cos(rotX), sx = Math.sin(rotX);
+    const y2 = y * cx - z * sx;
+    const z2 = y * sx + z * cx;
+    y = y2; z = z2;
+
+    const scale = perspective / (perspective + z * radius * 2);
+    return {
+      x: 50 + x * radius * scale,
+      y: 50 + y * radius * scale,
+      scale,
+      z,
+    };
+  };
+
+  // Pre-calculate connections (nearest neighbors)
+  const connections: { a: number; b: number }[] = [];
+  for (let i = 0; i < nodeCount; i++) {
+    for (let j = i + 1; j < nodeCount; j++) {
+      const dx = nodes[i].phi - nodes[j].phi;
+      const dy = nodes[i].theta - nodes[j].theta;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 1.2) connections.push({ a: i, b: j });
+    }
+  }
 
   return (
     <motion.div
       className="relative mx-auto aspect-square w-full max-w-[420px]"
-      style={{ perspective: "900px" }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       animate={{ scale: hovered ? 1.04 : 1 }}
       transition={{ type: "spring", stiffness: 120, damping: 14 }}
     >
-      {/* Nucleus glow — pulsing */}
-      <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
-        style={{ background: "var(--primary-accent)", width: 96, height: 96 }}
-        animate={{ opacity: hovered ? [0.7, 1, 0.7] : [0.45, 0.7, 0.45], scale: [1, 1.15, 1] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{ background: "var(--primary-accent)", color: "var(--primary-accent)" }}
-        animate={{
-          boxShadow: [
-            "0 0 16px var(--primary-accent)",
-            "0 0 36px var(--primary-accent)",
-            "0 0 16px var(--primary-accent)",
-          ],
-          scale: [1, 1.2, 1],
+      {/* Soft ambient glow behind the sphere */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-full blur-3xl opacity-40"
+        style={{
+          background: "radial-gradient(circle, var(--primary-accent) 0%, transparent 70%)",
+          transform: "scale(0.85)",
         }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Orbital rings — continuous rotation */}
-      {rings.map((r, i) => (
-        <motion.div
-          key={i}
-          className="absolute inset-0"
-          style={{ transform: r.rot, transformStyle: "preserve-3d" }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: r.dur * speedFactor, repeat: Infinity, ease: "linear" }}
-        >
-          <div
-            className="absolute inset-[8%] rounded-full border transition-all duration-300"
-            style={{
-              borderColor: `color-mix(in oklab, var(--primary-accent) ${hovered ? 55 : 35}%, transparent)`,
-              boxShadow: `0 0 ${hovered ? 30 : 20}px color-mix(in oklab, var(--primary-accent) ${hovered ? 40 : 25}%, transparent) inset`,
-            }}
-          />
-          <div
-            className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{
-              background: "var(--primary-accent)",
-              boxShadow: "0 0 12px var(--primary-accent)",
-              animation: `atom-spin-${i} ${r.dotDur * speedFactor}s linear infinite`,
-              transformOrigin: "center",
-            }}
-          />
-        </motion.div>
-      ))}
-
-      <style>{`
-        @keyframes atom-spin-0 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg) translateX(42%) rotate(-360deg); } }
-        @keyframes atom-spin-1 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(-360deg) translateX(42%) rotate(360deg); } }
-        @keyframes atom-spin-2 { from { transform: translate(-50%, -50%) rotate(0deg) translateX(42%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg) translateX(42%) rotate(-360deg); } }
-      `}</style>
+      {/* Rotating 3D sphere assembly */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ perspective: `${perspective}px`, transformStyle: "preserve-3d" }}
+        animate={{ rotateY: [0, 360] }}
+        transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+      >
+        <SphereLayer nodes={nodes} connections={connections} radius={radius} perspective={perspective} hovered={hovered} />
+      </motion.div>
     </motion.div>
   );
+}
+
+function SphereLayer({
+  nodes,
+  connections,
+  radius,
+  perspective,
+  hovered,
+}: {
+  nodes: { phi: number; theta: number; id: number }[];
+  connections: { a: number; b: number }[];
+  radius: number;
+  perspective: number;
+  hovered: boolean;
+}) {
+  // Use a slow counter-rotating inner layer for depth
+  return (
+    <div className="absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
+      {/* Lines rendered as SVG for crispness */}
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        {connections.map((c, idx) => {
+          const a = projectStatic(nodes[c.a].phi, nodes[c.a].theta, radius, perspective);
+          const b = projectStatic(nodes[c.b].phi, nodes[c.b].theta, radius, perspective);
+          const opacity = 0.15 + ((a.z + b.z + 2) / 4) * 0.25;
+          return (
+            <line
+              key={`l-${idx}`}
+              x1={a.x}
+              y1={a.y}
+              x2={b.x}
+              y2={b.y}
+              stroke="var(--primary-accent)"
+              strokeWidth={0.15}
+              strokeOpacity={hovered ? Math.min(opacity * 1.8, 0.55) : opacity}
+              style={{ transition: "stroke-opacity 0.4s ease" }}
+            />
+          );
+        })}
+      </svg>
+
+      {/* Dots */}
+      {nodes.map((n) => {
+        const p = projectStatic(n.phi, n.theta, radius, perspective);
+        const size = 1.2 + p.scale * 1.4;
+        const opacity = 0.4 + ((p.z + 1) / 2) * 0.6;
+        return (
+          <div
+            key={n.id}
+            className="absolute rounded-full"
+            style={{
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              background: "var(--primary-accent)",
+              transform: "translate(-50%, -50%)",
+              opacity: hovered ? Math.min(opacity * 1.5, 1) : opacity,
+              boxShadow: `0 0 ${size * 3}px ${size}px color-mix(in oklab, var(--primary-accent) ${hovered ? 60 : 35}%, transparent)`,
+              transition: "opacity 0.4s ease, box-shadow 0.4s ease",
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function projectStatic(phi: number, theta: number, radius: number, perspective: number) {
+  const rotY = 0;
+  const rotX = 0.3;
+  let x = Math.sin(phi) * Math.cos(theta);
+  let y = Math.sin(phi) * Math.sin(theta);
+  let z = Math.cos(phi);
+
+  const cy = Math.cos(rotY), sy = Math.sin(rotY);
+  const x1 = x * cy + z * sy;
+  const z1 = -x * sy + z * cy;
+  x = x1; z = z1;
+
+  const cx = Math.cos(rotX), sx = Math.sin(rotX);
+  const y2 = y * cx - z * sx;
+  const z2 = y * sx + z * cx;
+  y = y2; z = z2;
+
+  const scale = perspective / (perspective + z * radius * 2);
+  return {
+    x: 50 + x * radius * scale,
+    y: 50 + y * radius * scale,
+    scale,
+    z,
+  };
 }
 
 
