@@ -58,7 +58,7 @@ export function Navbar() {
   return (
     <header className="sticky top-4 z-40 mx-auto w-full max-w-6xl px-4">
       <nav className="rounded-2xl border bg-background/80 px-5 py-3 backdrop-blur-md shadow-[var(--glass-shadow)]" style={{ borderColor: "var(--glass-border)" }}>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-8">
           <button
             onClick={() => scrollToId("home")}
             className="font-display text-lg font-bold tracking-[0.25em]"
@@ -66,7 +66,7 @@ export function Navbar() {
           >
             AS
           </button>
-          <div className="hidden items-center gap-7 md:flex">
+          <div className="hidden items-center gap-7 lg:flex">
             {navSections.map((s) => (
               <button
                 key={s.id}
@@ -144,14 +144,14 @@ export function Navbar() {
           </div>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="rounded-md p-2 text-foreground/80 md:hidden"
+            className="flex rounded-md p-2 text-foreground/80 lg:hidden"
             aria-label="Toggle menu"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
         {open && (
-          <div className="mt-3 grid gap-2 border-t border-border pt-3 md:hidden">
+          <div className="mt-3 grid gap-2 border-t border-border pt-3 lg:hidden">
             {navSections.map((s) => (
               <button
                 key={s.id}
