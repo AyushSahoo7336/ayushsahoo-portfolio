@@ -98,6 +98,13 @@ export function ProjectsSection() {
                 <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
                   {active.blurb}
                 </p>
+                {active.highlights.length > 0 && (
+                  <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground/90">
+                    {active.highlights.map((h) => (
+                      <li key={h}>{h}</li>
+                    ))}
+                  </ul>
+                )}
                 <div className="flex flex-wrap gap-3 pt-2">
                   {active.github && (
                     <a
