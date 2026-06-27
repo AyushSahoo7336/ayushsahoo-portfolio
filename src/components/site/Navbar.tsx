@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { navSections, profile } from "@/data/portfolio";
+import { navSections } from "@/data/portfolio";
 
 function scrollToId(id: string) {
   const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
