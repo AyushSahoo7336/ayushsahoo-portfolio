@@ -106,7 +106,7 @@ export const experiences = [
 
 export const education = [
   {
-    title: "4th-year BE in Information Science",
+    title: "Bachelor of Engineering in Information Science",
     org: "Sir M. Visvesvaraya Institute of Technology",
     date: "2023 – 2027",
     extra: "CGPA: 8.26 / 10.0",
