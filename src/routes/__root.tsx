@@ -25,6 +25,7 @@ import { DownloadCv } from "@/components/site/DownloadCv";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { CustomCursor } from "@/components/site/CustomCursor";
 import { Spotlight } from "@/components/site/Spotlight";
+import { ScrollProgress } from "@/components/site/ScrollProgress";
 
 function NotFoundComponent() {
   return (
@@ -159,6 +160,7 @@ function RootComponent() {
           <SmoothScroll />
           <BackgroundFx />
           <Spotlight />
+          <ScrollProgress />
           <div className="relative z-10">
             <Navbar />
             <main className="pt-6">

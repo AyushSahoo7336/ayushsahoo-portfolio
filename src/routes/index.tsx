@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/sections/Hero";
-import { Marquee } from "@/components/sections/Marquee";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProblemSolverSection } from "@/components/sections/ProblemSolverSection";
@@ -23,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 function Section({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-24">
+    <section id={id} className="scroll-mt-28">
       {children}
     </section>
   );
@@ -35,14 +34,12 @@ function HomePage() {
       <Section id="home">
         <Hero />
       </Section>
-      <Marquee />
       <Section id="about"><AboutSection /></Section>
       <Section id="education"><EducationSection /></Section>
       <Section id="skills"><SkillsSection /></Section>
-      <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="projects"><ProjectsSection /></Section>
+      <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="contact"><ContactSection /></Section>
-
       <Section id="lets-talk"><LetsTalkSection /></Section>
     </>
   );
