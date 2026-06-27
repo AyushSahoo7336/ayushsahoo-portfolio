@@ -165,7 +165,7 @@ export function Navbar() {
                 onClick={() => setMobileResumeOpen((v) => !v)}
                 className="flex items-center justify-between rounded-md px-2 py-1.5 text-left text-sm text-foreground/80 hover:bg-foreground/5"
               >
-                <span className="font-medium">Resume</span>
+                <span className="font-medium text-[var(--primary-accent)]">Resume</span>
                 <ChevronDown
                   size={14}
                   className={`transition-transform ${mobileResumeOpen ? "rotate-180" : ""}`}
