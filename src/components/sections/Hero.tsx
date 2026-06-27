@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
-import profileAsset from "@/assets/profile-cutout.png.asset.json";
+import profileAsset from "@/assets/profile.jpeg.asset.json";
 
 
 function Typewriter({ phrases }: { phrases: string[] }) {
@@ -145,27 +145,25 @@ export function Hero() {
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 blur-[90px] opacity-70"
-            style={{ background: "radial-gradient(circle at 50% 55%, color-mix(in oklab, var(--primary-accent) 45%, transparent), transparent 70%)" }}
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full blur-[80px] opacity-60"
+            style={{ background: "radial-gradient(circle at 50% 60%, color-mix(in oklab, var(--primary-accent) 40%, transparent), transparent 70%)" }}
           />
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative mx-auto w-full max-w-md"
+            className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-3xl"
             style={{
-              maskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 82%, transparent 100%)",
-              filter: "drop-shadow(0 25px 50px color-mix(in oklab, var(--primary-accent) 35%, transparent))",
+              maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
             }}
           >
             <img
               src={profileAsset.url}
               alt={`${profile.name} portrait`}
-              className="h-auto w-full object-contain"
+              className="h-full w-full object-cover"
             />
           </motion.div>
         </motion.div>
-
       </div>
 
       <div className="mt-16 flex flex-col items-center text-[10px] uppercase tracking-[0.3em] text-foreground/40">
