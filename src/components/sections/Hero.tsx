@@ -151,16 +151,16 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-3xl"
+            className="relative mx-auto w-full max-w-sm"
             style={{
-              maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+              maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
             }}
           >
             <img
               src={profileAsset.url}
               alt={`${profile.name} portrait`}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain object-bottom"
             />
           </motion.div>
         </motion.div>
