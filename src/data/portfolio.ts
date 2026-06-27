@@ -199,6 +199,9 @@ export type ProjectCategory = "Web Apps";
 
 export const projectCategories: ("All" | ProjectCategory)[] = ["All", "Web Apps"];
 
+import vidmeetImg from "@/assets/vidmeet.png";
+import gitverseImg from "@/assets/gitverse.png";
+
 export const projects: {
   title: string;
   blurb: string;
@@ -224,6 +227,7 @@ export const projects: {
     demo: "https://vidmeet-chi.vercel.app",
     accent: "from-cyan-500/40 to-blue-600/40",
     tech: ["WebRTC", "React", "Node.js", "Socket.IO", "TURN/STUN"],
+    image: vidmeetImg,
   },
   {
     title: "GitVerse",
@@ -239,6 +243,7 @@ export const projects: {
     demo: "https://gitverse-rust.vercel.app",
     accent: "from-purple-500/40 to-cyan-500/40",
     tech: ["Node.js", "CLI", "AWS S3", "React"],
+    image: gitverseImg,
   },
   {
     title: "StockFlow",
