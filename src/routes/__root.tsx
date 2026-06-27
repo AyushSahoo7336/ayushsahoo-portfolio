@@ -21,7 +21,7 @@ import { ControlRail } from "@/components/site/ControlRail";
 import { Starfield } from "@/components/site/Starfield";
 import { ColdFlakes } from "@/components/site/effects/ColdFlakes";
 import { MatrixRain } from "@/components/site/effects/MatrixRain";
-import { DownloadCv } from "@/components/site/DownloadCv";
+
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { CustomCursor } from "@/components/site/CustomCursor";
 import { Spotlight } from "@/components/site/Spotlight";
@@ -169,7 +169,7 @@ function RootComponent() {
             <Footer />
           </div>
           <ControlRail />
-          <DownloadCv />
+          
           <CustomCursor />
           <AnimatePresence mode="wait">
             {isLoading && <Preloader key="preloader" />}

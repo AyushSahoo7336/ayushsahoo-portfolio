@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { Menu, X, ChevronDown, ExternalLink, Download } from "lucide-react";
 import { navSections } from "@/data/portfolio";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 function scrollToId(id: string) {
   const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
@@ -18,6 +24,9 @@ function scrollToId(id: string) {
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>(navSections[0].id);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const [mobileResumeOpen, setMobileResumeOpen] = useState(false);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const ids = navSections.map((s) => s.id);
@@ -71,6 +80,59 @@ export function Navbar() {
                 {s.label}
               </button>
             ))}
+            <div
+              className="relative"
+              onMouseEnter={() => {
+                if (resumeTimer.current) clearTimeout(resumeTimer.current);
+                setResumeOpen(true);
+              }}
+              onMouseLeave={() => {
+                resumeTimer.current = setTimeout(() => setResumeOpen(false), 180);
+              }}
+            >
+              <DropdownMenu open={resumeOpen} onOpenChange={setResumeOpen}>
+                <DropdownMenuTrigger asChild>
+                  <button className="inline-flex items-center gap-1 text-sm text-foreground/70 transition-colors hover:text-foreground data-[state=open]:text-[var(--primary-accent)]">
+                    Resume
+                    <ChevronDown size={14} className="transition-transform data-[state=open]:rotate-180" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  sideOffset={8}
+                  className="min-w-[11rem] rounded-xl border bg-[var(--glass-bg)] p-1.5 text-foreground shadow-lg backdrop-blur-md"
+                  style={{ borderColor: "var(--glass-border)" }}
+                  onMouseEnter={() => {
+                    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+                    setResumeOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    resumeTimer.current = setTimeout(() => setResumeOpen(false), 180);
+                  }}
+                >
+                  <DropdownMenuItem asChild>
+                    <a
+                      href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
+                    >
+                      <ExternalLink size={14} />
+                      View Resume
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a
+                      href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
+                      className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
+                    >
+                      <Download size={14} />
+                      Download Resume
+                    </a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -98,6 +160,40 @@ export function Navbar() {
                 {s.label}
               </button>
             ))}
+            <div className="grid gap-1 pt-1">
+              <button
+                onClick={() => setMobileResumeOpen((v) => !v)}
+                className="flex items-center justify-between rounded-md px-2 py-1.5 text-left text-sm text-foreground/80 hover:bg-foreground/5"
+              >
+                <span className="font-medium">Resume</span>
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform ${mobileResumeOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileResumeOpen && (
+                <>
+                  <a
+                    href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
+                    onClick={() => setOpen(false)}
+                  >
+                    <ExternalLink size={14} />
+                    View Resume
+                  </a>
+                  <a
+                    href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
+                    className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
+                    onClick={() => setOpen(false)}
+                  >
+                    <Download size={14} />
+                    Download Resume
+                  </a>
+                </>
+              )}
+            </div>
           </div>
         )}
       </nav>
