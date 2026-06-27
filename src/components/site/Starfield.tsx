@@ -25,8 +25,8 @@ export function Starfield() {
         className="absolute inset-0"
         style={{
           background: isLight
-            ? "radial-gradient(ellipse at top, rgba(6,182,212,0.05), transparent 55%), radial-gradient(ellipse at bottom, rgba(226,232,240,1), var(--background))"
-            : "radial-gradient(ellipse at top, rgba(6,182,212,0.08), transparent 55%), radial-gradient(ellipse at bottom, rgba(2,8,23,1), var(--background))",
+            ? "radial-gradient(ellipse at top, color-mix(in oklab, var(--primary-accent) 5%, transparent), transparent 55%), radial-gradient(ellipse at bottom, color-mix(in oklab, var(--primary-accent) 8%, #e2e8f0), var(--background))"
+            : "radial-gradient(ellipse at top, color-mix(in oklab, var(--primary-accent) 8%, transparent), transparent 55%), radial-gradient(ellipse at bottom, color-mix(in oklab, var(--primary-accent) 5%, #020408), var(--background))",
         }}
       />
       {stars.map((s, i) => (
