@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import { Menu, X, ChevronDown, ExternalLink, Download } from "lucide-react";
+import {
+  Menu, X, ChevronDown, ExternalLink, Download,
+  Snowflake, Code2, Moon, Sun, Palette, Check,
+} from "lucide-react";
 import { navSections } from "@/data/portfolio";
 import {
   DropdownMenu,
@@ -7,6 +10,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { useAccent, ACCENTS, type AccentName } from "@/context/AccentContext";
+import { useEffects, type EffectName } from "@/context/EffectsContext";
 
 function scrollToId(id: string) {
   const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
@@ -27,6 +32,9 @@ export function Navbar() {
   const [resumeOpen, setResumeOpen] = useState(false);
   const [mobileResumeOpen, setMobileResumeOpen] = useState(false);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const { accent, setAccent, color } = useAccent();
+  const { effect, setEffect, dark, setDark } = useEffects();
 
   useEffect(() => {
     const ids = navSections.map((s) => s.id);
@@ -201,6 +209,90 @@ export function Navbar() {
                   </a>
                 </>
               )}
+            </div>
+
+            {/* Preferences */}
+            <div className="mt-2 border-t border-border pt-3">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                Preferences
+              </p>
+
+              {/* Effects */}
+              <div className="mb-4">
+                <p className="mb-2 text-xs text-muted-foreground">Effects</p>
+                <div className="flex flex-row gap-2">
+                  {[
+                    { id: "none" as EffectName, label: "Stars", icon: <Snowflake size={14} /> },
+                    { id: "flakes" as EffectName, label: "Flakes", icon: <Snowflake size={14} /> },
+                    { id: "matrix" as EffectName, label: "Matrix", icon: <Code2 size={14} /> },
+                  ].map((o) => {
+                    const isActive = effect === o.id;
+                    return (
+                      <button
+                        key={o.id}
+                        onClick={() => setEffect(o.id)}
+                        className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg border px-2 py-2.5 text-xs transition ${
+                          isActive
+                            ? "border-transparent text-white"
+                            : "border-[var(--glass-border)] text-foreground/70 hover:bg-white/5"
+                        }`}
+                        style={isActive ? { backgroundColor: color } : undefined}
+                      >
+                        {o.icon}
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Theme */}
+              <div className="mb-4">
+                <p className="mb-2 text-xs text-muted-foreground">Theme</p>
+                <button
+                  onClick={() => setDark(!dark)}
+                  className="flex w-full items-center gap-2 rounded-lg border border-[var(--glass-border)] px-3 py-2.5 text-xs text-foreground/70 transition hover:bg-white/5"
+                >
+                  {dark ? <Moon size={14} /> : <Sun size={14} />}
+                  <span>{dark ? "Dark Mode" : "Light Mode"}</span>
+                </button>
+              </div>
+
+              {/* Accent */}
+              <div>
+                <p className="mb-2 text-xs text-muted-foreground">Accent</p>
+                <div className="flex flex-row flex-wrap gap-2">
+                  {([
+                    { id: "cyan" as AccentName, label: "Sea" },
+                    { id: "forest" as AccentName, label: "Forest" },
+                    { id: "ember" as AccentName, label: "Ember" },
+                    { id: "violet" as AccentName, label: "Violet" },
+                    { id: "rose" as AccentName, label: "Rose" },
+                    { id: "sun" as AccentName, label: "Sun" },
+                    { id: "sky" as AccentName, label: "Sky" },
+                    { id: "magenta" as AccentName, label: "Magenta" },
+                  ]).map((o) => {
+                    const isActive = accent === o.id;
+                    return (
+                      <button
+                        key={o.id}
+                        onClick={() => setAccent(o.id)}
+                        aria-label={o.label}
+                        className="grid h-10 w-10 place-items-center rounded-full border transition hover:scale-110"
+                        style={{
+                          backgroundColor: isActive
+                            ? ACCENTS[o.id]
+                            : `color-mix(in oklab, ${ACCENTS[o.id]} 18%, transparent)`,
+                          borderColor: isActive ? ACCENTS[o.id] : "var(--glass-border)",
+                          boxShadow: isActive ? `0 0 12px -2px ${ACCENTS[o.id]}` : undefined,
+                        }}
+                      >
+                        {isActive && <Check size={12} className="text-white" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         )}
