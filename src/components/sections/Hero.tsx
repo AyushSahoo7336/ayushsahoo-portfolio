@@ -142,17 +142,17 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="relative hidden items-center justify-center md:flex"
+          className="relative order-1 flex items-center justify-center md:order-2"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[110px] opacity-80"
+            className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[90px] opacity-80 md:h-[420px] md:w-[420px] md:blur-[110px]"
             style={{ background: "radial-gradient(circle at 50% 40%, color-mix(in oklab, var(--primary-accent) 70%, transparent), transparent 65%)" }}
           />
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative mx-auto w-full max-w-sm"
+            className="relative mx-auto w-full max-w-[260px] sm:max-w-xs md:max-w-sm"
           >
             <img
               src={profileAsset.url}
@@ -162,6 +162,7 @@ export function Hero() {
             />
           </motion.div>
         </motion.div>
+
       </div>
 
       <div className="mt-16 flex flex-col items-center text-[10px] uppercase tracking-[0.3em] text-foreground/40">
