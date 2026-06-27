@@ -17,7 +17,7 @@ export function EducationSection() {
     <div className="pb-20">
       <PageHeader
         eyebrow="EDUCATION"
-        title="Academic Background"
+        title={<><span className="text-foreground">Academic </span><span style={{ color: 'var(--primary-accent)' }}>Background</span></>}
         intro="The foundation that shapes my expertise."
       />
 
