@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
+import profileAsset from "@/assets/profile.jpeg.asset.json";
+
 
 function Typewriter({ phrases }: { phrases: string[] }) {
   const [text, setText] = useState("");
@@ -36,6 +38,7 @@ function scrollTo(id: string) {
 export function Hero() {
   return (
     <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-12">
+      <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr]">
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
@@ -134,10 +137,40 @@ export function Hero() {
         </div>
       </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="relative hidden md:block"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full blur-[80px] opacity-60"
+            style={{ background: "radial-gradient(circle at 50% 60%, color-mix(in oklab, var(--primary-accent) 40%, transparent), transparent 70%)" }}
+          />
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-3xl"
+            style={{
+              maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            }}
+          >
+            <img
+              src={profileAsset.url}
+              alt={`${profile.name} portrait`}
+              className="h-full w-full object-cover"
+            />
+          </motion.div>
+        </motion.div>
+      </div>
+
       <div className="mt-16 flex flex-col items-center text-[10px] uppercase tracking-[0.3em] text-foreground/40">
         Scroll
         <ChevronDown size={14} className="mt-1 animate-bounce" style={{ color: "var(--primary-accent)" }} />
       </div>
     </section>
+
   );
 }
