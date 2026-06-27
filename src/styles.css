@@ -40,22 +40,22 @@
 
   --primary-accent: #22d3ee;
 
-  --background: #040814;
+  --background: color-mix(in oklab, var(--primary-accent) 5%, #03040a 95%);
   --foreground: oklch(0.97 0.01 240);
 
-  --card: #0a1020;
+  --card: color-mix(in oklab, var(--primary-accent) 8%, #080c18 92%);
   --card-foreground: oklch(0.97 0.01 240);
-  --popover: #0a1020;
+  --popover: color-mix(in oklab, var(--primary-accent) 8%, #080c18 92%);
   --popover-foreground: oklch(0.97 0.01 240);
 
   --primary: oklch(0.82 0.13 210);
   --primary-foreground: #040814;
 
-  --secondary: oklch(0.22 0.02 240);
+  --secondary: color-mix(in oklab, var(--primary-accent) 10%, #0c1220 90%);
   --secondary-foreground: oklch(0.97 0.01 240);
-  --muted: oklch(0.2 0.02 240);
+  --muted: color-mix(in oklab, var(--primary-accent) 8%, #0a1020 92%);
   --muted-foreground: oklch(0.62 0.02 240);
-  --accent: oklch(0.22 0.02 240);
+  --accent: color-mix(in oklab, var(--primary-accent) 10%, #0c1220 90%);
   --accent-foreground: oklch(0.97 0.01 240);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
