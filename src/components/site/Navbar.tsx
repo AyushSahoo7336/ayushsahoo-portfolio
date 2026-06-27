@@ -66,7 +66,7 @@ export function Navbar() {
           >
             AS
           </button>
-          <div className="hidden items-center gap-7 md:flex">
+          <div className="hidden items-center gap-7 lg:flex">
             {navSections.map((s) => (
               <button
                 key={s.id}
