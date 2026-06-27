@@ -72,7 +72,7 @@ export function ControlRail() {
             return (
               <button
                 key={o.id}
-                onClick={() => setAccent(o.id)}
+                onClick={() => { setAccent(o.id); setOpen(null); }}
                 aria-label={o.label}
                 title={o.label}
                 className="relative grid h-10 w-full place-items-center rounded-lg border border-white/10 transition hover:scale-105"
