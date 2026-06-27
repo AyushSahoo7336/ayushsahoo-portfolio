@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Menu, X, ChevronDown, ExternalLink, Download } from "lucide-react";
 import { navSections } from "@/data/portfolio";
 import {
