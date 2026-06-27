@@ -77,8 +77,10 @@ export function ProjectsSection() {
                     href={p.demo}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-black"
-                    style={{ backgroundColor: "var(--primary-accent)" }}
+                    className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all duration-300 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
+                    style={{ borderColor: "var(--glass-border)" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--primary-accent)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ""; }}
                   >
                     <ExternalLink size={13} /> Live Demo
                   </a>
@@ -151,8 +153,10 @@ export function ProjectsSection() {
                       href={active.demo}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-black"
-                      style={{ backgroundColor: "var(--primary-accent)" }}
+                      className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-foreground/80 transition-all duration-300 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
+                      style={{ borderColor: "var(--glass-border)" }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--primary-accent)"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ""; }}
                     >
                       <ExternalLink size={15} /> Live Demo
                     </a>
