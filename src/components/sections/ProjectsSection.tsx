@@ -53,7 +53,9 @@ export function ProjectsSection() {
             </div>
             <div className="flex flex-1 flex-col gap-3 p-6">
               <h3 className="font-display text-2xl font-bold tracking-tight text-foreground">
-                {p.title}
+                {p.title === "VidMeet" && <>Vid<span style={{ color: "var(--primary-accent)" }}>Meet</span></>}
+                {p.title === "GitVerse" && <>Git<span style={{ color: "var(--primary-accent)" }}>Verse</span></>}
+                {p.title === "StockFlow" && <>Stock<span style={{ color: "var(--primary-accent)" }}>Flow</span></>}
               </h3>
               <p className="line-clamp-3 text-sm text-foreground/70">{p.blurb}</p>
               <div className="mt-auto flex items-center gap-3 pt-2">
@@ -109,7 +111,9 @@ export function ProjectsSection() {
               </div>
               <div className="flex flex-col gap-4 p-6">
                 <DialogTitle className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                  {active.title}
+                  {active.title === "VidMeet" && <>Vid<span style={{ color: "var(--primary-accent)" }}>Meet</span></>}
+                  {active.title === "GitVerse" && <>Git<span style={{ color: "var(--primary-accent)" }}>Verse</span></>}
+                  {active.title === "StockFlow" && <>Stock<span style={{ color: "var(--primary-accent)" }}>Flow</span></>}
                 </DialogTitle>
                 {active.tech && (
                   <div className="flex flex-wrap gap-2">
