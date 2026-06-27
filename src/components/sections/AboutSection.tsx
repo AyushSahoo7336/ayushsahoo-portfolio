@@ -197,7 +197,7 @@ export function AboutSection() {
               </div>
             </div>
             <div className="flex items-center justify-center">
-              <AtomOrbit />
+              <NetworkSphere />
             </div>
           </div>
         </div>
