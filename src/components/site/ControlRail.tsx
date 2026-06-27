@@ -1,25 +1,10 @@
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Focus,
-  Wifi,
-  Music2,
-  Snowflake,
-  Moon,
-  Sun,
-  Palette,
-  Globe,
-  Check,
-  Code2,
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
-} from "lucide-react";
+import { Snowflake, Moon, Sun, Palette, Check, Code2 } from "lucide-react";
 import { ACCENTS, useAccent, type AccentName } from "@/context/AccentContext";
 import { useEffects } from "@/context/EffectsContext";
 
-type PanelId = "focus" | "wifi" | "music" | "effects" | "theme" | "palette" | "lang" | null;
+type PanelId = "effects" | "palette" | null;
 
 const ACCENT_OPTS: { id: AccentName; label: string }[] = [
   { id: "cyan", label: "Sea" },
@@ -32,79 +17,15 @@ const ACCENT_OPTS: { id: AccentName; label: string }[] = [
   { id: "magenta", label: "Magenta" },
 ];
 
-const TRACKS = ["Idea 22 (Slowed)", "Isabella's Lullaby", "Jazz Vibes"];
-
 export function ControlRail() {
   const { accent, setAccent, color } = useAccent();
-  const { effect, setEffect, dark, setDark, focus, setFocus } = useEffects();
+  const { effect, setEffect, dark, setDark } = useEffects();
   const [open, setOpen] = useState<PanelId>(null);
-  const [playing, setPlaying] = useState<string | null>(null);
-  const [volume, setVolume] = useState(0);
-  const [lang, setLang] = useState<"EN" | "FR">("EN");
 
   const toggle = (id: PanelId) => setOpen((cur) => (cur === id ? null : id));
 
   return (
     <div className="fixed right-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 sm:flex">
-      <RailBtn active={focus} label="Focus" onClick={() => setFocus(!focus)} color={color}>
-        <Focus size={15} />
-      </RailBtn>
-
-      <RailBtn active={open === "wifi"} label="Status" onClick={() => toggle("wifi")} color={color}>
-        <Wifi size={15} />
-      </RailBtn>
-      <Panel show={open === "wifi"} onClose={() => setOpen(null)} title="Status">
-        <div className="flex items-center gap-2 text-sm text-foreground/80">
-          <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color, boxShadow: `0 0 8px ${color}` }} />
-          Online · all systems normal
-        </div>
-      </Panel>
-
-      <RailBtn active={open === "music"} label="Music" onClick={() => toggle("music")} color={color}>
-        <Music2 size={15} />
-      </RailBtn>
-      <Panel show={open === "music"} onClose={() => setOpen(null)} title="Music Player" icon={<Music2 size={14} />}>
-        <div className="mb-4 flex items-center gap-3">
-          <button onClick={() => setVolume(volume > 0 ? 0 : 60)} className="text-foreground/70 hover:text-foreground">
-            {volume === 0 ? <VolumeX size={16} /> : <Volume2 size={16} />}
-          </button>
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={volume}
-            onChange={(e) => setVolume(Number(e.target.value))}
-            className="flex-1 accent-[var(--primary-accent)]"
-            style={{ accentColor: color }}
-          />
-          <span className="w-9 text-right text-xs text-foreground/60">{volume}%</span>
-        </div>
-        <div className="space-y-1.5">
-          {TRACKS.map((t) => {
-            const active = playing === t;
-            return (
-              <button
-                key={t}
-                onClick={() => setPlaying(active ? null : t)}
-                className="flex w-full items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5 text-left transition hover:bg-white/[0.05]"
-                style={active ? { borderColor: color, backgroundColor: "color-mix(in oklab, " + color + " 12%, transparent)" } : undefined}
-              >
-                <span
-                  className="grid h-9 w-9 place-items-center rounded-lg"
-                  style={{ backgroundColor: "color-mix(in oklab, " + color + " 18%, transparent)", color }}
-                >
-                  {active ? <Pause size={14} /> : <Play size={14} />}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium" style={active ? { color } : undefined}>{t}</div>
-                  {active && <div className="text-[10px] uppercase tracking-wider text-foreground/50">Playing</div>}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </Panel>
-
       <RailBtn active={open === "effects" || effect !== "none"} label="Effects" onClick={() => toggle("effects")} color={color}>
         <Snowflake size={15} />
       </RailBtn>
@@ -169,28 +90,6 @@ export function ControlRail() {
             );
           })}
         </div>
-
-      </Panel>
-
-      <RailBtn active={open === "lang"} label="Language" onClick={() => toggle("lang")} color={color}>
-        <Globe size={15} />
-      </RailBtn>
-      <Panel show={open === "lang"} onClose={() => setOpen(null)} title="Language">
-        <div className="space-y-1">
-          {(["EN", "FR"] as const).map((l) => {
-            const active = lang === l;
-            return (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-white/5"
-              >
-                <span className="flex-1">{l === "EN" ? "English" : "Français"}</span>
-                {active && <Check size={14} style={{ color }} />}
-              </button>
-            );
-          })}
-        </div>
       </Panel>
     </div>
   );
@@ -234,10 +133,8 @@ function RailBtn({
         {label}
       </span>
     </button>
-
   );
 }
-
 
 function Panel({
   show,
