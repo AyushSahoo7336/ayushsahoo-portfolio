@@ -1,20 +1,10 @@
-## Plan: Update Hero Profile Photo
+## Swap Hero Photo to photohd.png
 
-### What I'll do
-
-1. **Create the new asset pointer**
-   - Write `src/assets/photo3.png.asset.json` from the already-generated CLI output.
-
-2. **Update `src/components/sections/Hero.tsx`**
-   - Swap the import from `profile.jpeg.asset.json` to `photo3.png.asset.json`.
-   - Strip `rounded-3xl` and `overflow-hidden` from the image container so it is invisible.
-   - Apply the exact bottom-fade mask the user specified:
-     `maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'`
-   - Change the `<img>` to `object-contain object-bottom` and scale it to fit the waist-up framing proportionally inside the right column.
-   - Keep the ambient accent-colored radial glow and the gentle floating `y: [0, -10, 0]` animation untouched.
-
-### Files touched
-- `src/assets/photo3.png.asset.json` (new)
-- `src/components/sections/Hero.tsx` (import + image container edits)
-
-No other files change.
+1. Upload the new image via `lovable-assets` and write `src/assets/photohd.png.asset.json`.
+2. Delete the old `src/assets/photo3.png.asset.json`.
+3. In `src/components/sections/Hero.tsx`:
+   - Replace photo3 import with photohd asset.
+   - Remove `scale-[1.15]` upscaling.
+   - Remove the bottom-fade mask (image is already clean waist-up).
+   - Adjust container sizing so it fits naturally (no excess space above/below).
+   - Keep floating animation; reposition the accent glow to sit centered behind the shoulders/head of the new framing.
