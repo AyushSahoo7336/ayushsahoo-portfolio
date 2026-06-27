@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
+import { Github, ExternalLink, ArrowUpRight, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { projects } from "@/data/portfolio";
