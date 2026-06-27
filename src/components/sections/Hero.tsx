@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
-import profileAsset from "@/assets/photo3.png.asset.json";
+import profileAsset from "@/assets/photohd.png.asset.json";
 
 
 function Typewriter({ phrases }: { phrases: string[] }) {
@@ -141,26 +141,22 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="relative hidden self-end md:block"
+          className="relative hidden items-center justify-center md:flex"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute -inset-8 -z-10 rounded-full blur-[120px] opacity-80"
-            style={{ background: "radial-gradient(circle at 50% 35%, color-mix(in oklab, var(--primary-accent) 70%, transparent), transparent 65%)" }}
+            className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[110px] opacity-80"
+            style={{ background: "radial-gradient(circle at 50% 40%, color-mix(in oklab, var(--primary-accent) 70%, transparent), transparent 65%)" }}
           />
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative mx-auto w-full max-w-md"
-            style={{
-              maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-            }}
+            className="relative mx-auto w-full max-w-sm"
           >
             <img
               src={profileAsset.url}
               alt={`${profile.name} portrait`}
-              className="h-full w-full scale-[1.15] object-contain object-bottom"
+              className="h-auto w-full object-contain"
             />
           </motion.div>
         </motion.div>
