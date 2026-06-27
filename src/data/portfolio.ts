@@ -243,7 +243,7 @@ export const projects: {
     github: "https://github.com/AyushSahoo7336/GitVerse",
     demo: "https://gitverse-rust.vercel.app",
     accent: "from-purple-500/40 to-cyan-500/40",
-    tech: ["Node.js", "CLI", "Cloudinary"],
+    tech: ["Node.js", "CLI", "AWS S3", "React"],
     image: gitverseImg,
   },
   {
