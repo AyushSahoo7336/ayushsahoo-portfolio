@@ -1,27 +1,22 @@
-## Modal Polish, Hero Typewriter & CV Button Rename
+## Scroll polish, rail tooltips, progress bar, remove marquee
 
-### 1. Global scrollbar styles (`src/styles.css`)
-Add a `.sleek-scrollbar` utility (webkit + firefox) — 8px width, transparent track, `bg-white/10` thumb, `rounded-full`, hover lights up to `var(--primary-accent)/50`. Apply to scrollable `DialogContent` in both modals.
+### 1. Section scroll offsets + Hero fit
+- `src/routes/index.tsx`: change `Section` wrapper's `scroll-mt-24` → `scroll-mt-28`. Reorder sections so `ProjectsSection` comes before `ProblemSolverSection`. Remove `<Marquee />`.
+- `src/components/sections/Hero.tsx`: change root `<section>` classes to `min-h-screen flex flex-col justify-center pt-24` (keep existing horizontal layout/max-width). Drop the bottom Scroll indicator's extra `mt-16` if it pushes overflow; keep but ensure it stays inside viewport.
+- `src/components/site/Navbar.tsx`: simplify `scrollToId` to native `el.scrollIntoView({ behavior: "smooth", block: "start" })` and `window.scrollTo({top:0})` for Home — remove the −100px math. Native CSS `scroll-mt-28` handles the offset.
 
-### 2. Project Modal (`src/components/sections/ProjectsSection.tsx`)
-- DialogContent: add `border-[var(--primary-accent)]/20`, ambient shadow `shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_8%,transparent)]`, plus `sleek-scrollbar` class.
-- Tech `<Badge>`s: switch to accent-tinted style (`bg-[var(--primary-accent)]/10 text-[var(--primary-accent)] border-[var(--primary-accent)]/20`).
-- Replace `<ul class="list-disc">` highlights with a flex layout: each bullet uses `<ChevronRight>` (Lucide) in `text-[var(--primary-accent)]` followed by the text.
+### 2. Nav order
+- `src/data/portfolio.ts`: update `navSections` to: Home, About, Education, Skills, Projects, LeetCode, Contact (move Projects before LeetCode; keep Let's Talk handling unchanged).
 
-### 3. Skills Modal (`src/components/sections/SkillsSection.tsx`)
-- DialogContent: same accent border + ambient shadow + sleek-scrollbar.
-- Mini bento cards: add `transition-all duration-300 hover:-translate-y-1 hover:border-[var(--primary-accent)]/50 hover:bg-[var(--primary-accent)]/5 hover:shadow-lg hover:shadow-[var(--primary-accent)]/10`.
+### 3. Control Rail tooltips
+- `src/components/site/ControlRail.tsx`: in `RailBtn`, add `relative group` to the button and render `<span class="pointer-events-none absolute right-full mr-3 px-3 py-1.5 rounded-md text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--glass-bg)] border border-[var(--glass-border)] text-foreground backdrop-blur-md shadow-[var(--glass-shadow)]">{label}</span>`. `label` prop already exists.
 
-### 4. Dialog close button (`src/components/ui/dialog.tsx`)
-Update the `DialogPrimitive.Close` element classes so hover state becomes `hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] transition-colors` (and rounded for a nicer hit area).
+### 4. Global scroll progress bar
+- `src/routes/__root.tsx`: add a top-level `<ScrollProgress />` component (new file `src/components/site/ScrollProgress.tsx`) placed above Navbar in the tree.
+- New component uses framer-motion `useScroll` + `useSpring`, renders `<motion.div className="fixed top-0 left-0 right-0 h-[3px] z-50 origin-left" style={{ scaleX, backgroundColor: "var(--primary-accent)" }} />`.
 
-### 5. Hero typewriter (`src/components/sections/Hero.tsx`)
-- Build a small local `Typewriter` component that cycles through: Software Developer → Full-Stack Developer → Real-Time Systems Builder → Problem Solver, with type/delete loop using `useEffect` + `setTimeout` (no extra dependency).
-- Render inside the subtitle line; keep the existing font/size/accent color from `profile.role`. Add a blinking cursor `|` styled with `var(--primary-accent)` (CSS keyframe `@keyframes blink` added to `styles.css` if not already present).
-- Prevent layout shift: wrap text in a fixed-`min-h` container and a `min-w-[22ch]` (or similar) inline-block so the row reserves space for the longest phrase. Keep the `Hand` icon to the right.
-
-### 6. Download CV → Download Resume (`src/components/site/DownloadCv.tsx`)
-Change the button label text from "Download CV" to "Download Resume". Leave file/url binding untouched.
+### 5. Cleanup
+- Delete `src/components/sections/Marquee.tsx` (no other importers).
 
 ### Out of scope
-No content/data changes besides the button label and hero subtitle wording. No structural/route changes.
+No data/content changes beyond `navSections` reorder. No theming, no modal changes.
