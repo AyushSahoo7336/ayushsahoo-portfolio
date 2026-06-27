@@ -16,7 +16,7 @@ export function ProjectsSection() {
         title={<>Things I&apos;ve <span style={{ color: "var(--primary-accent)" }}>built</span></>}
         intro="Click any project to see the full breakdown."
       />
-      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-3">
+      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-3">
         {projects.map((p) => (
           <article
             key={p.title}

@@ -89,7 +89,7 @@ export function ProblemSolverSection() {
         title={<>Problem <span style={{ color: "var(--primary-accent)" }}>Solver</span></>}
         intro="Consistently tackling complex data structures and optimizing algorithms for maximum efficiency."
       />
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
           className="interactive-card rounded-3xl bg-[var(--glass-bg)] p-8 backdrop-blur-sm shadow-[var(--glass-shadow)] md:p-12"
           style={{ borderColor: "var(--glass-border)" }}
