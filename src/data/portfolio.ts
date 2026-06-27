@@ -31,6 +31,7 @@ export const leetcode = {
   medium: 153,
   hard: 25,
   streak: 296,
+  rating: "1460+",
   profile: "https://leetcode.com/AyushSahoo1",
 };
 
