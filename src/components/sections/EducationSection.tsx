@@ -42,6 +42,9 @@ export function EducationSection() {
                   />
                 </div>
                 <div>
+                  <span className="mb-1 inline-block rounded-full border border-[var(--primary-accent)]/20 bg-[var(--primary-accent)]/10 px-3 py-0.5 text-xs font-semibold text-[var(--primary-accent)]">
+                    4<sup className="text-[0.7em]">th</sup> Year
+                  </span>
                   <h3 className="font-display text-2xl font-bold text-[var(--primary-accent)] md:text-3xl">
                     {edu.title}
                   </h3>
@@ -55,9 +58,6 @@ export function EducationSection() {
               <div className="flex flex-wrap gap-2 lg:justify-end">
                 <span className="inline-flex items-center rounded-full border border-[var(--primary-accent)]/20 bg-[var(--primary-accent)]/10 px-3 py-1 text-xs font-medium text-[var(--primary-accent)]">
                   CGPA: 8.26/10.0
-                </span>
-                <span className="inline-flex items-center rounded-full border border-[var(--primary-accent)]/20 bg-[var(--primary-accent)]/10 px-3 py-1 text-xs font-medium text-[var(--primary-accent)]">
-                  4th Year
                 </span>
               </div>
             </div>
