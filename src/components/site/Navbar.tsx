@@ -11,7 +11,7 @@ function scrollToId(id: string) {
   }
   const el = document.getElementById(id);
   if (!el) return;
-  if (lenis) lenis.scrollTo(el);
+  if (lenis) lenis.scrollTo(el, { offset: 80 });
   else el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
