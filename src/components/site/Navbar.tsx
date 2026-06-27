@@ -3,9 +3,14 @@ import { Menu, X } from "lucide-react";
 import { navSections, profile } from "@/data/portfolio";
 
 function scrollToId(id: string) {
+  const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
+  if (id === "home") {
+    if (lenis) lenis.scrollTo(0, { offset: 0 });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
   const el = document.getElementById(id);
   if (!el) return;
-  const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
   if (lenis) {
     lenis.scrollTo(el, { offset: -80 });
   } else {
