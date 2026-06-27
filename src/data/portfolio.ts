@@ -269,5 +269,5 @@ export const contacts = [
   { platform: "GitHub", handle: "@AyushSahoo7336", href: "https://github.com/AyushSahoo7336", icon: "Github" },
   { platform: "LinkedIn", handle: "@ayush-sahoo-63515b186", href: "https://linkedin.com/in/ayush-sahoo-63515b186", icon: "Linkedin" },
   { platform: "LeetCode", handle: "@AyushSahoo1", href: "https://leetcode.com/AyushSahoo1", icon: "Code2" },
-  { platform: "WhatsApp", handle: "+91 9756212879", href: "https://wa.me/919756212879", icon: "MessageCircle" },
+  { platform: "Phone Number", handle: "+91 9756212879", href: "tel:+919756212879", icon: "Phone" },
 ];
