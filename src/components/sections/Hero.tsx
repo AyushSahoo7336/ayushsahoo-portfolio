@@ -37,13 +37,13 @@ function scrollTo(id: string) {
 
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-0">
-      <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr]">
+    <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 pt-24 pb-0 sm:px-6">
+      <div className="grid items-center gap-8 md:grid-cols-[1.1fr_0.9fr] md:gap-10">
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative max-w-2xl"
+        className="relative order-2 max-w-2xl md:order-1"
       >
         <div className="mb-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em]" style={{ color: "var(--primary-accent)" }}>
           <Sparkles size={14} />
@@ -56,10 +56,11 @@ export function Hero() {
             className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
             style={{ backgroundColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
           />
-          <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight whitespace-nowrap md:text-7xl">
+          <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:whitespace-nowrap md:text-7xl">
             Hi, I'm <span style={{ color: "var(--primary-accent)" }}>{profile.name}</span>
           </h1>
         </div>
+
 
         <div className="mt-5 flex min-h-[2.5rem] items-center gap-2 text-2xl font-light text-foreground/70 md:min-h-[2.75rem] md:text-3xl">
           <span
