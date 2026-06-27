@@ -137,10 +137,40 @@ export function Hero() {
         </div>
       </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="relative hidden md:block"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full blur-[80px] opacity-60"
+            style={{ background: "radial-gradient(circle at 50% 60%, color-mix(in oklab, var(--primary-accent) 40%, transparent), transparent 70%)" }}
+          />
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-3xl"
+            style={{
+              maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            }}
+          >
+            <img
+              src={profileAsset.url}
+              alt={`${profile.name} portrait`}
+              className="h-full w-full object-cover"
+            />
+          </motion.div>
+        </motion.div>
+      </div>
+
       <div className="mt-16 flex flex-col items-center text-[10px] uppercase tracking-[0.3em] text-foreground/40">
         Scroll
         <ChevronDown size={14} className="mt-1 animate-bounce" style={{ color: "var(--primary-accent)" }} />
       </div>
     </section>
+
   );
 }
