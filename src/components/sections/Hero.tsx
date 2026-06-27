@@ -37,7 +37,7 @@ function scrollTo(id: string) {
 
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-12">
+    <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-0">
       <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr]">
       <motion.div
         initial={{ opacity: 0, y: 18 }}
