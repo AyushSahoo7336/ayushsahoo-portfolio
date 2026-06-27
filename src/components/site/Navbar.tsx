@@ -159,7 +159,7 @@ export function Navbar() {
           </button>
         </div>
         {open && (
-          <div className="mt-3 grid gap-2 border-t border-border pt-3 lg:hidden">
+          <div className="mt-3 grid gap-2 border-t border-border pt-3 lg:hidden max-h-[75vh] overflow-y-auto overscroll-contain pr-1">
             {navSections.map((s) => (
               <button
                 key={s.id}
