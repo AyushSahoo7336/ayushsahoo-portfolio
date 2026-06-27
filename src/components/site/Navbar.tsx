@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { navSections, profile } from "@/data/portfolio";
+import { navSections } from "@/data/portfolio";
 
 function scrollToId(id: string) {
   const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
@@ -43,7 +43,7 @@ export function Navbar() {
             className="font-display text-lg font-bold tracking-[0.25em]"
             style={{ color: "var(--primary-accent)" }}
           >
-            {profile.shortName}
+            AS
           </button>
           <div className="hidden items-center gap-7 md:flex">
             {navSections.map((s) => (
