@@ -43,7 +43,7 @@ export function Navbar() {
             className="font-display text-lg font-bold tracking-[0.25em]"
             style={{ color: "var(--primary-accent)" }}
           >
-            {profile.shortName}
+            AS
           </button>
           <div className="hidden items-center gap-7 md:flex">
             {navSections.map((s) => (

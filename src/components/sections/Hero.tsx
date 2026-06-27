@@ -57,7 +57,7 @@ export function Hero() {
             style={{ backgroundColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
           />
           <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl">
-            Hi, I'm <span style={{ color: "var(--primary-accent)" }}>{profile.name.split(" ")[0]}</span>
+            Hi, I'm <span style={{ color: "var(--primary-accent)" }}>{profile.name}</span>
           </h1>
         </div>
 
@@ -129,7 +129,7 @@ export function Hero() {
           </button>
           <button
             onClick={() => scrollTo("lets-talk")}
-            className="rounded-full border bg-[var(--glass-bg)] px-6 py-3 text-sm font-semibold text-foreground shadow-[var(--glass-shadow)] transition hover:opacity-80"
+            className="rounded-full border bg-[var(--glass-bg)] px-6 py-3 text-sm font-semibold text-foreground shadow-[var(--glass-shadow)] transition hover:bg-[var(--primary-accent)] hover:text-black"
             style={{ borderColor: "var(--glass-border)" }}
           >
             Let's Talk
@@ -157,6 +157,7 @@ export function Hero() {
               src={profileAsset.url}
               alt={`${profile.name} portrait`}
               className="h-auto w-full object-contain"
+              style={{ WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)' }}
             />
           </motion.div>
         </motion.div>
