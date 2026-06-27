@@ -16,7 +16,7 @@ export function EducationSection() {
   return (
     <div className="pb-20">
       <PageHeader
-        eyebrow="Education"
+        eyebrow="ACADEMIC BACKGROUND"
         title="Education"
         intro="The foundation that shapes my expertise."
       />
@@ -42,7 +42,7 @@ export function EducationSection() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl font-bold text-foreground md:text-3xl">
+                  <h3 className="font-display text-2xl font-bold text-[var(--primary-accent)] md:text-3xl">
                     {edu.title}
                   </h3>
                   <p className="mt-1 text-foreground/70">{edu.org}</p>
