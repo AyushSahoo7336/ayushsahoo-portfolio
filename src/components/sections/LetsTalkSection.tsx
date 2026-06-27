@@ -16,7 +16,7 @@ export function LetsTalkSection() {
     <div className="pb-20">
       <PageHeader
         eyebrow="Let's Talk"
-        title="Have a project in mind?"
+        title={<>Have a <span style={{ color: "var(--primary-accent)" }}>project in mind?</span></>}
         intro="Want to collaborate, or just say hi? Drop me a message and I'll get back to you soon."
       />
       <section className="mx-auto max-w-2xl px-6">
