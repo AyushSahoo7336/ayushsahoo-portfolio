@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
+import profileAsset from "@/assets/profile.jpeg.asset.json";
+
 
 function Typewriter({ phrases }: { phrases: string[] }) {
   const [text, setText] = useState("");
