@@ -151,7 +151,7 @@ export function Navbar() {
           </button>
         </div>
         {open && (
-          <div className="mt-3 grid gap-2 border-t border-border pt-3 md:hidden">
+          <div className="mt-3 grid gap-2 border-t border-border pt-3 lg:hidden">
             {navSections.map((s) => (
               <button
                 key={s.id}
