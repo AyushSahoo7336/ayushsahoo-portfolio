@@ -92,7 +92,7 @@ export function Navbar() {
             >
               <DropdownMenu open={resumeOpen} onOpenChange={setResumeOpen}>
                 <DropdownMenuTrigger asChild>
-                  <button className="inline-flex items-center gap-1 text-sm text-foreground/70 transition-colors hover:text-foreground data-[state=open]:text-[var(--primary-accent)]">
+                  <button className="inline-flex items-center gap-1 text-sm text-[var(--primary-accent)] transition-colors hover:opacity-80">
                     Resume
                     <ChevronDown size={14} className="transition-transform data-[state=open]:rotate-180" />
                   </button>
