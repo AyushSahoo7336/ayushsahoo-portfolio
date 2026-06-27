@@ -58,7 +58,7 @@ export function Navbar() {
   return (
     <header className="sticky top-4 z-40 mx-auto w-full max-w-6xl px-4">
       <nav className="rounded-2xl border bg-background/80 px-5 py-3 backdrop-blur-md shadow-[var(--glass-shadow)]" style={{ borderColor: "var(--glass-border)" }}>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-8">
           <button
             onClick={() => scrollToId("home")}
             className="font-display text-lg font-bold tracking-[0.25em]"
