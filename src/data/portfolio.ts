@@ -260,6 +260,7 @@ export const projects: {
     demo: "https://stock-flow.live",
     accent: "from-emerald-500/40 to-cyan-500/40",
     tech: ["C++", "Node.js", "Heaps", "WebSockets"],
+    image: stockflowImg.url,
   },
 ];
 

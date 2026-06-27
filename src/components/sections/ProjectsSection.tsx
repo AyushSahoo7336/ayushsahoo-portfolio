@@ -62,8 +62,10 @@ export function ProjectsSection() {
                     href={p.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-foreground/80 transition-colors hover:bg-foreground/5"
+                    className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all duration-300 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
                     style={{ borderColor: "var(--glass-border)" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--primary-accent)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ""; }}
                   >
                     <Github size={13} /> GitHub
                   </a>
@@ -128,12 +130,14 @@ export function ProjectsSection() {
                 )}
                 <div className="flex flex-wrap gap-3">
                   {active.github && (
-                    <a
+                  <a
                       href={active.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-foreground/5"
+                      className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-foreground/80 transition-all duration-300 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
                       style={{ borderColor: "var(--glass-border)" }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--primary-accent)"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ""; }}
                     >
                       <Github size={15} /> GitHub
                     </a>
