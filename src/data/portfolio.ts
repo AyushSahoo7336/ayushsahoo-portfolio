@@ -201,6 +201,7 @@ export const projectCategories: ("All" | ProjectCategory)[] = ["All", "Web Apps"
 export const projects: {
   title: string;
   blurb: string;
+  highlights: string[];
   category: ProjectCategory;
   github?: string;
   demo?: string;
@@ -212,6 +213,11 @@ export const projects: {
     title: "VidMeet",
     blurb:
       "Real-time video conferencing platform with peer-to-peer audio/video, screen sharing, and TURN/STUN fallback for restrictive networks.",
+    highlights: [
+      "Resolved persistent WebRTC connection failures on strict institutional networks via automated TURN relay fallback, routing ICE candidates over standard web ports (80/443)",
+      "Eliminated video stream flicker by isolating media elements into reusable React components with useRef-based rendering",
+      "Secured access via JWT authentication, host-controlled waiting rooms, and live network quality monitoring",
+    ],
     category: "Web Apps",
     github: "https://github.com/AyushSahoo7336/VidMeet",
     demo: "https://vidmeet-chi.vercel.app",
@@ -222,6 +228,11 @@ export const projects: {
     title: "GitVerse",
     blurb:
       "Distributed version control system with a custom CLI, cloud sync, and a dashboard for commit history visualization.",
+    highlights: [
+      "Built a Node.js CLI supporting 8+ VCS operations (init, push/pull, revert, remote add) with bidirectional cloud sync",
+      "JWT-authenticated Express backend on MongoDB Atlas with public/private repository visibility controls",
+      "React dashboard with commit history, file-level inspection, and a contribution heatmap",
+    ],
     category: "Web Apps",
     github: "https://github.com/AyushSahoo7336/GitVerse",
     demo: "https://gitverse-rust.vercel.app",
@@ -232,6 +243,11 @@ export const projects: {
     title: "StockFlow",
     blurb:
       "Algorithmic trading engine using Min-Heap/Max-Heap priority queues to cut order evaluation from O(N) to O(log N).",
+    highlights: [
+      "Streamed live stock prices every 10 seconds via a bidirectional WebSocket pipeline (Socket.io + Yahoo Finance API)",
+      "Integrated Gemini AI-powered stock analysis with a persistent, auditable transaction ledger",
+      "Built portfolio management and simulated trading on \u20b910,00,000 virtual capital",
+    ],
     category: "Web Apps",
     github: "https://github.com/AyushSahoo7336/StockFlow",
     demo: "https://stock-flow.live",
