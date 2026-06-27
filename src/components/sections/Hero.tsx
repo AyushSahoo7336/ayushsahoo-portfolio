@@ -3,6 +3,32 @@ import { motion } from "framer-motion";
 import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
 import { profile } from "@/data/portfolio";
 
+function Typewriter({ phrases }: { phrases: string[] }) {
+  const [text, setText] = useState("");
+  const [i, setI] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = phrases[i % phrases.length];
+    if (!deleting && text === current) {
+      const t = setTimeout(() => setDeleting(true), 1500);
+      return () => clearTimeout(t);
+    }
+    if (deleting && text === "") {
+      setDeleting(false);
+      setI((v) => (v + 1) % phrases.length);
+      return;
+    }
+    const t = setTimeout(
+      () => setText(deleting ? current.slice(0, text.length - 1) : current.slice(0, text.length + 1)),
+      deleting ? 40 : 80,
+    );
+    return () => clearTimeout(t);
+  }, [text, deleting, i, phrases]);
+
+  return <>{text}</>;
+}
+
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
