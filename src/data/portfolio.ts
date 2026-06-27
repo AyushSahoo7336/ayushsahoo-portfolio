@@ -30,7 +30,7 @@ export const leetcode = {
   easy: 163,
   medium: 153,
   hard: 25,
-  streak: 296,
+  streak: 300,
   rating: "1460+",
   profile: "https://leetcode.com/AyushSahoo1",
 };
@@ -201,6 +201,7 @@ export const projectCategories: ("All" | ProjectCategory)[] = ["All", "Web Apps"
 
 import vidmeetImg from "@/assets/vidmeet.png";
 import gitverseImg from "@/assets/gitverse.png";
+import stockflowImg from "@/assets/stockflow.png.asset.json";
 
 export const projects: {
   title: string;
@@ -259,6 +260,7 @@ export const projects: {
     demo: "https://stock-flow.live",
     accent: "from-emerald-500/40 to-cyan-500/40",
     tech: ["C++", "Node.js", "Heaps", "WebSockets"],
+    image: stockflowImg.url,
   },
 ];
 
