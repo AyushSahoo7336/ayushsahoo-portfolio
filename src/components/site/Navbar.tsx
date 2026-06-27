@@ -161,27 +161,38 @@ export function Navbar() {
               </button>
             ))}
             <div className="grid gap-1 pt-1">
-              <span className="px-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Resume
-              </span>
-              <a
-                href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => setMobileResumeOpen((v) => !v)}
+                className="flex items-center justify-between rounded-md px-2 py-1.5 text-left text-sm text-foreground/80 hover:bg-foreground/5"
               >
-                <ExternalLink size={14} />
-                View Resume
-              </a>
-              <a
-                href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
-                className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
-                onClick={() => setOpen(false)}
-              >
-                <Download size={14} />
-                Download Resume
-              </a>
+                <span className="font-medium">Resume</span>
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform ${mobileResumeOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileResumeOpen && (
+                <>
+                  <a
+                    href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
+                    onClick={() => setOpen(false)}
+                  >
+                    <ExternalLink size={14} />
+                    View Resume
+                  </a>
+                  <a
+                    href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
+                    className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
+                    onClick={() => setOpen(false)}
+                  >
+                    <Download size={14} />
+                    Download Resume
+                  </a>
+                </>
+              )}
             </div>
           </div>
         )}
