@@ -18,20 +18,24 @@ export function ProjectsSection() {
       />
       <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-3">
         {projects.map((p) => (
-          <button
+          <article
             key={p.title}
-            onClick={() => setActive(p)}
-            className="interactive-card group flex flex-col overflow-hidden rounded-3xl bg-[var(--glass-bg)] text-left backdrop-blur-sm shadow-[var(--glass-shadow)]"
+            className="interactive-card group flex flex-col overflow-hidden rounded-3xl bg-[var(--glass-bg)] backdrop-blur-sm shadow-[var(--glass-shadow)]"
             style={{ borderColor: "var(--glass-border)" }}
           >
             <div className={`relative aspect-video overflow-hidden bg-gradient-to-br ${p.accent}`}>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-              <div
-                className="absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-50 blur-3xl transition-opacity group-hover:opacity-80"
-                style={{ background: "var(--primary-accent)" }}
-              />
+              {p.image ? (
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+              )}
+              <div className="absolute inset-0 bg-black/40 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100" />
               <span
-                className="absolute left-4 top-4 inline-flex items-center rounded-full border bg-black/30 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.2em] backdrop-blur-sm"
+                className="absolute left-4 top-4 z-10 inline-flex items-center rounded-full border bg-black/40 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.2em] backdrop-blur-sm"
                 style={{
                   borderColor: "color-mix(in oklab, var(--primary-accent) 40%, transparent)",
                   color: "var(--primary-accent)",
@@ -39,22 +43,45 @@ export function ProjectsSection() {
               >
                 {p.category}
               </span>
+              <button
+                onClick={() => setActive(p)}
+                className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 scale-90 rounded-full px-6 py-3 text-sm font-semibold text-black opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"
+                style={{ backgroundColor: "var(--primary-accent)" }}
+              >
+                View Details
+              </button>
             </div>
-            <div className="flex flex-1 flex-col gap-4 p-6">
+            <div className="flex flex-1 flex-col gap-3 p-6">
               <h3 className="font-display text-2xl font-bold tracking-tight text-foreground">
                 {p.title}
               </h3>
-              <span
-                className="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-medium transition-transform group-hover:translate-x-1"
-                style={{
-                  borderColor: "color-mix(in oklab, var(--primary-accent) 40%, transparent)",
-                  color: "var(--primary-accent)",
-                }}
-              >
-                View Details <ArrowUpRight size={13} />
-              </span>
+              <p className="line-clamp-3 text-sm text-foreground/70">{p.blurb}</p>
+              <div className="mt-auto flex items-center gap-3 pt-2">
+                {p.github && (
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-foreground/80 transition-colors hover:bg-foreground/5"
+                    style={{ borderColor: "var(--glass-border)" }}
+                  >
+                    <Github size={13} /> GitHub
+                  </a>
+                )}
+                {p.demo && (
+                  <a
+                    href={p.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-black"
+                    style={{ backgroundColor: "var(--primary-accent)" }}
+                  >
+                    <ExternalLink size={13} /> Live Demo
+                  </a>
+                )}
+              </div>
             </div>
-          </button>
+          </article>
         ))}
       </section>
 
