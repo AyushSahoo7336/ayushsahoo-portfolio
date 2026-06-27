@@ -120,8 +120,8 @@ export function SkillsSection() {
 
       <Dialog open={openId !== null} onOpenChange={(o) => !o && setOpenId(null)}>
         <DialogContent
-          className="max-h-[85vh] overflow-y-auto border bg-[var(--glass-bg)] backdrop-blur-xl sm:max-w-2xl"
-          style={{ borderColor: "var(--glass-border)" }}
+          className="sleek-scrollbar max-h-[85vh] overflow-y-auto border bg-[var(--glass-bg)] backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] sm:max-w-2xl"
+          style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           <AnimatePresence mode="wait">
             {active && (
