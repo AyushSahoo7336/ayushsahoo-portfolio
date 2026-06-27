@@ -56,7 +56,7 @@ export function Hero() {
             className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
             style={{ backgroundColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
           />
-          <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl">
+          <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight whitespace-nowrap md:text-7xl">
             Hi, I'm <span style={{ color: "var(--primary-accent)" }}>{profile.name}</span>
           </h1>
         </div>
