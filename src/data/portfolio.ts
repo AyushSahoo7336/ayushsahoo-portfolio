@@ -82,7 +82,7 @@ export const skills = [
 
 export const bio = [
   "I'm a full-stack developer focused on real-time systems — the kind where milliseconds matter. Over the past year I've independently built and deployed three production applications: a WebRTC video conferencing platform, a distributed version control system, and an algorithmic trading engine.",
-  "I'm currently a 3rd-year Information Science student at Sir M. Visvesvaraya Institute of Technology, and I'm looking for an SDE internship where I can work on real systems with a real team.",
+  "I'm currently a 4th-year Information Science student at Sir M. Visvesvaraya Institute of Technology, and I'm looking for an SDE internship where I can work on real systems with a real team.",
 ];
 
 export const experiences = [
@@ -105,7 +105,7 @@ export const experiences = [
 
 export const education = [
   {
-    title: "Bachelor of Engineering in Information Science",
+    title: "4th-year BE in Information Science",
     org: "Sir M. Visvesvaraya Institute of Technology",
     date: "2023 – 2027",
     extra: "CGPA: 8.26 / 10.0",

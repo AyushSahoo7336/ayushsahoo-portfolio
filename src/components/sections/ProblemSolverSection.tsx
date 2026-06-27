@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Flame, ExternalLink } from "lucide-react";
+import { Flame, ExternalLink, Trophy } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { leetcode } from "@/data/portfolio";
