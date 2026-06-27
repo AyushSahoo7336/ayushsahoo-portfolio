@@ -16,7 +16,7 @@ export function ProjectsSection() {
         title={<>Things I&apos;ve <span style={{ color: "var(--primary-accent)" }}>built</span></>}
         intro="Click any project to see the full breakdown."
       />
-      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-3">
+      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
           <article
             key={p.title}
@@ -93,7 +93,7 @@ export function ProjectsSection() {
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent
-          className="sleek-scrollbar max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] sm:max-w-2xl"
+          className="sleek-scrollbar max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
           style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           {active && (

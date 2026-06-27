@@ -35,7 +35,7 @@ export function ContactSection() {
         title={<>Let&apos;s <span style={{ color: "var(--primary-accent)" }}>connect</span></>}
         intro="Feel free to reach out through any of these platforms."
       />
-      <section className="mx-auto grid max-w-5xl gap-4 px-4 sm:px-6 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto grid max-w-5xl grid-cols-1 gap-4 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3">
         {contacts.map((c, i) => {
           const Icon = ICONS[c.icon as keyof typeof ICONS] ?? Mail;
           const isPhone = c.platform === "Phone Number";
