@@ -26,7 +26,7 @@ export function Navbar() {
   const [active, setActive] = useState<string>(navSections[0].id);
   const [resumeOpen, setResumeOpen] = useState(false);
   const [mobileResumeOpen, setMobileResumeOpen] = useState(false);
-  const resumeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const ids = navSections.map((s) => s.id);
