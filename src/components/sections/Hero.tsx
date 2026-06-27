@@ -37,7 +37,7 @@ function scrollTo(id: string) {
 
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-12">
+    <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-0">
       <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr]">
       <motion.div
         initial={{ opacity: 0, y: 18 }}
@@ -141,17 +141,17 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="relative hidden md:block"
+          className="relative hidden self-end md:block"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 rounded-full blur-[80px] opacity-60"
-            style={{ background: "radial-gradient(circle at 50% 60%, color-mix(in oklab, var(--primary-accent) 40%, transparent), transparent 70%)" }}
+            className="pointer-events-none absolute -inset-8 -z-10 rounded-full blur-[120px] opacity-80"
+            style={{ background: "radial-gradient(circle at 50% 35%, color-mix(in oklab, var(--primary-accent) 70%, transparent), transparent 65%)" }}
           />
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative mx-auto w-full max-w-sm"
+            className="relative mx-auto w-full max-w-md"
             style={{
               maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
@@ -160,7 +160,7 @@ export function Hero() {
             <img
               src={profileAsset.url}
               alt={`${profile.name} portrait`}
-              className="h-full w-full object-contain object-bottom"
+              className="h-full w-full scale-[1.15] object-contain object-bottom"
             />
           </motion.div>
         </motion.div>
