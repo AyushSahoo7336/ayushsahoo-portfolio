@@ -12,9 +12,10 @@ function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   if (lenis) {
-    lenis.scrollTo(el, { offset: -80 });
+    lenis.scrollTo(el, { offset: -100 });
   } else {
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    const top = el.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top, behavior: "smooth" });
   }
 }
 

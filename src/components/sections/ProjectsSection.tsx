@@ -99,24 +99,7 @@ export function ProjectsSection() {
                     ))}
                   </div>
                 )}
-                <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-                  {active.blurb}
-                </p>
-                {active.highlights.length > 0 && (
-                  <ul className="space-y-2 text-sm text-muted-foreground/90">
-                    {active.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2">
-                        <ChevronRight
-                          size={16}
-                          className="mt-0.5 shrink-0"
-                          style={{ color: "var(--primary-accent)" }}
-                        />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="flex flex-wrap gap-3">
                   {active.github && (
                     <a
                       href={active.github}
@@ -140,6 +123,23 @@ export function ProjectsSection() {
                     </a>
                   )}
                 </div>
+                <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {active.blurb}
+                </p>
+                {active.highlights.length > 0 && (
+                  <ul className="space-y-2 text-sm text-muted-foreground/90">
+                    {active.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2">
+                        <ChevronRight
+                          size={16}
+                          className="mt-0.5 shrink-0"
+                          style={{ color: "var(--primary-accent)" }}
+                        />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </>
           )}
