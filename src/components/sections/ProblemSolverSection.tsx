@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Flame, ExternalLink } from "lucide-react";
+import { Flame, ExternalLink, Trophy } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { leetcode } from "@/data/portfolio";
@@ -149,28 +149,42 @@ export function ProblemSolverSection() {
                 )}
               </div>
 
-              <div
-                className="inline-flex items-center gap-3 rounded-full border px-4 py-2"
-                style={{
-                  borderColor: "color-mix(in oklab, var(--primary-accent) 40%, transparent)",
-                  background: "color-mix(in oklab, var(--primary-accent) 8%, transparent)",
-                }}
-              >
-                <span className="relative flex h-2.5 w-2.5">
-                  <span
-                    className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
-                    style={{ background: "var(--primary-accent)" }}
-                  />
-                  <span
-                    className="relative inline-flex h-2.5 w-2.5 rounded-full"
-                    style={{ background: "var(--primary-accent)" }}
-                  />
-                </span>
-                <Flame size={14} style={{ color: "var(--primary-accent)" }} />
-                <span className="text-sm font-medium">
-                  <span style={{ color: "var(--primary-accent)" }}>{leetcode.streak}-Day</span>{" "}
-                  <span className="text-foreground/70">Max Streak</span>
-                </span>
+              <div className="flex flex-wrap items-center gap-3">
+                <div
+                  className="inline-flex items-center gap-2 rounded-full border px-4 py-2"
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--primary-accent) 40%, transparent)",
+                    background: "color-mix(in oklab, var(--primary-accent) 8%, transparent)",
+                  }}
+                >
+                  <Trophy size={14} style={{ color: "var(--primary-accent)" }} />
+                  <span className="text-sm font-medium">
+                    <span style={{ color: "var(--primary-accent)" }}>Rating {leetcode.rating}</span>
+                  </span>
+                </div>
+                <div
+                  className="inline-flex items-center gap-3 rounded-full border px-4 py-2"
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--primary-accent) 40%, transparent)",
+                    background: "color-mix(in oklab, var(--primary-accent) 8%, transparent)",
+                  }}
+                >
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span
+                      className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+                      style={{ background: "var(--primary-accent)" }}
+                    />
+                    <span
+                      className="relative inline-flex h-2.5 w-2.5 rounded-full"
+                      style={{ background: "var(--primary-accent)" }}
+                    />
+                  </span>
+                  <Flame size={14} style={{ color: "var(--primary-accent)" }} />
+                  <span className="text-sm font-medium">
+                    <span style={{ color: "var(--primary-accent)" }}>{leetcode.streak}-Day</span>{" "}
+                    <span className="text-foreground/70">Max Streak</span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
