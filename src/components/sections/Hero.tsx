@@ -35,7 +35,7 @@ function scrollTo(id: string) {
 
 export function Hero() {
   return (
-    <section className="relative mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
+    <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-24 pb-12">
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}

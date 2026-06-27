@@ -5,18 +5,14 @@ import { navSections, profile } from "@/data/portfolio";
 function scrollToId(id: string) {
   const lenis = typeof window !== "undefined" ? window.__lenis : undefined;
   if (id === "home") {
-    if (lenis) lenis.scrollTo(0, { offset: 0 });
+    if (lenis) lenis.scrollTo(0);
     else window.scrollTo({ top: 0, behavior: "smooth" });
     return;
   }
   const el = document.getElementById(id);
   if (!el) return;
-  if (lenis) {
-    lenis.scrollTo(el, { offset: -100 });
-  } else {
-    const top = el.getBoundingClientRect().top + window.scrollY - 100;
-    window.scrollTo({ top, behavior: "smooth" });
-  }
+  if (lenis) lenis.scrollTo(el);
+  else el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 export function Navbar() {

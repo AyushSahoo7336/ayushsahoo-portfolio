@@ -213,11 +213,11 @@ function RailBtn({
     <button
       aria-label={label}
       onClick={onClick}
-      className="group grid h-9 w-9 place-items-center rounded-full border bg-[var(--glass-bg)] text-foreground/70 backdrop-blur-md shadow-[var(--glass-shadow)] transition-all duration-300 hover:scale-110 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
+      className="group relative grid h-9 w-9 place-items-center rounded-full border bg-[var(--glass-bg)] text-foreground/70 backdrop-blur-md shadow-[var(--glass-shadow)] transition-all duration-300 hover:scale-110 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
       style={
         active
           ? { color: "#fff", borderColor: "transparent", backgroundColor: color, boxShadow: `0 0 18px -2px ${color}` }
-          : ({ borderColor: "var(--glass-border)", ["--hover-bg" as any]: color } as React.CSSProperties)
+          : ({ borderColor: "var(--glass-border)" } as React.CSSProperties)
       }
       onMouseEnter={(e) => {
         if (!active) (e.currentTarget as HTMLButtonElement).style.backgroundColor = color;
@@ -227,7 +227,14 @@ function RailBtn({
       }}
     >
       {children}
+      <span
+        className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-md border px-3 py-1.5 text-xs text-foreground opacity-0 shadow-[var(--glass-shadow)] backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100"
+        style={{ backgroundColor: "var(--glass-bg)", borderColor: "var(--glass-border)" }}
+      >
+        {label}
+      </span>
     </button>
+
   );
 }
 
