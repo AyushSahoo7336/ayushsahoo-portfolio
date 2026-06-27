@@ -107,12 +107,12 @@ export function ProblemSolverSection() {
                 href={leetcode.profile}
                 target="_blank"
                 rel="noreferrer"
-                className="group/btn mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wider transition-all duration-300 hover:border-transparent hover:text-black hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
-                style={{ borderColor: "var(--glass-border)", color: "var(--primary-accent)" }}
+                className="mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-foreground/80 transition-all duration-300 hover:border-transparent hover:text-white hover:shadow-[0_0_18px_-2px_var(--primary-accent)]"
+                style={{ borderColor: "var(--glass-border)" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--primary-accent)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ""; }}
               >
-                View Profile <ExternalLink size={12} />
+                View Profile <ExternalLink size={13} />
               </a>
             </div>
 
