@@ -92,12 +92,17 @@ html.light {
 
 html {
   background-color: var(--background);
-  transition: background-color 300ms ease;
-  will-change: background-color;
+  transition: background-color 220ms linear;
 }
 
 body {
-  transition: background-color 300ms ease, color 300ms ease;
+  transition: color 220ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, body, * {
+    transition-duration: 0ms !important;
+  }
 }
 
 @media (pointer: fine) {
@@ -114,7 +119,7 @@ body {
   .interactive-card, [data-slot="card"], [data-slot="dialog-content"],
   [data-slot="popover-content"], [data-slot="dropdown-menu-content"] {
     transition-property: color, background-color, border-color, fill, stroke, box-shadow, opacity, transform;
-    transition-duration: 250ms;
+    transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   body {
@@ -127,6 +132,15 @@ body {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+  }
+  /* Contain paint per section so theme repaints don't cascade across the whole page */
+  section {
+    contain: layout paint style;
+  }
+  /* GPU-promote fixed background effect canvases so theme color changes don't force them to repaint with the rest of the page */
+  canvas {
+    transform: translateZ(0);
+    will-change: transform;
   }
 }
 
