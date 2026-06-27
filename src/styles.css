@@ -69,17 +69,17 @@
 }
 
 html.light {
-  --background: #f8fafc;
+  --background: color-mix(in oklab, var(--primary-accent) 6%, #f8fafc 94%);
   --foreground: #0f172a;
-  --card: #ffffff;
+  --card: color-mix(in oklab, var(--primary-accent) 4%, #ffffff 96%);
   --card-foreground: #0f172a;
-  --popover: #ffffff;
+  --popover: color-mix(in oklab, var(--primary-accent) 4%, #ffffff 96%);
   --popover-foreground: #0f172a;
-  --secondary: oklch(0.94 0.01 240);
+  --secondary: color-mix(in oklab, var(--primary-accent) 8%, #f1f5f9 92%);
   --secondary-foreground: #0f172a;
-  --muted: oklch(0.94 0.01 240);
+  --muted: color-mix(in oklab, var(--primary-accent) 8%, #f1f5f9 92%);
   --muted-foreground: oklch(0.45 0.02 240);
-  --accent: oklch(0.94 0.01 240);
+  --accent: color-mix(in oklab, var(--primary-accent) 8%, #f1f5f9 92%);
   --accent-foreground: #0f172a;
   --border: rgba(0, 0, 0, 0.08);
   --input: rgba(0, 0, 0, 0.08);
