@@ -87,27 +87,34 @@ export function Navbar() {
                 setResumeOpen(true);
               }}
               onMouseLeave={() => {
-                resumeTimer.current = setTimeout(() => setResumeOpen(false), 180);
+                if (resumeTimer.current) clearTimeout(resumeTimer.current);
+                resumeTimer.current = setTimeout(() => setResumeOpen(false), 220);
               }}
             >
-              <DropdownMenu open={resumeOpen} onOpenChange={setResumeOpen}>
+              <DropdownMenu open={resumeOpen} onOpenChange={setResumeOpen} modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <button className="inline-flex items-center gap-1 text-sm text-[var(--primary-accent)] transition-colors hover:opacity-80">
+                  <button className="inline-flex items-center gap-1 text-sm text-[var(--primary-accent)] outline-none transition-opacity duration-200 hover:opacity-80">
                     Resume
-                    <ChevronDown size={14} className="transition-transform data-[state=open]:rotate-180" />
+                    <ChevronDown
+                      size={14}
+                      className="transition-transform duration-200"
+                      style={{ transform: resumeOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                    />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  sideOffset={8}
+                  sideOffset={12}
                   className="min-w-[11rem] rounded-xl border bg-[var(--glass-bg)] p-1.5 text-foreground shadow-lg backdrop-blur-md"
                   style={{ borderColor: "var(--glass-border)" }}
+                  onCloseAutoFocus={(e) => e.preventDefault()}
                   onMouseEnter={() => {
                     if (resumeTimer.current) clearTimeout(resumeTimer.current);
                     setResumeOpen(true);
                   }}
                   onMouseLeave={() => {
-                    resumeTimer.current = setTimeout(() => setResumeOpen(false), 180);
+                    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+                    resumeTimer.current = setTimeout(() => setResumeOpen(false), 220);
                   }}
                 >
                   <DropdownMenuItem asChild>
@@ -133,6 +140,7 @@ export function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
+
           </div>
           <button
             onClick={() => setOpen((v) => !v)}
