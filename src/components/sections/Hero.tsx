@@ -32,14 +32,27 @@ export function Hero() {
           </h1>
         </div>
 
-        <p className="mt-5 flex items-center gap-2 text-2xl font-light text-foreground/70 md:text-3xl">
-          {profile.role}
+        <div className="mt-5 flex min-h-[2.5rem] items-center gap-2 text-2xl font-light text-foreground/70 md:min-h-[2.75rem] md:text-3xl">
+          <span
+            className="inline-block min-w-[16ch] md:min-w-[20ch]"
+            style={{ color: "var(--primary-accent)" }}
+          >
+            <Typewriter
+              phrases={[
+                "Software Developer",
+                "Full-Stack Developer",
+                "Real-Time Systems Builder",
+                "Problem Solver",
+              ]}
+            />
+            <span className="caret-blink ml-0.5 inline-block">|</span>
+          </span>
           <Hand
             className="inline-block animate-[wave_1.6s_ease-in-out_infinite] origin-[70%_70%]"
             style={{ color: "var(--primary-accent)" }}
             size={28}
           />
-        </p>
+        </div>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/60">
           {profile.tagline}
