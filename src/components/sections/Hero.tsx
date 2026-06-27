@@ -38,12 +38,12 @@ function scrollTo(id: string) {
 export function Hero() {
   return (
     <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 pt-24 pb-0 sm:px-6">
-      <div className="grid items-center gap-8 md:grid-cols-[3fr_2fr] md:gap-8 lg:gap-12">
+      <div className="flex flex-col items-center gap-8 md:flex-row md:gap-8 lg:gap-12">
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative order-2 max-w-2xl md:order-1"
+        className="relative order-2 w-full md:order-1 md:w-[60%]"
       >
         <div className="mb-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em]" style={{ color: "var(--primary-accent)" }}>
           <Sparkles size={14} />
