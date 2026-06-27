@@ -25,7 +25,7 @@ export function ControlRail() {
   const toggle = (id: PanelId) => setOpen((cur) => (cur === id ? null : id));
 
   return (
-    <div className="fixed right-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 sm:flex">
+    <div className="fixed right-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
       <RailBtn active={open === "effects" || effect !== "none"} label="Effects" onClick={() => toggle("effects")} color={color}>
         <Snowflake size={15} />
       </RailBtn>

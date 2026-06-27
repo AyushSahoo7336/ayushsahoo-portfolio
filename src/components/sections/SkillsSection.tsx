@@ -53,7 +53,7 @@ export function SkillsSection() {
         title={<>Tech I <span style={{ color: "var(--primary-accent)" }}>work with</span></>}
         intro="Click a category to explore the stack."
       />
-      <section className="mx-auto grid max-w-5xl grid-cols-1 gap-5 px-4 sm:px-6 md:grid-cols-2">
+      <section className="mx-auto grid max-w-5xl grid-cols-1 gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3">
         {skillCategories.map((cat, index) => {
           const Icon = categoryIconMap[cat.icon] ?? Layout;
           return (
@@ -120,7 +120,7 @@ export function SkillsSection() {
 
       <Dialog open={openId !== null} onOpenChange={(o) => !o && setOpenId(null)}>
         <DialogContent
-          className="sleek-scrollbar max-h-[85vh] overflow-y-auto border bg-[var(--glass-bg)] backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] sm:max-w-2xl"
+          className="sleek-scrollbar max-h-[85vh] overflow-y-auto border bg-[var(--glass-bg)] backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
           style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           <AnimatePresence mode="wait">
