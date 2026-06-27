@@ -144,7 +144,7 @@ export function Navbar() {
           </div>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="rounded-md p-2 text-foreground/80 md:hidden"
+            className="flex rounded-md p-2 text-foreground/80 lg:hidden"
             aria-label="Toggle menu"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
