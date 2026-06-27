@@ -243,7 +243,7 @@ export const projects: {
     github: "https://github.com/AyushSahoo7336/GitVerse",
     demo: "https://gitverse-rust.vercel.app",
     accent: "from-purple-500/40 to-cyan-500/40",
-    tech: ["Node.js", "CLI", "AWS S3", "React"],
+    tech: ["Node.js", "CLI", "Cloudinary", "React"],
     image: gitverseImg,
   },
   {
@@ -259,7 +259,7 @@ export const projects: {
     github: "https://github.com/AyushSahoo7336/StockFlow",
     demo: "https://stock-flow.live",
     accent: "from-emerald-500/40 to-cyan-500/40",
-    tech: ["C++", "Node.js", "Heaps", "WebSockets"],
+    tech: ["React", "Node.js", "Heaps", "WebSockets"],
     image: stockflowImg.url,
   },
 ];
