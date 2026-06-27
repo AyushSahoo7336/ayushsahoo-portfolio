@@ -142,7 +142,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="relative order-1 flex items-center justify-center md:order-2"
+          className="relative order-1 flex w-full items-center justify-center md:order-2 md:w-[40%] md:items-end md:justify-end"
         >
           <div
             aria-hidden
@@ -152,12 +152,12 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative mx-auto w-full max-w-[260px] sm:max-w-xs md:max-w-sm"
+            className="relative w-full max-w-[260px] sm:max-w-xs md:max-w-[350px]"
           >
             <img
               src={profileAsset.url}
               alt={`${profile.name} portrait`}
-              className="h-auto w-full object-contain"
+              className="h-auto w-full max-w-[350px] object-contain object-bottom"
               style={{ WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)' }}
             />
           </motion.div>
