@@ -184,7 +184,7 @@ export function AboutSection() {
         title={<>About <span style={{ color: "var(--primary-accent)" }}>Me</span></>}
         intro="I'm a software developer focused on execution. Less talk, more shipped products."
       />
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
           className="interactive-card rounded-3xl bg-[var(--glass-bg)] p-8 backdrop-blur-sm md:p-12 shadow-[var(--glass-shadow)]"
           style={{ borderColor: "var(--glass-border)" }}

@@ -21,7 +21,7 @@ export function EducationSection() {
         intro="The foundation that shapes my expertise."
       />
 
-      <section className="mx-auto max-w-5xl px-6">
+      <section className="mx-auto max-w-5xl px-4 sm:px-6">
         <Reveal>
           <article
             className="interactive-card flex flex-col gap-6 rounded-2xl border bg-[var(--glass-bg)] p-6 backdrop-blur-sm md:p-8"

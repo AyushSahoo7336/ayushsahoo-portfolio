@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export function Timeline({ items }: { items: { title: string; org: string; date: string; extra?: string }[] }) {
   return (
-    <section className="mx-auto max-w-3xl px-6">
+    <section className="mx-auto max-w-3xl px-4 sm:px-6">
       <div className="relative border-l border-white/10 pl-8">
         {items.map((it, i) => (
           <motion.div

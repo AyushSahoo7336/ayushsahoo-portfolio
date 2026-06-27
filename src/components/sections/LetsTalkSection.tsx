@@ -19,7 +19,7 @@ export function LetsTalkSection() {
         title={<>Have a <span style={{ color: "var(--primary-accent)" }}>project in mind?</span></>}
         intro="Want to collaborate, or just say hi? Drop me a message and I'll get back to you soon."
       />
-      <section className="mx-auto max-w-2xl px-6">
+      <section className="mx-auto max-w-2xl px-4 sm:px-6">
         <form
           onSubmit={onSubmit}
           className="space-y-4 rounded-2xl border bg-[var(--glass-bg)] p-6 backdrop-blur-sm shadow-[var(--glass-shadow)] md:p-8"
