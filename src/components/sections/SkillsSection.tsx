@@ -53,7 +53,7 @@ export function SkillsSection() {
         title={<>Tech I <span style={{ color: "var(--primary-accent)" }}>work with</span></>}
         intro="Click a category to explore the stack."
       />
-      <section className="mx-auto grid max-w-5xl grid-cols-1 gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-2">
         {skillCategories.map((cat, index) => {
           const Icon = categoryIconMap[cat.icon] ?? Layout;
           return (
