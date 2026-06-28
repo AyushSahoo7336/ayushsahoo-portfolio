@@ -11,10 +11,10 @@ export const Route = createFileRoute("/")({
   component: HomePage,
   head: () => ({
     meta: [
-      { title: "Portfolio — Software Developer" },
-      { name: "description", content: "Welcome to my world. I craft digital experiences across web, mobile, and games." },
-      { property: "og:title", content: "Portfolio — Software Developer" },
-      { property: "og:description", content: "Welcome to my world. I craft digital experiences across web, mobile, and games." },
+      { title: "Ayush Sahoo — Portfolio" },
+      { name: "description", content: "Ayush Sahoo — Full-stack developer building real-time systems. Explore my projects in WebRTC, distributed systems, and algorithmic trading." },
+      { property: "og:title", content: "Ayush Sahoo — Portfolio" },
+      { property: "og:description", content: "Ayush Sahoo — Full-stack developer building real-time systems. Explore my projects in WebRTC, distributed systems, and algorithmic trading." },
     ],
   }),
 });
