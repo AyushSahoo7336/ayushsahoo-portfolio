@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Github, ExternalLink, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -8,22 +8,6 @@ type Project = (typeof projects)[number];
 
 export function ProjectsSection() {
   const [active, setActive] = useState<Project | null>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const lenis = (window as any).__lenis;
-    if (!lenis) return;
-
-    if (active) {
-      lenis.stop();
-    } else {
-      lenis.start();
-    }
-
-    return () => {
-      lenis.start();
-    };
-  }, [active]);
 
   return (
     <div className="pb-20">
@@ -39,12 +23,12 @@ export function ProjectsSection() {
             className="interactive-card group flex flex-col overflow-hidden rounded-3xl bg-[var(--glass-bg)] backdrop-blur-sm shadow-[var(--glass-shadow)]"
             style={{ borderColor: "var(--glass-border)" }}
           >
-            <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${p.accent}`}>
+            <div className={`relative aspect-video overflow-hidden bg-gradient-to-br ${p.accent}`}>
               {p.image ? (
                 <img
                   src={p.image}
                   alt={p.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
@@ -109,20 +93,20 @@ export function ProjectsSection() {
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent
-          className="sleek-scrollbar max-h-[90vh] overflow-y-auto overscroll-contain border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
+          className="sleek-scrollbar max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
           style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           {active && (
             <>
-              <div className="relative w-full overflow-hidden rounded-t-xl bg-black/20">
+              <div className="relative h-[250px] w-full overflow-hidden rounded-t-xl bg-muted/30">
                 {active.image ? (
                   <img
                     src={active.image}
                     alt={active.title}
-                    className="w-full object-contain"
+                    className="h-full w-full object-cover object-top"
                   />
                 ) : (
-                  <div className="flex h-64 w-full items-center justify-center text-muted-foreground">
+                  <div className="flex h-full w-full items-center justify-center text-muted-foreground">
                     <span className="text-sm font-medium">Project Screenshot</span>
                   </div>
                 )}
