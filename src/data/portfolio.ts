@@ -31,7 +31,7 @@ export const leetcode = {
   hard: 25,
   streak: 300,
   rating: "1460+",
-  profile: "https://leetcode.com/AyushSahoo1",
+  profile: "https://leetcode.com/u/AyushSahoo1/",
 };
 
 export const marqueeWords = [
@@ -267,6 +267,6 @@ export const contacts = [
   { platform: "Email", handle: "ayush733695@gmail.com", href: "mailto:ayush733695@gmail.com", icon: "Mail" },
   { platform: "GitHub", handle: "@AyushSahoo7336", href: "https://github.com/AyushSahoo7336", icon: "Github" },
   { platform: "LinkedIn", handle: "@ayush-sahoo-63515b186", href: "https://linkedin.com/in/ayush-sahoo-63515b186", icon: "Linkedin" },
-  { platform: "LeetCode", handle: "@AyushSahoo1", href: "https://leetcode.com/AyushSahoo1", icon: "Code2" },
+  { platform: "LeetCode", handle: "@AyushSahoo1", href: "https://leetcode.com/u/AyushSahoo1/", icon: "Code2" },
   { platform: "Phone Number", handle: "+91 9756212879", href: "tel:+919756212879", icon: "Phone" },
 ];

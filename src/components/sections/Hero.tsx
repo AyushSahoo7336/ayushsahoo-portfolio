@@ -164,7 +164,7 @@ export function Hero() {
             <Linkedin size={18} />
           </a>
           <a
-            href="https://leetcode.com/AyushSahoo1"
+            href="https://leetcode.com/u/AyushSahoo1/"
             target="_blank"
             rel="noreferrer"
             aria-label="LeetCode"
