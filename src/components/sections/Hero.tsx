@@ -181,7 +181,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="relative order-1 flex w-full items-center justify-center md:order-2 md:w-[40%] md:items-end md:justify-end"
+          className="relative order-1 flex w-full items-center justify-center md:order-2 md:w-[40%] md:items-end md:justify-end md:mr-6 lg:mr-10"
         >
           <div
             aria-hidden
