@@ -98,12 +98,12 @@ export function ProjectsSection() {
         >
           {active && (
             <>
-              <div className="relative h-[250px] w-full overflow-hidden rounded-t-xl bg-muted/30">
+              <div className="relative w-full overflow-hidden rounded-t-xl bg-black/20">
                 {active.image ? (
                   <img
                     src={active.image}
                     alt={active.title}
-                    className="h-full w-full object-cover object-top"
+                    className="w-full object-contain"
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center text-muted-foreground">
