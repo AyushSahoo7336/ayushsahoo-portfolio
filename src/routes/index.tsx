@@ -6,7 +6,6 @@ import { ProblemSolverSection } from "@/components/sections/ProblemSolverSection
 import { EducationSection } from "@/components/sections/EducationSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
-import { LetsTalkSection } from "@/components/sections/LetsTalkSection";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -40,7 +39,6 @@ function HomePage() {
       <Section id="projects"><ProjectsSection /></Section>
       <Section id="leetcode"><ProblemSolverSection /></Section>
       <Section id="contact"><ContactSection /></Section>
-      <Section id="lets-talk"><LetsTalkSection /></Section>
     </>
   );
 }
