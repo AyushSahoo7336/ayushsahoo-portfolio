@@ -127,7 +127,7 @@ export function Navbar() {
                 >
                   <DropdownMenuItem asChild>
                     <a
-                      href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
+                      href="https://drive.google.com/file/d/1unLQHD289tEXqHv154Eg_ktyrlhCunIh/view?usp=drive_link"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
@@ -138,13 +138,15 @@ export function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <a
-                      href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
+                      href="/AyushSahoo_Resume.pdf"
+                      download="AyushSahoo_Resume.pdf"
                       className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
                     >
                       <Download size={14} />
                       Download Resume
                     </a>
                   </DropdownMenuItem>
+
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -190,7 +192,7 @@ export function Navbar() {
               {mobileResumeOpen && (
                 <>
                   <a
-                    href="https://drive.google.com/file/d/1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog/view"
+                    href="https://drive.google.com/file/d/1unLQHD289tEXqHv154Eg_ktyrlhCunIh/view?usp=drive_link"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
@@ -200,13 +202,15 @@ export function Navbar() {
                     View Resume
                   </a>
                   <a
-                    href="https://drive.google.com/uc?export=download&id=1nAU2IbYEyhkAl3Dr3px8dQhMeJDrfwog"
+                    href="/AyushSahoo_Resume.pdf"
+                    download="AyushSahoo_Resume.pdf"
                     className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
                     onClick={() => setOpen(false)}
                   >
                     <Download size={14} />
                     Download Resume
                   </a>
+
                 </>
               )}
             </div>
