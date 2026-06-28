@@ -129,12 +129,51 @@ export function Hero() {
             View Details
           </button>
           <button
-            onClick={() => scrollTo("lets-talk")}
+            onClick={() => scrollTo("contact")}
             className="rounded-full border bg-[var(--glass-bg)] px-6 py-3 text-sm font-semibold text-foreground shadow-[var(--glass-shadow)] transition hover:bg-[var(--primary-accent)] hover:text-black"
             style={{ borderColor: "var(--glass-border)" }}
           >
             Let's Talk
           </button>
+        </div>
+
+        <div className="mt-8 flex flex-row flex-wrap items-center gap-4">
+          <a
+            href="mailto:ayush733695@gmail.com"
+            aria-label="Email"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[color:var(--primary-accent)] hover:text-[color:var(--primary-accent)]"
+          >
+            <Mail size={18} />
+          </a>
+          <a
+            href="https://github.com/AyushSahoo7336"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[color:var(--primary-accent)] hover:text-[color:var(--primary-accent)]"
+          >
+            <Github size={18} />
+          </a>
+          <a
+            href="https://linkedin.com/in/ayush-sahoo-63515b186"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[color:var(--primary-accent)] hover:text-[color:var(--primary-accent)]"
+          >
+            <Linkedin size={18} />
+          </a>
+          <a
+            href="https://leetcode.com/AyushSahoo1"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LeetCode"
+            className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 text-sm font-medium text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[color:var(--primary-accent)] hover:text-[color:var(--primary-accent)]"
+          >
+            <Code2 size={16} />
+            LeetCode
+            <ExternalLink size={14} />
+          </a>
         </div>
       </motion.div>
 
