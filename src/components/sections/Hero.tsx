@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Code2, Rocket, ChevronDown, Hand } from "lucide-react";
+import { Sparkles, Code2, Rocket, ChevronDown, Hand, Mail, Github, Linkedin, ExternalLink } from "lucide-react";
 import { profile } from "@/data/portfolio";
 import profileAsset from "@/assets/photohd.png.asset.json";
 
