@@ -200,7 +200,7 @@ export const projectCategories: ("All" | ProjectCategory)[] = ["All", "Web Apps"
 
 import vidmeetImg from "@/assets/vidmeet.png";
 import gitverseImg from "@/assets/gitverse.png";
-import stockflowImg from "@/assets/stockflow.png.asset.json";
+import stockflowImg from "@/assets/stockflow.png";
 
 export const projects: {
   title: string;
