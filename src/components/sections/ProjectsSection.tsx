@@ -106,7 +106,7 @@ export function ProjectsSection() {
                     className="w-full object-contain"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+                  <div className="flex h-64 w-full items-center justify-center text-muted-foreground">
                     <span className="text-sm font-medium">Project Screenshot</span>
                   </div>
                 )}
