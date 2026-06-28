@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Github, ExternalLink, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -8,6 +8,22 @@ type Project = (typeof projects)[number];
 
 export function ProjectsSection() {
   const [active, setActive] = useState<Project | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const lenis = (window as any).__lenis;
+    if (!lenis) return;
+
+    if (active) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+
+    return () => {
+      lenis.start();
+    };
+  }, [active]);
 
   return (
     <div className="pb-20">
