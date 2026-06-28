@@ -141,7 +141,7 @@ export function Hero() {
           <a
             href="mailto:ayush733695@gmail.com"
             aria-label="Email"
-            className="group grid h-11 w-11 place-items-center rounded-full border border-muted bg-card text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:[color:var(--primary-accent)]"
+            className="group grid h-11 w-11 place-items-center rounded-full border border-muted bg-card text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)]"
           >
             <Mail size={18} />
           </a>
@@ -150,7 +150,7 @@ export function Hero() {
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
-            className="group grid h-11 w-11 place-items-center rounded-full border border-muted bg-card text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:[color:var(--primary-accent)]"
+            className="group grid h-11 w-11 place-items-center rounded-full border border-muted bg-card text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)]"
           >
             <Github size={18} />
           </a>
@@ -159,7 +159,7 @@ export function Hero() {
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
-            className="group grid h-11 w-11 place-items-center rounded-full border border-muted bg-card text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:[color:var(--primary-accent)]"
+            className="group grid h-11 w-11 place-items-center rounded-full border border-muted bg-card text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)]"
           >
             <Linkedin size={18} />
           </a>
@@ -168,7 +168,7 @@ export function Hero() {
             target="_blank"
             rel="noreferrer"
             aria-label="LeetCode"
-            className="group inline-flex h-11 items-center gap-2 rounded-full border border-muted bg-card px-4 text-sm font-medium text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:[color:var(--primary-accent)]"
+            className="group inline-flex h-11 items-center gap-2 rounded-full border border-muted bg-card px-4 text-sm font-medium text-muted-foreground transition-all duration-300 hover:scale-105 hover:border-[var(--primary-accent)] hover:text-[var(--primary-accent)]"
           >
             <Code2 size={16} />
             LeetCode
