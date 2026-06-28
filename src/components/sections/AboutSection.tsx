@@ -182,7 +182,7 @@ export function AboutSection() {
     <div className="pb-20">
       <PageHeader
         title={<>About <span style={{ color: "var(--primary-accent)" }}>Me</span></>}
-        intro="I'm a software developer focused on execution. Less talk, more shipped products."
+        intro="Full-stack developer building real-time systems, one commit at a time."
       />
       <section className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
