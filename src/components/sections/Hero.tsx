@@ -194,7 +194,7 @@ export function Hero() {
             className="relative w-full max-w-[260px] sm:max-w-xs md:max-w-[350px]"
           >
             <img
-              src={profileAsset.url}
+              src={profileAsset}
               alt={`${profile.name} portrait`}
               className="h-auto w-full max-w-[350px] object-contain object-bottom"
               style={{ WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)' }}
