@@ -23,12 +23,12 @@ export function ProjectsSection() {
             className="interactive-card group flex flex-col overflow-hidden rounded-3xl bg-[var(--glass-bg)] backdrop-blur-sm shadow-[var(--glass-shadow)]"
             style={{ borderColor: "var(--glass-border)" }}
           >
-            <div className={`relative aspect-video overflow-hidden bg-gradient-to-br ${p.accent}`}>
+            <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${p.accent}`}>
               {p.image ? (
                 <img
                   src={p.image}
                   alt={p.title}
-                  className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
