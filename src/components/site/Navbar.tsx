@@ -69,7 +69,7 @@ export function Navbar() {
         <div className="flex items-center justify-between gap-8">
           <button
             onClick={() => scrollToId("home")}
-            className="font-display text-lg font-bold tracking-[0.25em]"
+            className="font-display text-lg font-bold"
             style={{ color: "var(--primary-accent)" }}
           >
             AS
