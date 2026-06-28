@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Github, ExternalLink, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -8,6 +8,22 @@ type Project = (typeof projects)[number];
 
 export function ProjectsSection() {
   const [active, setActive] = useState<Project | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const lenis = (window as any).__lenis;
+    if (!lenis) return;
+
+    if (active) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+
+    return () => {
+      lenis.start();
+    };
+  }, [active]);
 
   return (
     <div className="pb-20">
@@ -93,7 +109,7 @@ export function ProjectsSection() {
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent
-          className="sleek-scrollbar max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
+          className="sleek-scrollbar max-h-[90vh] overflow-y-auto overscroll-contain border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
           style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           {active && (
