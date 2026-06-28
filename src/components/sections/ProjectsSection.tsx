@@ -109,7 +109,7 @@ export function ProjectsSection() {
 
       <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
         <DialogContent
-          className="sleek-scrollbar max-h-[90vh] overflow-y-auto border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
+          className="sleek-scrollbar max-h-[90vh] overflow-y-auto overscroll-contain border bg-[var(--glass-bg)] p-0 backdrop-blur-xl shadow-[0_0_40px_color-mix(in_oklab,var(--primary-accent)_10%,transparent)] md:max-w-2xl lg:max-w-4xl"
           style={{ borderColor: "color-mix(in oklab, var(--primary-accent) 20%, transparent)" }}
         >
           {active && (
