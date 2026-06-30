@@ -108,7 +108,7 @@ export const education = [
     title: "Bachelor of Engineering in Information Science",
     org: "Sir M. Visvesvaraya Institute of Technology",
     date: "2023 – 2027",
-    extra: "CGPA: 8.26 / 10.0",
+    extra: "CGPA: 8.34 / 10.0",
   },
 ];
 
