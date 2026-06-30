@@ -127,7 +127,7 @@ export function Navbar() {
                 >
                   <DropdownMenuItem asChild>
                     <a
-                      href="https://drive.google.com/file/d/17wxuY8rCFoFMgu-j7cccQrwVXvXsD0pE/view?usp=sharing"
+                      href="https://drive.google.com/file/d/1OBldZnPuX3EmdcLgiK1wyShEAu6Y_8k5/view?usp=drive_link"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none transition-colors hover:bg-[var(--primary-accent)]/10 hover:text-[var(--primary-accent)] focus:bg-[var(--primary-accent)]/10 focus:text-[var(--primary-accent)]"
@@ -192,7 +192,7 @@ export function Navbar() {
               {mobileResumeOpen && (
                 <>
                   <a
-                    href="https://drive.google.com/file/d/17wxuY8rCFoFMgu-j7cccQrwVXvXsD0pE/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1OBldZnPuX3EmdcLgiK1wyShEAu6Y_8k5/view?usp=drive_link"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-[var(--primary-accent)]"
