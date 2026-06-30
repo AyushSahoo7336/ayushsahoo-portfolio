@@ -54,7 +54,7 @@ export function EducationSection() {
 
               <div className="flex flex-wrap gap-2 lg:justify-end">
                 <span className="inline-flex items-center rounded-full border border-[var(--primary-accent)]/20 bg-[var(--primary-accent)]/10 px-3 py-1 text-xs font-medium text-[var(--primary-accent)]">
-                  CGPA: 8.26/10.0
+                  CGPA: 8.34/10.0
                 </span>
                 <span className="inline-flex items-center rounded-full border border-[var(--primary-accent)]/20 bg-[var(--primary-accent)]/10 px-3 py-1 text-xs font-medium text-[var(--primary-accent)]">
                   4th Year
