@@ -5,7 +5,36 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { leetcode } from "@/data/portfolio";
 
-type Stats = { total: number; easy: number; medium: number; hard: number };
+type Stats = {
+  total: number;
+  easy: number;
+  medium: number;
+  hard: number;
+  rating: number | null;
+  streak: number | null;
+};
+
+function maxStreakFromCalendar(cal: Record<string, number> | undefined | null): number | null {
+  if (!cal || typeof cal !== "object") return null;
+  const daySecs = 86400;
+  const days = Object.keys(cal)
+    .map((k) => Math.floor(Number(k) / daySecs))
+    .filter((n) => Number.isFinite(n))
+    .sort((a, b) => a - b);
+  if (!days.length) return null;
+  let best = 1;
+  let cur = 1;
+  for (let i = 1; i < days.length; i++) {
+    if (days[i] === days[i - 1]) continue;
+    if (days[i] === days[i - 1] + 1) {
+      cur += 1;
+      if (cur > best) best = cur;
+    } else {
+      cur = 1;
+    }
+  }
+  return best;
+}
 
 function Bar({ label, count, total, delay }: { label: string; count: number; total: number; delay: number }) {
   const pct = Math.min(100, Math.round((count / total) * 100));
