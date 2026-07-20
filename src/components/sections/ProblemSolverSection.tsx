@@ -5,7 +5,36 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { leetcode } from "@/data/portfolio";
 
-type Stats = { total: number; easy: number; medium: number; hard: number };
+type Stats = {
+  total: number;
+  easy: number;
+  medium: number;
+  hard: number;
+  rating: number | null;
+  streak: number | null;
+};
+
+function maxStreakFromCalendar(cal: Record<string, number> | undefined | null): number | null {
+  if (!cal || typeof cal !== "object") return null;
+  const daySecs = 86400;
+  const days = Object.keys(cal)
+    .map((k) => Math.floor(Number(k) / daySecs))
+    .filter((n) => Number.isFinite(n))
+    .sort((a, b) => a - b);
+  if (!days.length) return null;
+  let best = 1;
+  let cur = 1;
+  for (let i = 1; i < days.length; i++) {
+    if (days[i] === days[i - 1]) continue;
+    if (days[i] === days[i - 1] + 1) {
+      cur += 1;
+      if (cur > best) best = cur;
+    } else {
+      cur = 1;
+    }
+  }
+  return best;
+}
 
 function Bar({ label, count, total, delay }: { label: string; count: number; total: number; delay: number }) {
   const pct = Math.min(100, Math.round((count / total) * 100));
@@ -33,11 +62,15 @@ function Bar({ label, count, total, delay }: { label: string; count: number; tot
 }
 
 export function ProblemSolverSection() {
+  const ratingFallback = Number(String(leetcode.rating).replace(/[^\d.]/g, "")) || null;
+  const streakFallback = Number(String(leetcode.streak).replace(/[^\d]/g, "")) || null;
   const fallback: Stats = {
     total: leetcode.total,
     easy: leetcode.easy,
     medium: leetcode.medium,
     hard: leetcode.hard,
+    rating: ratingFallback,
+    streak: streakFallback,
   };
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -45,9 +78,9 @@ export function ProblemSolverSection() {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 6000);
+    const timer = setTimeout(() => ctrl.abort(), 8000);
 
-    const cacheKey = "leetcode-stats:AyushSahoo1";
+    const cacheKey = "leetcode-stats:AyushSahoo1:v2";
     try {
       const cached = sessionStorage.getItem(cacheKey);
       if (cached) {
@@ -59,62 +92,74 @@ export function ProblemSolverSection() {
       /* ignore */
     }
 
-    const normalizePrimary = (j: any): Stats | null => {
-      if (typeof j?.totalSolved === "number") {
-        return {
-          total: j.totalSolved,
-          easy: j.easySolved ?? 0,
-          medium: j.mediumSolved ?? 0,
-          hard: j.hardSolved ?? 0,
-        };
-      }
-      return null;
-    };
-    const normalizeFallback = (j: any): Stats | null => {
-      if (typeof j?.solvedProblem === "number") {
-        return {
-          total: j.solvedProblem,
-          easy: j.easySolved ?? 0,
-          medium: j.mediumSolved ?? 0,
-          hard: j.hardSolved ?? 0,
-        };
-      }
-      return null;
-    };
-
-    const tryFetch = async (url: string, normalize: (j: any) => Stats | null) => {
+    const fetchJson = async (url: string) => {
       const res = await fetch(url, { signal: ctrl.signal });
       if (!res.ok) throw new Error("bad status");
-      const json = await res.json();
-      const out = normalize(json);
-      if (!out) throw new Error("bad shape");
-      return out;
+      return res.json();
     };
 
     (async () => {
-      let result: Stats | null = null;
+      let base: Omit<Stats, "rating" | "streak"> | null = null;
+      let streak: number | null = null;
+      // Primary: solve counts + submission calendar (for streak)
       try {
-        result = await tryFetch(
-          "https://leetcode-api-faisalshohag.vercel.app/AyushSahoo1",
-          normalizePrimary,
-        );
+        const j = await fetchJson("https://leetcode-api-faisalshohag.vercel.app/AyushSahoo1");
+        if (typeof j?.totalSolved === "number") {
+          base = {
+            total: j.totalSolved,
+            easy: j.easySolved ?? 0,
+            medium: j.mediumSolved ?? 0,
+            hard: j.hardSolved ?? 0,
+          };
+          streak = maxStreakFromCalendar(j.submissionCalendar);
+        }
       } catch {
+        /* ignore */
+      }
+      // Fallback for solve counts
+      if (!base) {
         try {
-          result = await tryFetch(
-            "https://alfa-leetcode-api.onrender.com/AyushSahoo1/solved",
-            normalizeFallback,
-          );
+          const j = await fetchJson("https://alfa-leetcode-api.onrender.com/AyushSahoo1/solved");
+          if (typeof j?.solvedProblem === "number") {
+            base = {
+              total: j.solvedProblem,
+              easy: j.easySolved ?? 0,
+              medium: j.mediumSolved ?? 0,
+              hard: j.hardSolved ?? 0,
+            };
+          }
         } catch {
           /* ignore */
         }
       }
+      // Contest rating
+      let rating: number | null = null;
+      try {
+        const j = await fetchJson("https://alfa-leetcode-api.onrender.com/AyushSahoo1/contest");
+        if (typeof j?.contestRating === "number") {
+          rating = Math.round(j.contestRating);
+        }
+      } catch {
+        /* ignore */
+      }
+
       if (cancelled) return;
-      const final = result ?? fallback;
-      setStats(final);
+      const merged: Stats = base
+        ? {
+            ...base,
+            rating: rating ?? ratingFallback,
+            streak: streak ?? streakFallback,
+          }
+        : {
+            ...fallback,
+            rating: rating ?? fallback.rating,
+            streak: streak ?? fallback.streak,
+          };
+      setStats(merged);
       setLoading(false);
-      if (result) {
+      if (base || rating != null || streak != null) {
         try {
-          sessionStorage.setItem(cacheKey, JSON.stringify(result));
+          sessionStorage.setItem(cacheKey, JSON.stringify(merged));
         } catch {
           /* ignore */
         }
@@ -129,6 +174,7 @@ export function ProblemSolverSection() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
 
   const s = stats ?? fallback;
@@ -212,8 +258,9 @@ export function ProblemSolverSection() {
                 >
                   <Trophy size={14} style={{ color: "var(--primary-accent)" }} />
                   <span className="text-sm font-medium">
-                    <span style={{ color: "var(--primary-accent)" }}>Rating {leetcode.rating}</span>
+                    <span style={{ color: "var(--primary-accent)" }}>Rating {s.rating ?? leetcode.rating}</span>
                   </span>
+
                 </div>
                 <div
                   className="inline-flex items-center gap-3 rounded-full border px-4 py-2"
@@ -234,9 +281,10 @@ export function ProblemSolverSection() {
                   </span>
                   <Flame size={14} style={{ color: "var(--primary-accent)" }} />
                   <span className="text-sm font-medium">
-                    <span style={{ color: "var(--primary-accent)" }}>{leetcode.streak}-Day</span>{" "}
+                    <span style={{ color: "var(--primary-accent)" }}>{s.streak ?? leetcode.streak}-Day</span>{" "}
                     <span className="text-foreground/70">Max Streak</span>
                   </span>
+
                 </div>
               </div>
             </div>
