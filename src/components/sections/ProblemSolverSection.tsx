@@ -258,8 +258,9 @@ export function ProblemSolverSection() {
                 >
                   <Trophy size={14} style={{ color: "var(--primary-accent)" }} />
                   <span className="text-sm font-medium">
-                    <span style={{ color: "var(--primary-accent)" }}>Rating {leetcode.rating}</span>
+                    <span style={{ color: "var(--primary-accent)" }}>Rating {s.rating ?? leetcode.rating}</span>
                   </span>
+
                 </div>
                 <div
                   className="inline-flex items-center gap-3 rounded-full border px-4 py-2"
