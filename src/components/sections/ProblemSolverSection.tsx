@@ -46,32 +46,82 @@ export function ProblemSolverSection() {
     let cancelled = false;
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 6000);
-    (async () => {
-      try {
-        const res = await fetch(
-          "https://leetcode-stats-api.herokuapp.com/api/v1/AyushSahoo1",
-          { signal: ctrl.signal },
-        );
-        if (!res.ok) throw new Error("bad status");
-        const json = await res.json();
-        if (cancelled) return;
-        if (typeof json?.totalSolved === "number") {
-          setStats({
-            total: json.totalSolved,
-            easy: json.easySolved ?? 0,
-            medium: json.mediumSolved ?? 0,
-            hard: json.hardSolved ?? 0,
-          });
-        } else {
-          setStats(fallback);
-        }
-      } catch {
-        if (!cancelled) setStats(fallback);
-      } finally {
-        clearTimeout(timer);
-        if (!cancelled) setLoading(false);
+
+    const cacheKey = "leetcode-stats:AyushSahoo1";
+    try {
+      const cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        const parsed = JSON.parse(cached) as Stats;
+        setStats(parsed);
+        setLoading(false);
       }
+    } catch {
+      /* ignore */
+    }
+
+    const normalizePrimary = (j: any): Stats | null => {
+      if (typeof j?.totalSolved === "number") {
+        return {
+          total: j.totalSolved,
+          easy: j.easySolved ?? 0,
+          medium: j.mediumSolved ?? 0,
+          hard: j.hardSolved ?? 0,
+        };
+      }
+      return null;
+    };
+    const normalizeFallback = (j: any): Stats | null => {
+      if (typeof j?.solvedProblem === "number") {
+        return {
+          total: j.solvedProblem,
+          easy: j.easySolved ?? 0,
+          medium: j.mediumSolved ?? 0,
+          hard: j.hardSolved ?? 0,
+        };
+      }
+      return null;
+    };
+
+    const tryFetch = async (url: string, normalize: (j: any) => Stats | null) => {
+      const res = await fetch(url, { signal: ctrl.signal });
+      if (!res.ok) throw new Error("bad status");
+      const json = await res.json();
+      const out = normalize(json);
+      if (!out) throw new Error("bad shape");
+      return out;
+    };
+
+    (async () => {
+      let result: Stats | null = null;
+      try {
+        result = await tryFetch(
+          "https://leetcode-api-faisalshohag.vercel.app/AyushSahoo1",
+          normalizePrimary,
+        );
+      } catch {
+        try {
+          result = await tryFetch(
+            "https://alfa-leetcode-api.onrender.com/AyushSahoo1/solved",
+            normalizeFallback,
+          );
+        } catch {
+          /* ignore */
+        }
+      }
+      if (cancelled) return;
+      const final = result ?? fallback;
+      setStats(final);
+      setLoading(false);
+      if (result) {
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify(result));
+        } catch {
+          /* ignore */
+        }
+      }
+      clearTimeout(timer);
     })();
+
     return () => {
       cancelled = true;
       ctrl.abort();
@@ -79,6 +129,7 @@ export function ProblemSolverSection() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const s = stats ?? fallback;
 
