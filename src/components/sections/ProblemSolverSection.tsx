@@ -281,9 +281,10 @@ export function ProblemSolverSection() {
                   </span>
                   <Flame size={14} style={{ color: "var(--primary-accent)" }} />
                   <span className="text-sm font-medium">
-                    <span style={{ color: "var(--primary-accent)" }}>{leetcode.streak}-Day</span>{" "}
+                    <span style={{ color: "var(--primary-accent)" }}>{s.streak ?? leetcode.streak}-Day</span>{" "}
                     <span className="text-foreground/70">Max Streak</span>
                   </span>
+
                 </div>
               </div>
             </div>
