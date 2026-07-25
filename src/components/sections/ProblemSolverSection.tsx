@@ -133,13 +133,11 @@ export function ProblemSolverSection() {
           /* ignore */
         }
       }
-      // Contest rating
+      // Contest rating — via server function (LeetCode GraphQL has no CORS from browser)
       let rating: number | null = null;
       try {
-        const j = await fetchJson("https://alfa-leetcode-api.onrender.com/AyushSahoo1/contest");
-        if (typeof j?.contestRating === "number") {
-          rating = Math.round(j.contestRating);
-        }
+        const r = await getLeetcodeContest({ data: { username: "AyushSahoo1" } });
+        if (typeof r?.rating === "number") rating = r.rating;
       } catch {
         /* ignore */
       }
