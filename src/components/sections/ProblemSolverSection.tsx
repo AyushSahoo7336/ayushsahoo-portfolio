@@ -4,6 +4,7 @@ import { Flame, ExternalLink, Trophy } from "lucide-react";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { leetcode } from "@/data/portfolio";
+import { getLeetcodeContest } from "@/lib/leetcode.functions";
 
 type Stats = {
   total: number;
